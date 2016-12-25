@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>保存拖拽位置</title>
+		<style>
+			
+			#box{
+				width: 100px;
+				height: 100px;
+				background:#f00;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				/*
+				 * 记录#box的位置(left, top)
+				 * 页面刷新时,保持最终的位置
+				 * 在哪里保存cookie
+				 */
+				
+				var box = document.getElementById("box");
+				
+				//拖拽
+				box.onmousedown = function(e){
+					e = e || window.event;
+					//记录摁下的坐标
+					var ox = e.offsetX;
+					var oy = e.offsetY;
+					
+					document.onmousemove = function(evt){
+						evt = evt || window.event
+						
+						box.style.left = evt.clientX - ox + 'px';
+						box.style.top = evt.clientY - oy + 'px';
+						
+					}
+					
+				}
+				
+				box.onmouseup = function(){
+					document.onmousemove = null;
+					//保存cookie
+					document.cookie = 'left=' + box.style.left;
+					document.cookie = 'top=' + box.style.top;
+				}
+				
+				//页面刷新时,给#box设置css样式;
+				//先获取cookie
+				var cookies = document.cookie.split('; ');
+				for(var i=0,len=cookies.length; i<len;i++){
+					var arr = cookies[i].split('=');
+					if (arr[0] === 'left'){
+						box.style.left = arr[1];
+					}else if(arr[0] === 'top'){
+						box.style.top =arr[1];
+					}
+				}
+				
+				
+				
+				
+			}
+ 			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<div id="box"></div>
+	</body>
+</html>

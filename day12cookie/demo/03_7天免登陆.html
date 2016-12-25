@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>7天免登陆</title>
+		<style>
+			.login {}
+			
+			.info {
+				display: none;
+			}
+			
+			.info span {
+				font-weight: bold;
+				color: #f60;
+			}
+		</style>
+		<script>
+			window.onload = function() {
+				var loginForm = document.getElementsByClassName('login')[0];
+				var info = document.getElementsByClassName('info')[0];
+				var username = document.getElementById('username');
+				var password = document.getElementById('password');
+				var seven = document.getElementById('seven');
+				var btnLogin = document.getElementById('btnLogin');
+
+				//登录后,获取用户密码,并显示.info
+				//return
+				// * 终止函数执行
+				// * 把return后的值返回给函数的地方
+
+				btnLogin.onclick = function() {
+					var _username = username.value;
+					var _psw = password.value;
+
+					if (_username.trim() === '') {
+						alert('用户名不能为空');
+						return;
+					} else if (_psw.trim() === '') {
+						alert('密码不能为空');
+						return;
+					}
+
+					//判断是否勾选上7天免登录
+					//如果勾选,保存用户名&密码到cookie
+					//cookie要加上有效期expires
+					if (seven.checked) {
+						//获取当前时间
+						var now = new Date();
+						//把时间延后7天
+						now.setDate(now.getDate() + 7);
+						document.cookie = 'username' + _username + ';expires' + now;
+						document.cookie = 'password' + _psw + ';expires' + now;
+
+					}
+
+					//隐藏.login,显示.info
+					loginForm.style.display = 'none';
+					info.style.display = 'block';
+					info.children[0].innerHTML = _username;
+				}
+
+				//页面刷新时,保持登录状态
+				//先获取cookie
+				var cookies = document.cookie.split('; ');
+				if (cookies.length > 0) {
+
+					for (var i = 0, len = cookies.length; i < len; i++) {
+						var arr = cookies[i].split('=');
+						if (arr[0] === 'username') {
+							username.value = arr[1];
+							//把用户名写入info
+							info.children[0].innerHTML = arr[1];
+							info.style.dispaly = 'block';
+							loginForm.style.dispaly = 'none';
+						} else if (arr[0] === 'password') {
+							password.value = arr[1];
+						}
+					}
+				}
+
+			}
+		</script>
+	</head>
+
+	<body>
+		
+			<div class="login">
+
+				<p>
+					<label for="username">用户名</label>
+					<input type="text" id='username' name='username' />
+				</p>
+				<p>
+					<label for="password">密码</label>
+					<input type="password" id='password' name='password' />
+				</p>
+				<p>
+					<input type="checkbox" id='seven' name='seven' />
+					<label for="seven">七天免登陆</label>
+				</p>
+				<p>
+					<button id="btnLogin">登陆</button>
+				</p>
+			</div>
+			<div class="info">你好,<span></span>,欢迎来隔壁</div>
+	
+	</body>
+
+</html>
