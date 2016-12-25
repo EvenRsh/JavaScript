@@ -1,0 +1,54 @@
+<!DOCTYPE html>差
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>判断两个日期相差的天数</title>
+		
+		<script>
+			//获取页面元素
+			//将输入的日期和当天的日期比较差多少天
+			
+			//老套路
+			window.onload = function(){
+				var inDate = document.getElementsByTagName('input')[0];
+				var btn = document.getElementsByTagName('button')[0];
+				var output = document.getElementsByTagName('span')[0];
+				
+				//获取当前时间
+				btn.onclick = function(){
+					var time =Date.now();
+					var inDates = Date.parse(inDate.value);
+					console.log(inDates);
+					console.log(time);
+					var temp = inDates>time?inDates-time : time-inDates;
+					var offset =parseInt(temp/1000/3600/24);
+					output.innerHTML = "相差" + offset + "天";
+					
+				}
+				
+				
+//				var nowDate = time.toLocaleDateString(); //日期转换(获取)
+//				var nowDay = time.getDay(); //星期转换(获取)
+//				var nowTime = time.toLocaleTimeString(); //时钟转换(获取)
+//				var times = nowDate + ' ' + day[nowDay] + ' ' + nowTime;
+//				enterTime.innerHTML = times;
+				
+				
+				
+				
+				
+			}
+			
+			
+		</script>
+		
+		
+	</head>
+	<body>
+		<p>
+			<input type="text" />
+			<button>计算日期差</button>
+			<span></span>
+		</p>
+	</body>
+</html>

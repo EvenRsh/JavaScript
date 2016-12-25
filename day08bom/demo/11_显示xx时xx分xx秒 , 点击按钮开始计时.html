@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>实现秒表功能 : 显示xx时xx分xx秒 , 点击按钮开始计时</title>
+		<script>
+			//点击开始获取一个时间,再在定时器里面每秒取一个当前时间,两者的时间差就是计时的时间
+			//老套路
+			window.onload = function() {
+				//获取节点
+				var btnStart = document.getElementsByTagName('button')[0];
+				var output = document.getElementsByTagName('span')[0];
+				//先在页面显示0时0分0秒;
+				output.innerHTML = 00 + "时" + 00 + "分" + 00 + "秒";
+				//绑定点击事件
+				btnStart.onclick = function() {
+					countTime();
+				}
+
+				function countTime() {
+					//定时器
+					setInterval(offset, 1000);
+					var enterTime = new Date();
+					function offset() {
+						var newTime = Date.now()
+						var offset = (Date.now() - enterTime.getTime()) / 1000;
+						offset = parseInt(offset);
+						var sec = offset % 60;
+						var min = parseInt(offset / 60) % 60;
+						var hour = parseInt(offset / 3600);
+						output.innerHTML = hour + "时" + min + "分" + sec + "秒";
+					}
+
+				}
+
+			}
+		</script>
+	</head>
+
+	<body>
+		<h4>实现秒表功能 : 显示xx时xx分xx秒 , 点击按钮开始计时</h4>
+		<button>开始计时:</button>
+		<span></span>
+
+	</body>
+
+</html>

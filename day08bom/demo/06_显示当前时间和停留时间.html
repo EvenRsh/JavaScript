@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>显示当前时间和停留时间</title>
+		<script>
+			//获取元素
+			//将进入时间和停留时间显示放在页面
+
+			//老套路
+			window.onload = function() {
+				//获取元素
+				var enterTime = document.getElementsByTagName('span')[0];
+				var stayTime = document.getElementsByTagName('span')[1];
+				stayTime.style.cssText="display:inline-block";
+				var day = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+				//获取进入时间
+				var time = new Date();
+				var nowDate = time.toLocaleDateString(); //日期转换(获取)
+				var nowDay = time.getDay(); //星期转换(获取)
+				var nowTime = time.toLocaleTimeString(); //时钟转换(获取)
+				var times = nowDate + ' ' + day[nowDay] + ' ' + nowTime;
+				enterTime.innerHTML = times;
+
+				//获取当前时间
+				//				var newTime = Date.now();
+				function stayTimes() {
+					var offset = Date.now() - time.getTime();
+					var secs = parseInt(offset / 1000 % 60);
+					var mins = parseInt(offset / 1000 / 60);
+					var timers = mins + "分" + secs + "秒";
+					stayTime.innerHTML = timers;
+				}
+				stayTimes();
+				setInterval(stayTimes, 1000);
+
+			}
+		</script>
+	</head>
+
+	<body>
+		<p>
+			进入时间:
+			<span></span>
+		</p>
+		<p>
+			停留时间:<span></span>
+		</p>
+	</body>
+
+</html>

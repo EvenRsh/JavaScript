@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>详情页</title>
+	<style>
+		body{margin:0;}
+		header{
+			position:relative;
+			border-bottom:1px solid #ddd;padding:10px;background-color: #efefef;
+		}
+		.container{
+			padding:10px;
+		}
+		#btnForward{position:absolute;right:10px;top:10px;}
+	</style>
+	<script>
+		window.onload = function(){
+			var btnBack = document.getElementById('btnBack');
+
+			// 绑定点击事件
+			btnBack.onclick = function(){
+				history.back();
+			}
+
+			// 绑定点击事件
+			btnForward.onclick = function(){
+				history.forward();
+			}
+		}
+	</script>
+</head>
+<body>
+	<header>
+		<button id="btnBack">&lt;返回</button>
+		<button id="btnForward">下一页&gt;</button>
+	</header>
+	<a href="09histrory.html">返回首页</a>
+	<a href="09list.html">列表页</a>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>将当前日期格式化输出为 “2015年08月24 星期五”格式</title>
+		<script>
+			//获取元素
+			//将当前时间显示放在页面
+			//绑定按钮
+			//点击按钮会把时间转换格式输出在页面
+
+			//老套路
+			window.onload = function() {
+				//获取元素
+				var nowTime = document.getElementsByTagName('span')[0];
+				var btn = document.getElementsByTagName('button')[0];
+				var output = document.getElementsByTagName('div')[0];
+				//获取当前时间
+				function now() {
+					var time = new Date();
+					nowTime.innerHTML = time;
+					return time;
+				}
+				now();
+				setInterval(now, 1000);
+				//绑定按钮btn
+				var day = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+				btn.onclick = function() {
+					var newDate = now().toLocaleDateString(); //日期转换(获取)
+					var newDay = now().getDay(); //星期转换(获取)
+					var newTime = now().toLocaleTimeString(); //时钟转换(获取)
+					output.innerHTML = newDate + ' ' + day[newDay] + ' ' + newTime;
+				}
+
+			}
+		</script>
+	</head>
+
+	<body>
+		<p>
+			当前时间:
+			<span></span>
+		</p>
+		<button>转换日期格式</button>
+		<div></div>
+	</body>
+
+</html>

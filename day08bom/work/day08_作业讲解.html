@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>day08_作业讲解</title>
+		<style>
+			body{margin: 0;height:2000px;}
+			header{
+				height: 60px;
+				background: #f00;
+			}
+			.toolbar{height:300px;border: 1px solid #000;}
+			.fixed{position: fixed;top: 0;left: 0;right: 0;}
+			
+			#progress{
+				height: 10px;
+				padding: 2px;
+				border: 1px solid #000;
+				position: relative;
+			}
+			#progress div {
+				width: 1%;
+				height: 10px;
+				background-color:#f00;
+			}
+			#progress span{
+				position: absolute;
+				left: 50%;
+				top: 0;
+				
+			}
+		</style>
+		<script>
+			//页面加载时间
+			window.onload =function(){
+				//顶部悬浮(吸顶菜单)
+				//1)获取元素
+				var topNav = document.getElementById("topNav");
+				//2)当滚动到指定位置是给#topNav添加fixed类
+				//绑定滚动事件 (gunlun/拖动滚动条)时执行函数中的代码
+				window.onscroll = function(){
+					//console.log('1111');
+					
+					//获取滚动条滚动过的距离
+					var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+					
+					// 当滚动到<指定位置>时给#topNav添加fixed类
+					if(scrollTop >= 302){
+						//给元素添加类:ele.className = 'xx';
+						topNav.className = 'fixed';
+					}else{
+						topNav.className = '';
+					}
+					
+				}
+				
+				//使用定时器做进度条
+				//H5写法
+				/*var progressBar =document.getElementById("progressBar");
+				var percent =document.getElementById("percent");
+				var val = 0;
+				var timer = setInterval(function(){
+					val++;
+					if(val>=100){
+						clearInterval(timer);
+						val = 100;
+					}
+					progressBar.value = val;
+					percent.innerHTML = val +'%';
+				},100)*/
+				
+				//普通做法
+				var bar =document.getElementById("bar");
+				var percent =document.getElementById("percent");
+				var val = 0;
+				var timer = setInterval(function(){
+					val++;
+					if(val>=100){
+						clearInterval(timer);
+						val = 100;
+					}
+					bar.style.width = val +'%';
+					percent.innerHTML = val +'%';
+				},50)
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div class="toolbar"></div>
+		<header id="topNav"></header>
+		
+		<br /><br />
+		<h1>进度条效果</h1>
+		<!--<progress value ="10" max='100' id='progressBar'></progress><span id="percent">1%</span>-->
+		
+		<div id="progress">
+			<div id="bar"></div>
+			<span id="percent">0%</span>
+		</div>
+	</body>
+</html>

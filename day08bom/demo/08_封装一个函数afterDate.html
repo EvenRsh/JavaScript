@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>封装一个函数afterDate</title>
+		<script>
+			//封装一个函数afterDate(date,n)，得到日期date的n天后的日期
+			
+			function afterDate(date,n){
+				var d = new Date(date);//设置一个date的日期(年月日)赋值给d
+				d.setDate(d.getDate()+n);//在d的(日)加上n天.再重新赋值给d
+				console.log(d.toLocaleDateString());//输出新date
+				return d.toLocaleDateString();
+//				var afterDate=d.toLocaleDateString();
+//				console.log(d);
+//				console.log(afterDate);
+			} 
+			afterDate('2016-12-11',99982854);
+//			var d =new Date(Date.now());
+//			console.log(d);
+//			var t= d.toLocaleDateString();
+//			console.log(typeof t);
+////			d.getTime();
+//			var tq=new Date();
+//			tq.setTime(d.getTime()+1000000000);
+//			var q = tq.toLocaleDateString();
+//			console.log(tq);
+//			console.log(q);
+////			console.log(d.getTime());
+////			console.log(tq);
+////			var t =d.getDate();
+//////			d.setTime(d.setDate(t+10));
+////			console.log( t);
+//			var d = new Date();
+//			var t=d.toLocaleDateString();
+//			console.log(d);
+			
+
+//			
+			
+			
+		</script>
+		
+	</head>
+	<body> 
+	</body>
+</html>

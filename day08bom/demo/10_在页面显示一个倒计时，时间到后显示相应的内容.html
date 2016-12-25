@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>在页面显示一个倒计时，时间到后显示相应的内容</title>
+		<script>
+			//进入页面后倒计时5秒后出现一段话
+
+			//老套路
+			window.onload = function() {
+				//获取页面元素
+				var div = document.getElementsByTagName('div')[0];
+				var countTime = document.getElementsByTagName('span')[1];
+				var input = document.getElementById("count");
+				var btn = document.getElementsByTagName('button')[0];
+
+				//新建节点oText,加上内容
+				var oText = document.createElement("p");
+				oText.innerHTML = "Hello World!";
+
+				btn.onclick = function() {
+					//定义一个倒计时的长短
+					var T = input.value;
+					//获取进入点击开始的时间
+					var enterTime = new Date(); //这是一个时间对象
+					offset();
+					//设计定时器
+					var timer = setInterval(offset, 1000);
+
+					function offset() {
+						//获取当前时间
+						var nowTime = Date.now(); //这是一个数值
+						//时间差
+						var offsetTime = (nowTime - enterTime.getTime()) / 1000;
+						offsetTime = parseInt(offsetTime);
+						var offset = T - offsetTime;
+						countTime.innerHTML = offset + '秒';
+						if (offset == 0) {
+							clearInterval(timer); //清除定时器,并输出隐藏的内容
+							div.appendChild(oText);
+						}
+					}
+				}
+			}
+		</script>
+
+	</head>
+
+	<body>
+		<div>
+			<p>
+				<label for="count">输入倒计时间:</label>
+				<input type="text" id="count" />
+				<button>开始倒计时</button>
+			</p>
+			<span>倒计时:</span>
+			<span></span>
+		</div>
+
+	</body>
+
+</html>

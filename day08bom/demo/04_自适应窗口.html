@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>自适应窗口</title>
+		<style>
+			body{
+				margin: 0;
+				padding: 0;
+				position: relative;
+			}
+			#pop{
+				position: absolute;
+				/*top: 50%;
+				left: 50%;
+				margin: -150px 0 0 -240px;*/
+				width: 480px;
+				height: 300px;
+				box-sizing:border-box;
+				border: 1px solid #f00;
+			}
+			#fullscreen{
+				position: absolute;
+				top: 0;
+				right: 0;
+			}
+			#restore{
+				position: absolute;
+				top: 0;
+				right: 50px;
+			}
+
+
+		</style>
+		<script>
+			window.onload = function(){
+				var btnFullscreen = document.getElementById('fullscreen');
+				var btnRestore = document.getElementById('restore');
+				var pop = document.getElementById('pop');
+				//点击是弹窗全屏显示
+				//width,height,top,left
+				btnFullscreen.onclick = function(){
+					//innerWidth/innerHeight //浏览器中可是区域的尺寸
+					//outerWidth/outerHeight //整个浏览器窗口的尺寸
+					changSize();
+					pop.style.backgroundColor =randomColor();
+				}
+				//onresize//窗口大小改变时触发
+				window.onresize = function (){
+					changSize();
+				}
+				btnRestore.onclick = function(){
+					reSize();
+					pop.style.backgroundColor =randomColor();
+				}
+				//可视全屏大小
+				function changSize(){
+					
+					pop.style.width = window.innerWidth + 'px';
+					pop.style.height = window.innerHeight +'px';
+					
+					pop.style.top = 0;
+					pop.style.left = 0;
+				}
+				//还原弹窗大小
+				function reSize(){
+					pop.style.width ='';
+					pop.style.height ='';
+					pop.style.top = '';
+					pop.style.left = '';
+					
+				}
+				//随机颜色
+				function randomColor (){
+					var str = '0123456789abcdef';
+					var bgColor = '#';
+					for (var i=0;i<6;i++){
+						var idx = parseInt(Math.random()*str.length);
+						bgColor += str[idx];
+					}
+					return bgColor;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="pop">
+			<button id="fullscreen">全屏</button>
+			弹窗内容
+			<button id="restore">还原</button>
+		</div>
+	</body>
+</html>
