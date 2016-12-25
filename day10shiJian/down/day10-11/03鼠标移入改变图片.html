@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>03鼠标移入改变图片</title>
+	<style>
+		ul{list-style: none;padding:0;margin:0;}
+		.focus{width:450px;padding:10px;border:1px solid #ddd;}
+		.focus ul{overflow: hidden;}
+		.focus ul img{box-sizing:border-box;padding:2px;width:80px;}
+		.focus ul li{float: left;padding:5px;}
+		.focus ul li.active img{border:1px solid #f00;}
+
+		.big{background:#dfdfdf;text-align:center;}
+		.big img{width:450px;}
+	</style>
+	<script>
+		window.onload = function(){
+			var focus = document.getElementsByClassName('focus')[0];
+			var bigPic = focus.getElementsByClassName('big')[0].firstElementChild;
+			var smallPic = focus.getElementsByTagName('ul')[0].getElementsByTagName('img');
+
+			// 鼠标移入改变大图路径
+			// 遍历小图，绑定点击事件
+			for(var i=0;i<smallPic.length;i++){
+				smallPic[i].onmouseover = function(){
+					bigPic.src = this.src;
+
+					// 先去掉所有高亮效果
+					for(var i=0;i<smallPic.length;i++){
+						smallPic[i].parentNode.className = '';
+					}
+
+					this.parentNode.className = 'active';
+				}
+			}
+
+		}
+	</script>
+</head>
+<body>
+	<div class="focus">
+		<div class="big"><img src="img/g6.jpg"></div>
+		<ul>
+			<li class="active"><img src="img/g6.jpg" alt=""></li>
+			<li><img src="img/g7.jpg" alt=""></li>
+			<li><img src="img/g8.jpg" alt=""></li>
+			<li><img src="img/g9.jpg" alt=""></li>
+			<li><img src="img/g10.jpg" alt=""></li>
+		</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>12_事件源对象</title>
+		<style>
+			#box{width: 300px;height: 200px;background: #fc0;}
+		</style>
+		<script>
+			window.onload=function(){
+				var content = document.getElementsByClassName("content")[0];
+				var btn = document.getElementById("btn");
+				var btn2 = document.getElementById("btn2");
+				
+				content.onclick = function(e){
+					e = e || window.event;
+					console.log("content 被点击 ");
+					console.log("事件源对象:",e.target);
+				}
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="content">
+				<ul class="list">
+					<li>
+						<button id="btn">测试按钮</button>
+						<button id="btn2">测试按钮</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>

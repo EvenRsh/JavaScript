@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>18事件捕获</title>
+	<script>
+		window.onload = function(){
+			var box = document.getElementById('box');
+			var img = box.children[0];
+
+			img.onclick = function(){
+					img.src = 'img/g7.jpg';
+			}
+
+
+			//在以上代码之前执行 
+			box.addEventListener('click',changeImg,false);
+
+			function changeImg(){
+				console.log(2);
+				img.src = 'img/g8.jpg';
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<img src="img/g10.jpg">
+	</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件监听</title>
+	<script>
+		window.onload = function(){
+			var btn = document.getElementById('btn');
+
+			/*// 最常用的事件绑定方式
+			btn.onclick = function(){
+				console.log('click');
+			}
+
+			btn.onclick = function(){
+				console.log('第二次点击');
+			}*/
+
+
+			// 事件监听
+			btn.addEventListener('click',firstClick,false);
+
+			function firstClick(e){
+				console.log('第一次click');
+			}
+
+			document.body.addEventListener('click',function(){
+				btn.removeEventListener('click',firstClick,false);
+				console.log('第二次点击');
+			},false);
+
+		}
+	</script>
+</head>
+<body>
+	<button id="btn">按钮</button>
+</body>
+</html>

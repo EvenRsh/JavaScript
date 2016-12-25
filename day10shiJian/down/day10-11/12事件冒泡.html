@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>12事件冒泡</title>
+	<style>
+		#box{width:300px;height:200px;background-color:#fc0;}
+	</style>
+	<script>
+		window.onload = function(){
+			var box = document.getElementById('box');
+
+			/*box.onclick = function(){
+				console.log('#box被点击');
+			}
+
+			document.onclick = function(){
+				console.log('doument被点击');
+			}*/
+
+			/*document.onmouseover = function(){
+				console.log('document mouseover');
+			}
+			box.onmouseover = function(){
+				console.log('box mouseover');
+			}
+
+			document.body.onmouseover = function(){
+				console.log('body mouseover');
+			}*/
+
+			// 不冒泡的事件
+			box.onmouseenter = function(){
+				console.log('box enter')
+			}
+
+			document.onmouseenter = function(){
+				console.log('document enter')
+			}
+
+
+		}
+	</script>
+</head>
+<body>
+	<div id="box"></div>
+</body>
+</html>

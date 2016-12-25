@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>_鼠标移动跟随效果</title>
+		<style>
+			div {
+				width: 50px;
+				height: 50px;
+				border-radius: 50%;
+				position: absolute;
+				text-align: center;
+				font-size: 30px;
+				color: #fff;
+			}
+		</style>
+		<script>
+			//让第一个盒子直接跟随鼠标位置
+			//后面的盒子每隔几毫米跟随前一个盒子变化位置
+			window.onload = function(){
+				var allDiv = document.getElementsByTagName("div");//div数组
+				document.onmousemove = function(e){
+					e = e || window.event;//兼容性
+					allDiv[0].style.top = e.clientY + "px";
+					allDiv[0].style.left = e.clientX + "px";
+				}
+				//设置定时器
+				var timer = setInterval(function(){
+					for(var i=allDiv.length-1;i>0;i--){
+					var color= "rgba("+parseInt(Math.random()*256)+","+parseInt(Math.random()*256)+","+parseInt(Math.random()*256)+","+ 0.5 +")";
+						allDiv[i].style.top = allDiv[i-1].style.top;
+						allDiv[i].style.left = allDiv[i-1].style.left;
+						allDiv[i].style.backgroundColor = color;
+//						if(i = 0){
+//							clearInterval(timer);
+//						}
+					}
+				},30)
+				//设置随机颜色
+				function randomColor(){
+					var str = "0123456789abcdef";
+					var color = "#";
+					for(var i = 0;i<6;i++){
+						var temp = parseInt(str.length*Math.random());
+						color += str[temp];
+					}
+					return color;
+				}
+			}
+			
+		</script>
+		
+		
+		
+	</head>
+	<body>
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
+		<div>6</div>
+		<div>7</div>
+		<div>8</div>
+		<div>9</div>
+		<div>10</div>
+		<div>11</div>
+		<div>12</div>
+		<div>13</div>
+		<div>14</div>
+		<div>15</div>
+		<div>16</div>
+		<div>17</div>
+		<div>18</div>
+		<div>19</div>
+		<div>20</div>
+		<div>21</div>
+		<div>22</div>
+		<div>23</div>
+		<div>24</div>
+		<div>25</div>
+		<div>26</div>
+		<div>27</div>
+		<div>28</div>
+		<div>29</div>
+		<div>30</div>
+		<div>31</div>
+		<div>32</div>
+		<div>33</div>
+		<div>34</div>
+		<div>35</div>
+		<div>36</div>
+		<div>37</div>
+		<div>38</div>
+		<div>39</div>
+		<div>40</div>
+		<div>41</div>
+		<div>42</div>
+		<div>43</div>
+		<div>44</div>
+		<div>45</div>
+		<div>46</div>
+		<div>47</div>
+		<div>48</div>
+		<div>49</div>
+		<div>50</div>
+	</body>
+</html>

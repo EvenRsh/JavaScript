@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			ul{
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			.focus{
+				width: 408px;
+				border: 1px solid #000;
+			}
+			.focus ul{
+				overflow: hidden;
+				padding-left: 3px;
+			}
+			.focus ul li{
+				float: left;
+				box-sizing:border-box;
+			}
+			.focus ul li img{
+				width:80px;
+			}
+			.focus ul li.active img{
+				border: 1px solid #0f0;
+			}
+			.big{
+				background:#dfdfdf;
+				text-align: center;
+			}
+			.big img{
+				width: 400px;
+			}
+			
+		</style>
+		
+		
+		<script>
+			window.onload = function(){
+				var focus = document.getElementsByClassName('focus')[0];
+				var bigPic = focus.getElementsByClassName('big')[0].firstElementChild;
+				var smallPic = focus.getElementsByTagName('ul')[0].getElementsByTagName('img');
+				
+				for(var i = 0 ;i<smallPic.length;i++){
+					smallPic[i].onmouseover= function(){
+						bigPic.src = this.src 
+						for(var i = 0 ;i<smallPic.length;i++){
+							smallPic[i].parentElement.className="";
+						}
+						this.parentElement.className = "active";
+					}
+					
+					
+					
+				}
+				
+				
+				
+				
+		
+			}
+		</script>
+		
+	</head>
+
+	<body>
+		<div class="focus">
+			<div class="big"><img src="img/g6.jpg" /></div>
+			<ul>
+				<li class = "active"><img src="img/g6.jpg"  /></li>
+				<li><img src="img/g7.jpg"  /></li>
+				<li><img src="img/g8.jpg"  /></li>
+				<li><img src="img/g9.jpg"  /></li>
+				<li><img src="img/g10.jpg"  /></li>
+			</ul>
+		</div>
+	</body>
+
+</html>

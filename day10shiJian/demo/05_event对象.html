@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+		<script>
+			window.onload = function(){
+				var btn = document.getElementById("btn");
+				var output = document.getElementById("output");
+				//怎么获取event对象
+				//事件处理函数的第一个参数
+//				btn.onclick = function(event){
+//					console.log(event);
+//				}
+				//检测鼠标按键
+				document.onmousedown = function(event){
+					console.log(event.button);
+					if(event.button === 0){
+						output.innerHTML = "你按了左键";
+					}
+					else if(event.button === 1){
+						output.innerHTML = "你按了滚轮";
+					}
+					else if(event.button === 2){
+						output.innerHTML = "你按了右键";
+					}
+					
+					
+					
+					
+				}
+
+
+
+			}
+			
+			
+		</script>
+		
+		
+	</head>
+	<body>
+		<button id="btn">检测</button>
+		<div id="output"></div>
+	</body>
+</html>

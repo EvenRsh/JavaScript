@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>14_可复制的表格</title>
+		<style>
+			table {
+				margin-top: 20px;
+				width: 800px;
+				border: 1px solid #ddd;
+				border-collapse: collapse;
+			}
+			
+			td,th{
+				border: 1px solid #ddd;
+				padding: 5px 10px;
+			}
+		</style>
+		<script>
+			window.onload=function(){
+				var datalistt = document.getElementById("datalistt");
+				var btnCopy = document.getElementsByClassName("copy");
+
+				
+				
+				//利用事件冒泡机制:时间委托
+				datalistt.onclick = function(e){
+					e = e || window.event;
+					//利用事件源对象判定是否点击了复制按钮
+					//兼容
+					var target =e.target || e.srcElement;
+//					if(target.tagName.toLowerCase() === "button"){
+					if(target.className === "copy"){
+						var currentTr = target.parentElement.parentElement;
+						//复制按钮所在行
+						var newTr = currentTr.cloneNode(true);
+						currentTr.parentElement.appendChild(newTr);
+					}else if(target.tagName.toLowerCase() === "td" && target != target.parentElement.lastElementChild ){
+						//先获取当前td内容
+						var text = target.innerHTML;
+						var input = document.createElement("input");
+						input.value = text;
+						
+						//先清空原来td的内容
+						target.innerHTML = "";
+						target.appendChild(input);
+						//自动获得焦点;
+						input.focus();
+						
+						
+						//失去焦点时.重新写回内容
+						input.onblur = function(){
+							var _var = input.value;
+							target.innerHTML = _var;
+						}
+						
+						
+					}
+					
+				}
+				
+				
+				
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<table id="datalistt">
+			<tbody>
+				<tr>
+					<td>单元格1</td>
+					<td>单元格2</td>
+					<td>单元格3</td>
+					<td>单元格4</td>
+					<td>单元格5</td>
+					<td><button class="copy">复制</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

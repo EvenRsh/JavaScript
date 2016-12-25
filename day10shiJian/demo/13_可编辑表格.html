@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>13_可编辑表格</title>
+		<style>
+			table {
+				margin-top: 20px;
+				width: 800px;
+				border: 1px solid #ddd;
+				border-collapse: collapse;
+			}
+			
+			td
+			{
+				border: 1px solid #ddd;
+				padding: 5px 10px;
+			}
+		</style>
+		<script>
+			window.onload=function(){
+				var btns = document.getElementsByClassName("del");
+				var datalistt = document.getElementById("datalistt");
+				//删除
+				//传统的绑定方式:事件数量过多,影响页面性能;
+				/*for(var i=0;i<bens.length;i++){
+					btns[i].onclick=function(){
+						var currentTr = this.parentElement.parentElement;
+						currentTr.parentElement.removeChild(currentTr);
+					}
+					
+				}*/
+				//优化:减少事件绑定数量
+				//在table标签上绑定事件
+				datalistt.onclick = function(e){
+					e = e || window.event;
+					//利用事件源对象判定是否点击了删除按钮
+					console.log(e.target.tagName);
+					if(e.target.tagName.toLowerCase() === "button"){
+						var currentTr = e.target.parentElement.parentElement;
+						//删除按钮所在行
+						currentTr.parentElement.removeChild(currentTr);
+					}else if(e.target.tagName.toLowerCase() === "td" && e.target != e.target.parentElement.lastElementChild ){
+						//先获取当前td内容
+						var text = e.target.innerHTML;
+						var input = document.createElement("input");
+						input.value = text;
+						
+						//先清空原来td的内容
+						e.target.innerHTML = "";
+						e.target.appendChild(input);
+						//自动获得焦点;
+						input.focus();
+						
+						
+						//失去焦点时.重新写回内容
+						input.onblur = function(){
+							var _var = input.value;
+							e.target.innerHTML = _var;
+						}
+						
+						
+					}
+					
+				}
+
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<table id="datalistt">
+			<tbody>
+				<tr>
+					<td>单元格1</td>
+					<td>单元格2</td>
+					<td>单元格3</td>
+					<td>单元格4</td>
+					<td>单元格5</td>
+					<td><button class="del">删除</button></td>
+				</tr>
+				<tr>
+					<td>单元格1</td>
+					<td>单元格2</td>
+					<td>单元格3</td>
+					<td>单元格4</td>
+					<td>单元格5</td>
+					<td><button class="del">删除</button></td>
+				</tr>
+				<tr>
+					<td>单元格1</td>
+					<td>单元格2</td>
+					<td>单元格3</td>
+					<td>单元格4</td>
+					<td>单元格5</td>
+					<td><button class="del">删除</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

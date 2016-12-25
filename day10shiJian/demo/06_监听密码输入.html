@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>06_监听密码输入</title>
+
+		<script>
+			window.onload = function(){
+				
+				var psw = document.getElementById("psw");
+				var btn = psw.nextElementSibling;
+				var out = document.getElementById("output");
+
+				//绑定键盘输入事件
+				psw.onkeypress = function(event){
+					out.innerHTML += String.fromCharCode(event.keyCode);
+				}
+				btn.onclick = function(){
+					psw.value ="";
+					out.innerHTML = "";
+				}
+				document.onkeyup = function(event){
+					console.log("是否按了alt键",event.altKey);
+					console.log("是否按了ctrl键",event.ctrlKey);
+					console.log("是否按了shift键",event.shiftKey);
+				}
+
+
+			}
+			
+			
+		</script>
+		
+		
+	</head>
+	<body>
+		<input type="password" id="psw"/>
+		<button>清除</button>
+		<div id="output"></div>
+	</body>
+</html>

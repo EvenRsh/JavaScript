@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件绑定函数的封装（兼容ie8-）</title>
+	<script src="../common.js"></script>
+	<script>
+		window.onload = function(){
+			var box = document.getElementById('box');
+
+			// 绑定点击事件
+			/*box.addEventListener('click',function(){
+				console.log('俄罗斯美女')
+			});*/
+
+			bind(box,'click',function(){
+				console.log('俄罗斯美女');
+			});
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<img src="img/g8.jpg">
+	</div>
+</body>
+</html>

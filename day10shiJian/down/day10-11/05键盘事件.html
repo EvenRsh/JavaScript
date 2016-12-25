@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>04鼠标移动事件</title>
+	<style>
+		#box{width:300px;height:200px;border:1px solid #f00;background-color:#ffc;}
+	</style>
+	<script>
+		window.onload = function(){
+			document.onkeydown = function(){
+				console.log('keydown')
+			}
+
+			document.onkeyup = function(){
+				console.log('keyup')
+			}
+		}
+	</script>
+</head>
+<body>
+	
+	<div id="box"></div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>09_自定义右键菜单</title>
+		<style>
+		ul{list-style: none;padding:0;margin:0;}
+		.contextMenu{display:none;position:absolute;top:0;left:0;padding:2px;width:220px;border:1px solid #ddd;}
+		.contextMenu li{position:relative;padding-left:10px;border-bottom:1px dotted #ddd;line-height:2.2;}
+		.contextMenu li:hover{background-color:#efefef;}
+		.contextMenu li:last-child{border:none;}
+		.contextMenu li span{position:absolute;right:5px;top:0;color:#999;}
+		</style>
+		<script>
+			window.onload = function() {
+
+				var contextMenu = document.getElementsByClassName("contextMenu")[0];
+				//给document绑定onmouseup事件
+				//绑定鼠标右击事件
+//				document.onmouseup = function(e){
+//					if(e.button ===2){
+//					}
+//					//阻止浏览器默认右键
+//					//e.preventDdfault();
+//				}
+				document.oncontextmenu = aaaa;
+				function aaaa(e){
+					contextMenu.style.display= "block";
+//					contextMenu.style.left = e.clientX + "px";
+//					contextMenu.style.top = e.clientY + "px";
+					aaa(e);//调用鼠标跟随函数
+//					阻止浏览器默认右键
+					e.preventDefault();
+				}
+				document.onclick = function(){
+					contextMenu.style.display= "none";
+				}
+				
+				function aaa(e){
+					//console.log(e.clientX,e.clientY);
+					contextMenu.style.left = e.clientX + "px";
+					contextMenu.style.top = e.clientY + "px";
+				}
+				
+			}
+		</script>
+
+	</head>
+
+	<body>
+		<ul class="contextMenu">
+		<li>复制<span>Ctrl+C</span></li>
+		<li>粘贴<span>Ctrl+V</span></li>
+		<li>剪切<span>Ctrl+X</span></li>
+		<li>删除<span>Del</span></li>
+		<li>保存<span>Ctrl+S</span></li>
+	</ul>
+		
+	</body>
+
+</html>

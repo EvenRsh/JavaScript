@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作业讲解</title>
+	<style>
+		.circle{position:absolute;top:0;left:0;width:80px;height:80px;border-radius: 50%;}
+	</style>
+	<script>
+		window.onload = function(){
+			/*
+				作业：鼠标跟随一连串效果
+					1)生成n个元素
+					2）给document绑定mousemove事件
+						给每一个元素设定left,top
+			 */
+			
+			
+			
+			// 1)生成n个元素
+			for(var i=0;i<50;i++){
+				var div = document.createElement('div');
+				div.className = 'circle';
+
+				// 设置随机背景色
+				div.style.backgroundColor = randomColor();
+				document.body.appendChild(div);
+
+			}
+
+			// 元素插入页面后才能获取
+			var circle = document.getElementsByClassName('circle');
+
+			// 2）给document绑定mousemove事件
+			document.onmousemove = function(e){
+				// 形参就是局部变量
+
+				e = e || window.event;
+
+
+
+				// 先给第一个元素设置top,left值为光标所在的位置
+				// circle[0].style.cssText = 'top:' + e.clientY + 'px;left:'+ e.clientX + 'px;';
+				circle[0].style.left = e.clientX + 'px';
+				circle[0].style.top = e.clientY + 'px';
+
+
+				// 给每一个元素设定left,top
+				// 把下一个元素跟随上一个元素的坐标
+				for(var i=circle.length-1;i>0;i--){
+					// 设置/获取“内联”样式（带单位）
+					circle[i].style.left = circle[i-1].style.left;
+					circle[i].style.top = circle[i-1].style.top;
+				}
+
+			}
+
+
+			// 封装随机背景色
+			function randomColor(){
+				var str = '0123456789abcdef';
+
+				var color = '#';
+				for(var i=0;i<6;i++){
+					var idx = parseInt(Math.random()*str.length);//0-15
+					color += str[idx]
+				}
+
+				return color;
+			}
+		}
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

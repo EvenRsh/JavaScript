@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>16_事件监听</title>
+		<script>
+			window.onload = function(){
+				var btn = document.getElementById("btn");
+				//常用方式:
+				/*btn.onclick = function(){
+					console.log('click');
+				}*/
+				//事件监听
+				btn.addEventListener('click',firstClick,false)
+				function firstClick(e){
+					console.log('第一次click')
+				}
+				document.body.addEventListener('click',secClick,true)
+				function secClick(){
+					btn.removeEventListener('click',firstClick,false)
+					console.log('第二次点击');
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<button id="btn">按钮</button>
+	</body>
+</html>

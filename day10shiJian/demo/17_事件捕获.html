@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>16_事件监听</title>
+		<script>
+			window.onload = function(){
+				var box = document.getElementById("box");
+				var img = box.children[0];
+				
+				img.onclick = function(){
+					setTimeout(function(){
+					img.src = "img/g7.jpg";
+						
+					},1000)
+				}
+				
+				//在以上代码之前执行
+				box.addEventListener('click',changeImg,true)
+				
+				function changeImg(){
+					img.src = 'img/g8.jpg';
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<img src="img/g10.jpg"  />
+		</div>
+	</body>
+</html>

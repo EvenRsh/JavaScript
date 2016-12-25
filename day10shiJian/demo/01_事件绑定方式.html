@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>_事件绑定方式</title>
+		
+		<script>
+			window.onload = function(){
+				var box = document.getElementById("box");
+				var btn = box.previousElementSibling;
+				//点击按钮隐藏图片
+				//这个函数在页面加载是不会执行,当点击事件发生时才执行
+				//格式:on+事件名 = 事件处理函数;
+//				btn.onclick = function(){
+//					if(box.style.display === "none"){
+//						box.style.display = "block";
+//					}
+//					else{
+//						box.style.display = "none";
+//					}
+//				}
+
+				//单击:
+//				btn.onclick = hidden;
+				//双击:
+//				btn.ondblclick = hidden;
+				//鼠标按下:
+//				btn.onmousedown = hidden;
+				//鼠标放开:
+				btn.onmouseup = hidden;
+				// 双击 = 单击*2
+			// 单击 = mousedown + mouseup
+
+				function hidden(){
+					if(box.style.display === "none"){
+						box.style.display = "block";
+					}
+					else{
+						box.style.display = "none";
+					}
+				}
+				
+			}
+			
+			
+		</script>
+	
+	</head>
+	<body>
+		<button>按钮</button>
+		<div id="box"><img src="img/g6.jpg"/></div>
+	</body>
+</html>

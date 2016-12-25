@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>14_可复制的表格</title>
+		<style>
+			table {
+				margin-top: 20px;
+				width: 800px;
+				border: 1px solid #ddd;
+				border-collapse: collapse;
+			}
+			
+			td,th{
+				border: 1px solid #ddd;
+				padding: 5px 10px;
+			}
+		</style>
+		<script>
+			window.onload=function(){
+				var datalist = document.getElementById("datalist");
+				var btnCopy = document.getElementsByClassName("copy");
+
+				
+				
+				//利用事件冒泡机制:时间委托
+				datalist.onclick = function(e){
+					e = e || window.event;
+					var target = e.target || e.srcElement;
+					
+					if(target.tagName.toLowerCase() === "button"){
+						var curtentTr = target.parentElement.parentElement;
+						var newTr = curtentTr.cloneNode(true);
+						curtentTr.parentElement.appendChild(newTr);
+					}else if(target.tagName.toLowerCase() ==='td' && target != target.parentElement.lastElementChild){
+						var text =target.innerHTML;
+						var input = document.createElement("input");
+						input.value = text;
+						target.innerHTML = "";
+						target.appendChild(input);
+						input.focus();
+						
+						input.onblur = function(){
+							var _val  = input.value;
+							target.innerHTML = _val;
+						}
+						
+						
+						
+						
+						
+					}
+					
+					
+				}
+				
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<table id="datalist">
+			<tbody>
+				<tr>
+					<td>单元格1</td>
+					<td>单元格2</td>
+					<td>单元格3</td>
+					<td>单元格4</td>
+					<td>单元格5</td>
+					<td><button class="copy">复制</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>11_事件冒泡</title>
+		<style>
+			#box{width: 300px;height: 200px;background: #fc0;}
+		</style>
+		<script>
+			window.onload=function(){
+				var box = document.getElementById("box");
+				/*box.onclick = function(){
+					console.log("#box被点击");
+				}
+				document.onclick = function(){
+					console.log("document被点击");
+				}*/
+/*				box.onmouseover = function(){
+					console.log('box mouseover');
+				}
+				document.onmouseover = function(){
+					console.log('document mouseover');
+				}
+				document.body.onmouseover = function(){
+					console.log('body mouseover');
+				}*/
+				//不冒泡事件
+				box.onmouseenter =function(){
+					console.log("box enter");
+				}
+				document.onmouseenter =function(){
+					console.log("document enter");
+				}
+				
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<div id="box"></div>
+	</body>
+</html>
