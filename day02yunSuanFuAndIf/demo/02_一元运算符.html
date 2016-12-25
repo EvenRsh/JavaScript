@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>一元运算符</title>
+		<script>
+			//++ , --
+			
+			//++ : 自加1
+			var a = 2;
+			//a++; //a = a + 1 
+			++a;
+			console.log(a);//3
+			
+			var a = 4;
+			var b = a++; // b=a,a=a+1; 加号在后面,则这条JS结束时才进行自加;
+			console.log(a);//5
+			console.log(b);//4
+			
+			var a = 4;
+			var b = ++a; // a= a+1 ,b =a; 加号在前面的,则这条JS开始时先进行自加;
+			console.log(a);//5
+			console.log(b);//5
+			
+			var a = 8;
+			console.log(a++);//8 语句结束后a=9
+			console.log(++a);//10
+			
+			//-- : 自减1
+			var a = 11;
+			a--;// a = a - 1
+			console.log(a);//10
+			
+			var a = 11;
+			var b = a--;
+			console.log(a);//10
+			console.log(b);//11
+			
+			var a = 11;
+			var b = --a;
+			console.log(a);//10
+			console.log(b);//10
+			
+			var a = 22;
+			console.log(--a);//21
+			console.log(a--);//21
+			
+			//数值型字符串
+			//先将字符串转换成数值类型再运算
+			var a = "23";
+			a--;
+			console.log(a);//22
+			console.log(typeof a);//number
+			
+			var a = "hello";
+			a++;
+			console.log(a);//NaN
+			
+			//Boolean类型 true = 1, false =0;
+			//先将Boolean类型转换成数值类型,再运算
+			var b = true;
+			b++;
+			console.log(b);;//2
+			
+			//浮点型同理
+			var c = 2.3;
+			console.log(++c);//3.3
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

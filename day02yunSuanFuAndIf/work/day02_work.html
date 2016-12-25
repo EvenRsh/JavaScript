@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>work</title>
+		<script>
+			//1判断一个数的范围
+			var a = 4;
+			if (a>0) {
+				console.log("大于0");
+			}
+			else if (a==0) {
+				console.log("等于0");
+			}
+			else {
+				console.log("小于0");
+			}
+			
+			//2判断奇偶数
+			var b = 5;
+			if (b%2 == 0) {
+				console.log(b + "是偶数");
+			}
+			else {
+				console.log(b + "是奇数");
+			}
+			
+			//公式测试体重是否在合适范围
+			//(身高-108) * 2 = 体重, 10斤浮动
+			var height = 160;
+			var weight = 100;
+			var a = (height-108)*2;
+			var b = a - 10;
+			var c = a + 10;
+			if (weight>b && weight<c) {
+				console.log("你的体重合适");
+			}
+			else {
+				console.log("你的体重不合适");
+			}
+
+			//求圆的面积
+			var r = 3;
+			var a = 3.14;
+			var s = a*(r*r);
+			if (r>0) {
+				console.log("圆面积为" + s);
+			}
+			else {
+				console.log("非法半径");
+			}
+			
+			//判断闰年
+			var year = 2016;
+			if ((year%4 == 0) && (year%100 !=0) || (year%400 ==0)) {
+				console.log(year + "是闰年");
+			}
+			else {
+				console.log(year + "是平年");
+			}
+			
+			//输入成绩,显示奖励
+			var score = 80;
+			if (score<60) {
+				console.log("什么都不买");
+			}
+			else if (score<90) {
+				console.log("妈妈给他买本参考书!");
+			}
+			else if (score <100) {
+				console.log("妈妈给他买MP4!");
+			}
+			else {
+				console.log("爸爸给他买辆车!");
+			}
+			
+			//积分兑折扣
+			var x = 10000;
+			if (x<2000) {
+				console.log("九折");
+			}
+			else if (x<=4000) {
+				console.log("八折");
+			}
+			else if (x<=8000) {
+				console.log("七折");
+			}
+			else{
+				console.log("六折");
+			}
+			
+
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

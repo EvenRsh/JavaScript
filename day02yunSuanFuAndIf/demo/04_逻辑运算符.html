@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>逻辑运算符</title>
+		<script>
+			//&&与, ||或, !非
+			
+			//&&,且
+			//两者都为true则为真,true,否则为假,false
+			console.log(true && true);//true
+			console.log(true && false);//false
+			console.log(false && true);//false
+			console.log(false && false);//false
+			
+			//||,或
+			//两者都为false则为假,false,否则为真,true
+			console.log(true || true);//true
+			console.log(false || true);//true
+			console.log(true || false);//true
+			console.log(false || false);//false
+			
+			//!, 非
+			console.log(!true);//false
+			console.log(!false);//true
+			
+			//短路操作
+			//&&:先判断第一个表达式是否为真,如果不为真,直接返回false,如果为真,继续判断下去...
+				
+			var a = 3>4 && 4<5;
+			console.log(a);//false;
+			
+			//||:先判断第一个表达式是否为真,如果为真,直接返回true,如果不为真,继续判断下去...
+				
+			var b = 3>4 || 4<5 || 5>6;
+			console.log(b);//true;
+			
+			//扩展
+			var a = 2 && 4<5 && 0;
+			console.log(a);//0
+			
+			var b = "" || 4>3 || 3;
+			console.log(b);//true
+			
+			var c = "";
+			var d = "";
+			var e = c || d;//如果c有值则直接使用,如果没有就使用d
+			console.log(e);//""
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
