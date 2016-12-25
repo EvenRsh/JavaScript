@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>break+continue</title>
+		<script>
+			
+			//break和continue
+			//break: 1.跳出switch结构 2,跳出循环(只能跳出最近一层循环)
+			
+			for (var i=1; i<=10000; i++){
+				console.log(i);
+				if(i == 10) {
+					console.log("break前面的代码");
+					break;//跳出for循环(当前循环,不是本身的循环)
+					console.log("break前面的代码");//不执行
+				}
+			}
+			
+			//1, 判断一个数是不是合数。
+			//(指自然数中除了能被1和本身整除外，还能被其他的数整除（不包括0)的数。)
+			//2, 判断一个数是不是素数。
+			//(除了1和它本身以外不再有其他的除数整除。)
+			var n = 353;
+			for (var i=2; i<n; i++){
+				if (n%i == 0) {//如果条件成立,说明存在其他数能整除n
+					console.log(n + "是合数");
+					break;
+				}
+			}//所有条件均不满足,结束循环后进入下一条判断
+			if (i == n){
+					console.log(n + "是素数");
+			}
+			
+			
+			//另一种方式
+			var n = 353;
+			var b = false;//是否合数,默认不是合数
+			for (var i=2; i<n; i++){
+				if (n%i == 0) {//如果条件成立,说明存在其他数能整除n
+					console.log(n + "是合数");
+					b = true; //重新赋值,说明是合数
+					break;
+				}
+			}
+			if (b == false) {
+				console.log(n + "是素数");
+			}
+			
+			
+			//continue: 中止continue后面的代码执行,直接进入下一次循环(循环条件的判断)
+			for (var i=0; i<5; i++) {
+				if (i == 3) {
+					continue;
+				}
+				console.log(i);
+			}
+			
+			
+			
+			
+			//1,求整数1～100的累加值，但要求跳过所有个位为3的数。
+			var s = 0;
+			for (var i=1; i<=100; i++){
+				if (i%10 == 3) {
+					continue;
+				}
+				s +=i;
+			}
+			console.log(s);//4570
+
+
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

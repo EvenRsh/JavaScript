@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>work</title>
+		<script>
+			//1, 打印1~100的除了7的倍数和带7的数。
+			for (var i=1; i<=100; i++) {
+				if(i%7==0 || i%10==7 ||(parseInt(i/10)%10==7)){
+					continue;
+				}
+				console.log(i);
+			}
+			
+			//2.通过do-­while，找出1000以内所有的7的倍数
+			var i = 1;
+			do{
+				if (i%7 == 0) {
+					console.log(i);
+				}
+				i++;
+			}while(i<=1000)
+			
+			//3, 求5!  (1*2*3*4*5)
+			var s = 1;
+			for (var i=1; i<=5; i++){
+				s *= i;
+			}
+			console.log("5!=" + s);
+			
+			//求1!+2!+3!+4!+5!
+			var s = 0;
+			var temp = 1;
+			for (var i=1; i<=5; i++){
+				temp *=i;
+				s +=temp;
+			}
+			console.log("1!+2!+3!+4!+5!=" + s);
+			
+			//5, 找出所有的水仙花数，三位数，各位立方和等于该数本身。
+			//如: 153  =  1  ^  3  +  5  ^  3  +  3  ^  3
+			for (var i=100; i<=999; i++){
+				var a=i%10;//个位数
+				var b=parseInt(i/10)%10;//十位数
+				var c=parseInt(i/100);//百位数
+				if(i == a*a*a + b*b*b + c*c*c){
+					console.log(i + "是水仙花数");
+				}
+			}
+
+			
+			
+			//6, 输入任意两个数，如果第一个数小，从第一个数打印到第二个数，如果第二个
+			//   数小，从第二个数打印到第一个数
+			var a = 9;
+			var b = 7;
+			if (a > b) {//如果第二个数小，从第二个数打印到第一个数
+				for (var i=b; i<=a; i++){
+					console.log(i);
+				}
+			}
+			else {//如果第一个数小，从第一个数打印到第二个数
+				for (var j=a; j<=b; j++){
+					console.log(j);
+				}
+			}
+			
+			//第二种写法
+			var a = 9;
+			var b = 7;
+			var min = a>b?b:a;
+			var max = a>b?a:b;
+			for (var i=min; i<=max; i++) {
+				console.log(i);
+			}
+			
+			//7,  输入一个数，判断是否是偶数
+			var a = 14;
+			if (a%2 == 0) {
+				console.log(a + "是偶数");
+			}
+			else {
+				console.log(a + "是奇数");
+			}
+			
+			
+			//8,  输入两个数，求两个数的最大公约数（*****）
+			//如:  12和8的最大公约数是4
+			//提示:  能够同时整除两个数的最大数
+			//	     1, 先找出两个数中最小的那个数,  
+			//       2, 最小数-­-­,  找出能被两个数整除的数(退出循环)
+			var a = 12;
+			var b = 24;
+			if (a > b) {//先找出两个数中最小的那个数
+				for (var i=b; i<=b;i--) {
+					if (b%i==0 && a%i==0) {//能被两个数整除的数
+						console.log(i);
+						break;//退出循环
+					}
+				}
+			}
+			else {
+				for (var j=a; j<=a;j--) {
+					if (b%j==0 && a%j==0) {
+						console.log(j);
+						break;
+					}
+				}
+			}
+			
+			//第二种方法
+			var a = 12;
+			var b = 24;
+			var min = a>b ? b : a;//较小值
+			for (var i=min; i>=1; i--) {
+				if (a%i == 0 && b%i ==0) {
+					console.log(i);//12
+					break;//跳出循环
+				}
+			}
+			
+			
+			//9,   输入两个数，求两个数的最小公倍数（****）
+			// 如:  9和6的最小公倍数是18
+			// 1, 先找出两个数中的最大数
+			// 2, 最大数++，找出能被两个数整除的数(退出循环)
+			var c = 100;
+			var d = 249;			
+			if (c>d) {
+				for (var i=c; i<10000000; i++) {
+					if (i%c==0 && i%d==0) {
+						console.log(i);
+						break;
+					}
+				}
+			} 
+			else {
+				for (var j=d; j<1000000; j++) {
+					if (j%d==0 && j%c==0) {
+						console.log(j);
+						break;
+					}
+				}
+			}
+			
+			
+			//第二种方法
+			var a = 12;
+			var b = 24;
+			var max = a>b ? a : b;//较大值
+			for (var i=max; i<=a*b; i++) {//i可以+=max减少编译次数
+				if (i%a == 0 && i%b ==0) {
+					console.log(i);//24
+					break;//跳出循环
+				}
+			}
+			
+			while(max) {
+				if (max%a == 0 && max%b ==0) {
+					console.log(i);//24
+					break;//跳出循环
+				}
+				max++;
+			}
+			
+			
+			//10,  输入两个数n，a，如果n==3，a  ==  2；
+			//输出 2  +  22  +  222  的值。（不用输出式子）（****）
+			//如: n  ==  4， a  ==  3；
+			//输出 3  +  33  +  333  +  3333的值。
+			//提示: 1、n  =  3,相加三次,每次相加比前一次相加的数,多一位
+			//2、每次多的这个位数的值为a,    3,  3*10+3,  33*10+3
+			var n = 4;
+			var a = 3;
+			var temp = 0;//借用的值
+			var s = 0;//求和
+			for (var i=1; i<=n; i++){//循环n次
+				temp=temp*10+a;
+				//console.log(temp);
+				s += temp;
+			}
+			console.log(s);//3702
+			
+			//11,五位数中，对称的数称为回文数，找出所有的回文数。
+			//如: 12321
+			for (var i=10000; i<=99999; i++){
+				var a = parseInt(i/10000);//万位数字
+				var b = i%10;//个位数字
+				var c = parseInt(i/10)%10;//十位数字
+				var d = parseInt(i/1000)%10;//千位数字
+				if(a==b && c==d){
+					console.log(i);
+				}
+			}
+			
+			//12, 宰相的麦子：相传古印度宰相达依尔，是国际象棋的发明者。有一次，国王因
+			//为他的贡献要奖励他，问他想要什么。达依尔说：“只要在国际象棋棋盘上（共
+			//64格）摆上这么些麦子就行了：第一格一粒，第二格两粒，……，后面一格的麦
+			//子总是前一格麦子数的两倍，摆满整个棋盘，我就感恩不尽了。”国王一想，这
+			//还不容易，刚想答应，如果你这时在国王旁边站着，你会不会劝国王别答应，为什么？
+			var temp=1;//每个格子的小麦数;
+			var s = 0;
+			for (var i=1; i<=64; i++) {
+				s += temp;
+				temp = temp*2;//下一个格子的麦子数是当前格子麦子数的两倍
+				//console.log(temp);
+			}
+			console.log(s);
+			
+			var s = 0;
+			var n = 1; //每个格子的麦子数
+			for (var i=1; i<=64; i++) { //循环64次
+				s += n; 
+				n = n * 2; //下一个格子的麦子数是当前格子麦子数的两倍
+			}
+			var s2 = parseInt(s/100000000);
+			console.log(s2 + "亿"); //184467440737亿
+
+
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			
+			//1, 打印1~100的除了7的倍数和带7的数。
+			function fn3(a,b){
+				var min=a>b?b:a;
+				var max=a>b?a:b;
+				var arr = [];
+				var temp = 0;
+				for (var i =min; i<=max;i++) {
+					temp = i;
+					temp = parseInt(i/10);
+					if(i!=0 && i%7 == 0 || temp%10 == 7 ) {
+						arr.push(i);
+						}
+					}
+				return arr;
+			}
+			console.log(fn3(0,100));
+			//2, 通过do-­while，找出1000以内所有的7的倍数
+			function fn(a,b){
+				var min=a>b?b:a;
+				var max=a>b?a:b;
+				var arr = [];
+				var i = max;
+				do{
+					if(i!=0 && i%7 == 0) {
+						arr.push(i);
+					}
+					i--;
+				}
+				while(i>min)
+					return arr;
+			}
+			console.log(fn(0,1000));
+			//3, 求5!  (1*2*3*4*5)
+			function fn1(n){
+				var s = 1;
+				for (var i=n; i>0; i--) {
+					s *= i;
+				}
+				return s;
+			}
+			console.log(fn1(3));
+			
+			
+			//4, 求1!+2!+3!+4!+5!
+			function fn2(n){
+				if(n==1 || n==0){
+					return 1;
+				}
+				return fn1(n)+fn2(n-1);
+			}
+			console.log(fn2(3));
+			
+			
+			//5, 找出所有的水仙花数，三位数，各位立方和等于该数本身。
+			//如: 153  =  1  ^  3  +  5  ^  3  +  3  ^  3
+			var arr = [];
+			for (var i=100; i<1000; i++) {
+				var a = i%10;//个位
+				var b = parseInt(i/10)%10; //十位
+				var c = parseInt(i/100); //百位
+				if(i == a*a*a + b*b*b + c*c*c) {
+					arr.push(i);
+				}
+			}
+			console.log(arr);
+			
+			
+			//6, 输入任意两个数，如果第一个数小，从第一个数打印到第二个数，如果第二个
+			//数小，从第二个数打印到第一个数
+			function fnc1(a,b){
+				var arr = [];
+				var min = a>b?b:a;
+				var max = a>b?a:b;
+				for (var i=min; i<=max;i++){
+					arr.push(i);
+				}
+				return arr;
+			}
+			console.log(fnc1(30,12));
+			
+			//7,  输入一个数，判断是否是偶数
+			function fnc2(a){
+				if(a%2 == 0){
+					return a + "是偶数";
+				}
+				else {
+					return a + "是奇偶数";
+				}
+			}
+			console.log(fnc2(325));
+			//8,  输入两个数，求两个数的最大公约数（*****）
+			//如:  12和8的最大公约数是4
+			//提示:  能够同时整除两个数的最大数
+			//	1, 先找出两个数中最小的那个数,  
+			//2, 最小数-­-­,  找出能被两个数整除的数(退出循环)
+			function fnc3(a,b) {
+				var min = a>b ? b : a;
+				for (var i=min; i>=1; i--) {
+					if(a%i==0 && b%i==0){
+						console.log(a+"和"+b +"最大公约数是:" + i);
+						break;
+					}
+				}
+			}
+			fnc3(325,125);
+			
+			
+			
+			//9,   输入两个数，求两个数的最小公倍数（****）
+			//如:  9和6的最小公倍数是18
+			//	1, 先找出两个数中的最大数
+			//2, 最大数++，找出能被两个数整除的数(退出循环)
+			function fnc4(a,b) {
+				var max = a>b ? b : a;
+				for (var i=max; i<=a*b; i++) {
+					if(i%a==0 && i%b==0){
+						console.log(a+"和"+b +"最大公倍数是:" + i);
+						break;
+					}
+				}
+			}
+			fnc4(325,125);
+			//10,  输入两个数n，a，如果n==3，a  ==  2；
+			//输出 2  +  22  +  222  的值。（不用输出式子）（****）
+			//如: n  ==  4， a  ==  3；
+			//输出 3  +  33  +  333  +  3333的值。
+			//提示: 1、n  =  3,相加三次,每次相加比前一次相加的数,多一位
+			//2、每次多的这个位数的值为a,    3,  3*10+3,  33+10+3
+			function fnc5(n,a){
+				var temp = 0;
+				var s = 0;
+				for (var i=0; i<n; i++) {
+					temp = temp*10 + a;
+					s +=temp;
+				}
+				return s;
+			}
+			console.log(fnc5(4,3));
+			
+			//11,五位数中，对称的数称为回文数，找出所有的回文数。
+			//如: 12321
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			 
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
