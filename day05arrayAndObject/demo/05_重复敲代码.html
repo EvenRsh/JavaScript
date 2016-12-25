@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//2,让数组中的元素交换位置（重要）
+			// 8与5位置对调
+			var arr = [3,4,6,8,212,4,5];
+			var temp = arr[3];
+			arr[3] = arr[arr.length-1];
+			arr[arr.length-1] = temp;
+			console.log(arr);//[3,4,6,5,212,4,8]
+			
+			//3,求数组的最大数（重要）
+			//思路: 设定第一个元素为最大值,让其与后面的元素一一比较大小;
+			var arr = [3,4,2,8,212,4,5,1000];
+			var max = arr[0];//默认第一个元素为最大值
+			for(var i=1; i<arr.length; i++){
+				if(max<arr[i]){
+					max = arr[i];
+				}
+			}
+			console.log(max);
+			 
+			//4,求数组的最小数和最小数的下标（重要）
+			var arr = [3,4,2,89,9,-100000,212,4,5,1000,-5];
+			var index = 0; //为了存储i值
+			var min = arr[0];//默认第一个元素为最小值
+			for (var i=1;i<arr.length; i++) {
+				if (min>arr[i]) {
+					min = arr[i]; 
+					index = i;
+				}
+			}
+			console.log("最小值为:" +min +",其下标为:"+ index);
+			
+			
+			////栈,队列
+			//栈: 先进后出(后进先出)
+			//push(): 插入数据;
+  			var arr = [1,2,3,4,5,6,7,8]
+			arr.push(100,"日剧");//在数组的后面增加元素(a,b,..);
+			console.log(arr);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

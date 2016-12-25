@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>work2</title>
+		<script>
+			//1. 有2个学生，每个学生有3门课的成绩，（包括学生号，姓名，3门课成绩,语文,数
+			//学,英语），计算出平均成绩.
+			var stu = {
+				stuA :{
+					stCard:10086,
+					name:"王宝宝",
+					ywScoer:80,
+					sxScoer:88,
+					yyScoer:8,
+					calculate:function fnc(){
+						var s =(this.ywScoer+this.sxScoer+this.yyScoer)/3;
+						console.log(s);
+					}
+				},
+				stuB :{
+					stCard:1314438,
+					name:"隔壁老王的孩子",
+					ywScoer:78,
+					sxScoer:98,
+					yyScoer:88,
+					calculate:function fnc(){
+						var s =(this.ywScoer+this.sxScoer+this.yyScoer)/3;
+						console.log(s);
+					}
+				},
+				calculate1:function fnc(){
+					var s =(stu.stuA.ywScoer+stu.stuB.ywScoer)/2;
+					console.log(s);
+				}
+			}
+			stu.stuA.calculate();
+			stu.stuB.calculate();
+			stu.calculate1();
+			
+			
+//			 2. Mountain:从前有座山,山里有座庙;;还有name,height(高度)
+//				Temple:庙里有个老和尚,有个小和尚,还有name,area(面积)
+//				Monk:和尚能挑水,讲故事,化缘;;还有name,age,sex
+			
+			
+			var Mountain = {
+				name:"从前有座山,",
+				height:"海拔18888888米",
+				Temple:{
+					name:"山里有座庙,",
+					areas:"888平方",
+					Monk:{
+						jgs:function fn(){
+								console.log(Mountain.name + Mountain.Temple.name + oldMonk.name + oldMonk.age +"岁,是个" + oldMonk.sex + "和尚," +"能讲故事");
+							},
+							hy:function fnc(){
+								console.log(this.name + this.age +"岁,是个" + this.sex + "和尚," +"能化缘");
+							},
+//						oldMonk:{
+//							name:"庙里有个老和尚",
+//							age:998,
+//							sex:"女",
+//							jgs:function fn(){
+//								console.log(Mountain.name + Mountain.Temple.name + this.name + this.age +"岁,是个" + this.sex + "和尚," +"能讲故事");
+//							},
+//							hy:function fnc(){
+//								console.log(this.name + this.age +"岁,是个" + this.sex + "和尚," +"能化缘");
+//							}
+//						},
+						litMonk:{
+							name:"庙里有个小和尚",
+							age:18,
+							sex:"男",
+							wt:function fn(){
+								console.log(this.name + this.age +"岁,是个" + this.sex + "和尚," +"能挑水");
+							},
+							hy:function fnc(){
+								console.log(this.name + this.age +"岁,是个" + this.sex + "和尚," +"能化缘");
+							}
+						},
+					},
+				},
+			}
+			var oldMonk={
+				name:"庙里有个老和尚",
+				age:998,
+				sex:"女"
+			}
+			Mountain.Temple.Monk.jgs();
+			Mountain.Temple.Monk.hy();
+			Mountain.Temple.Monk.litMonk.wt();
+			Mountain.Temple.Monk.litMonk.hy();
+			
+			
+			//3. 定义一圆Cirlcle对象,包含半径r和圆心,圆心为“点”Point对象,point对象有x和y
+			//   属性，构造一圆，该圆可以计算周长和面积;;  计算该原的周长和面积?
+
+			var Cirlcle = {
+				name:"这个圆",
+				Point:{
+					name:"圆心",
+					x:18,
+					y:18,
+				},
+				r:18,
+				s:function fn(){
+					var s = 3.14 * this.r * this.r;
+					console.log(this.name+"面积是"+s);
+				},
+				l:function fn(){
+					var l = 3.14 * this.r *2;
+					console.log(this.name+"周长是"+l);
+				}
+			}
+			Cirlcle.s();
+			Cirlcle.l();
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

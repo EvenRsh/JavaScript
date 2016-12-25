@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>对象</title>
+		<script>
+			//对象
+			//类和对象
+			//类是对象的抽象,对象是类的具体
+			//	类			对象
+			//  杯子            我的这个杯子
+			//	人 			我,你
+			// 联想电脑	    我的联想电脑
+			
+			//人(对象)
+			//对象: Object
+			//创建对象
+			//方式一:  使用new关键字
+			var obj = new Object();
+			console.log(obj);//[object Object],空数组
+			//属性(变量)
+			obj.name="张三"; 
+			
+			//方法(函数)
+			obj.run = function(){
+				console.log("跑步...");
+			}
+			console.log(obj.name);//张三
+			obj.run();//调用函数
+			
+			//方式2:字面量
+			var obj = {};
+			console.log(obj);//空对象
+			
+			
+			
+			//使用字面量的方式创建对象并赋值
+			
+			var obj = {
+				name : "李四",//key-value(键值对)
+				run : function(){
+					console.log("跑步.......");
+				}
+			}
+			console.log(obj.name);//李四
+			console.log(obj["name"]);//李四
+			obj.run();
+			
+			var a = "name";
+			console.log(obj.a);//undefined
+			console.log(obj[a]);//李四
+			
+			//删除属性
+			var person = {
+				name:"晓明",
+				age:40,
+				sex:"男",
+				sing:function(){
+					console.log("唱歌~~~~~")
+				}
+			}
+			console.log(person.name + person.age + person.sex);//晓明40男
+			person.sing();
+			delete person.sex;
+			console.log(person.name + person.age + person.sex);//晓明40undefined
+			 
+			
+			//练习
+			
+			//1,  创建一个人的对象,  添加属性:  姓名 年龄 爱好 薪资期望,  并有一个打印自身信息
+			//的方法,  可以输出自身信息;;
+
+			var person = {
+				name: "李四",
+				age:18,
+				like:"岁,喜欢K歌,",
+				salary:"年薪188k,单身中..",
+				print:function () {
+					console.log(person.name + person.age + person.like + this.salary);
+				}
+			}
+			person.print();
+			
+			
+			//2,  创建一个锤子对象hammer,  有属性:宽,高,重;;  方法:可以锤钉子
+			var hammer = {
+				name:"锤子",
+				width:18,
+				height:18,
+				weight:18,
+				ham:function () {
+					console.log("锤子可以锤钉子");
+				}
+			}
+			console.log(hammer.name + hammer.width + hammer.height + hammer.weight);
+			hammer.ham();
+
+			//3,  有一辆50km/h车,跑在一条1000km路上，问多少小时跑完？
+			//对象:  
+			/*
+			 * 车Car属性:  速度speed  50km/h
+
+				功能:  跑在路上runOnRoad(Road)
+
+				路Road属性:  长度length  1000km
+
+			 */
+			var Car = {
+				speed : 50,
+				runOnRoad:function (r){
+//					console.log("车跑在路上");
+					var time = r.length/this.speed;
+					console.log("车在路上跑,"+time + "h跑完");
+				}
+			}
+			var Road = {
+				length : 1000
+			}
+			Car.runOnRoad(Road);
+			
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
