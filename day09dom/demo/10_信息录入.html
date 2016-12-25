@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			table {
+				margin-top: 20px;
+				width: 800px;
+				border: 1px solid #ddd;
+				border-collapse: collapse;
+			}
+			
+			td,
+			th {
+				border: 1px solid #ddd;
+				padding: 5px 10px;
+			}
+		</style>
+		<script>
+			window.onload = function() {
+				var username = document.getElementById('username');
+				var age = document.getElementById('age');
+				var tel = document.getElementById('tel');
+				var qq = document.getElementById('qq');
+				var btnSave = document.getElementById('btnSave');
+				var tableList = document.getElementById('tableList');
+				//针对表格table的属性/方法
+				var tbody = tableList.tBodies[0];
+
+				//保存操作
+				btnSave.onclick = function() {
+
+					var len = tbody.rows.length;
+					//插入行:table.inserRow
+					var tr = tbody.insertRow(-1);
+					//插入列:tr.insertCell();
+					//var td = tr.insertCell(0);
+					// 序号
+					tr.insertCell(0).innerHTML = len + 1;
+					tr.insertCell(1).innerHTML = username.value;
+					tr.insertCell(2).innerHTML = age.value;
+					tr.insertCell(3).innerHTML = tel.value;
+					tr.insertCell(4).innerHTML = qq.value;
+					tr.insertCell(5).innerHTML = '<button class="copy">复制</button>';
+
+					//清空输入框
+					username.vaule = '';
+					age.vaule = '';
+					tel.vaule = '';
+					qq.vaule = '';
+
+					//用户名聚焦
+					username.focus();
+
+					//给复制按钮绑定事件
+					//
+					var copys = tableList.getElementsByClassName('copy');
+					for (var i = 0; i < copys.length; i++) {
+						copys[i].onclick = function() {
+							//复制当前行所有的内容
+							var currentTr = this.parentNode.parentNode.cloneNode(true);
+							//插入复制的元素内容
+							tbody.appendChild(currentTr);
+						}
+					}
+				}
+		
+
+			}
+		</script>
+	</head>
+
+	<body>
+		<label for="username">姓名</label>
+		<input type="text" id="username" name="username">
+		<label for="age">年龄</label>
+		<input type="text" id="age" name="age">
+		<label for="tel">电话</label>
+		<input type="text" id="tel" name="tel">
+		<label for="qq">QQ号</label>
+		<input type="text" id="qq" name="qq">
+		<button id="btnSave">保存</button>
+		<div class="list">
+			<table id="tableList">
+				<thead>
+					<tr>
+						<th width="40">序号</th>
+						<th width="160">姓名</th>
+						<th width="60">年龄</th>
+						<th width="160">电话</th>
+						<th width="160">QQ号</th>
+						<th width="60">操作</th>
+						<th width="60">删除</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</body>
+
+</html>

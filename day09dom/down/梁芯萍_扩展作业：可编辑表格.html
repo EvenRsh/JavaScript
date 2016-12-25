@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>扩展作业：可编辑表格</title>
+		<style>
+			table{margin-top:20px; width:800px; border:1px solid #ddd; border-collapse:collapse;}
+			td,th{border:1px solid #ddd; padding:5px 10px; cursor:pointer;}
+			table input{width:150px;}
+		</style>
+		<script>
+			window.onload = function(){
+				//获取元素节点
+				var username = document.getElementById('username');
+				var age = document.getElementById('age');
+				var tel = document.getElementById('tel');
+				var qq = document.getElementById('qq');
+				var btnSave = document.getElementById('btnSave');
+				var tableList = document.getElementById('tableList');
+				
+				//tBodies 返回包含表格中所有 tbody 的一个数组
+				var tbody = tableList.tBodies[0];
+				
+				//给btnSave添加点击事件  ---->  保存操作
+				btnSave.onclick = function(){
+					//先获取原来的行数
+					//rows 返回包含表格中所有行的一个数组
+					var len = tbody.rows.length;
+					
+					//插入行：table.insertRow
+					//插入列：tr.insertCell
+					var tr = tbody.insertRow(-1);
+					
+					//序号
+					tr.insertCell(0).innerHTML = len + 1;
+					//姓名
+					tr.insertCell(1).innerHTML = username.value;
+					//年龄
+					tr.insertCell(2).innerHTML = age.value;
+					//电话
+					tr.insertCell(3).innerHTML = tel.value;
+					//QQ号
+					tr.insertCell(4).innerHTML = qq.value;
+					//操作
+					tr.insertCell(5).innerHTML = '<button class="copy">复制</button>&nbsp;<button class="del">删除</button>'
+					
+					//把信息添加到table后清空输入框
+					username.value = '';
+					age.value = '';
+					tel.value = '';
+					qq.value = '';
+					
+					//用户名自动获取焦点事件
+					username.focus();
+					
+					//调用删除按钮的点击事件函数
+					btnDel();
+					
+					//调用复制按钮的点击事件函数
+					btnCopy();
+					
+					//调用td的点击事件
+					tdClick();
+				}
+				
+				
+				//封装一个复制按钮的点击事件
+				function btnCopy(){
+					//循环给复制按钮绑定事件
+					//必须在按钮插入到页面后才能获取
+					var aCopy = tableList.getElementsByClassName('copy');
+					
+					for(var i = 0; i < aCopy.length; i++){
+						aCopy[i].onclick = function(){
+							//复制当前行所有内容cloneNode(true)
+							//this=copy按钮-->td-->tr
+							var copyTr = this.parentNode.parentNode.cloneNode(true);
+							
+							//把所复制的行写入表格
+							tbody.appendChild(copyTr);
+							
+							//重新绑定所有复制按钮的点击事件
+							btnCopy();
+							//重新绑定所有删除按钮的点击事件
+							btnDel();
+							//重新绑定所有td的点击事件
+							tdClick();
+						}
+					}
+				}
+				
+				
+				//封装一个函数，给所有的删除按钮添加删除事件
+				function btnDel(){
+					//循环给删除按钮绑定点击事件
+					var aDel = tableList.getElementsByClassName('del');
+					
+					for(var i = 0; i < aDel.length; i++){
+						aDel[i].onclick = function(){
+							//删除所在行
+							var delTr = this.parentNode.parentNode;
+							delTr.parentNode.removeChild(delTr);
+						}
+					}
+				}
+				//调用函数
+				btnDel();
+				
+				//封装一个td的点击事件
+				function tdClick(){
+					//=========编辑表格
+					/*
+					 * 1）获取所有的td
+					 * 2）给所有的td添加点击事件
+					 * 3）把td内容替换成input
+					 */
+					
+					//获取所有的td
+					var aTd = document.getElementsByTagName('td');
+					
+					console.log(aTd);
+					
+					//循环给所有的td绑定点击事件
+					for(var i = 0; i < aTd.length; i++){
+						
+						if((i+1) % 6 == 0){
+							continue;
+						}else{
+							aTd[i].onclick = function(){
+								
+								console.log("td 点击啦！");
+								
+								//创建文本框
+								var input = document.createElement('input');
+								//this=td
+								input.value = this.innerHTML;
+								this.innerHTML = '';
+								input.type = 'text';
+								
+								//去除原本td内容，把文本框添加到td上
+								this.appendChild(input);
+								
+								//文本框自动获取焦点事件
+								input.focus();
+								
+								//当文本框失去焦点事件，把输入框的内容显示到td上
+								input.onblur = function(){
+									//this=input
+									this.parentNode.innerHTML = this.value;
+								}
+							}
+						}
+					}
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<label for="username">姓名</label>
+		<input type="text" id="username" name="username" />
+		<label for="age">年龄</label>
+		<input type="text" id="age" name="age" />
+		<label for="tel">电话</label>
+		<input type="text" id="tel" name="tel" />
+		<label for="qq">QQ号</label>
+		<input type="text" id="qq" name="qq" />
+		<button id="btnSave">保存</button>
+		<div class="list">
+			<table id="tableList">
+				<thead>
+					<tr>
+						<th width="160">序号</th>
+						<th width="160">姓名</th>
+						<th width="160">年龄</th>
+						<th width="160">电话</th>
+						<th width="160">QQ号</th>
+						<th width="160">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

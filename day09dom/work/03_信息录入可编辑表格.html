@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			table {
+				margin-top: 20px;
+				width: 800px;
+				border: 1px solid #ddd;
+				border-collapse: collapse;
+			}
+			
+			td,
+			th {
+				border: 1px solid #ddd;
+				padding: 5px 10px;
+			}
+		</style>
+		<script>
+			window.onload = function() {
+				var username = document.getElementById('username');
+				var age = document.getElementById('age');
+				var tel = document.getElementById('tel');
+				var qq = document.getElementById('qq');
+				var btnSave = document.getElementById('btnSave');
+				var tableList = document.getElementById('tableList');
+
+					//获取tbody的节点
+				var tbody = tableList.lastElementChild;
+				//绑定点击保存事件
+				tbody.innerHTML = "";
+
+				btnSave.onclick = function() {
+
+					list();//新增msg
+					copy();//复制按钮点击
+					del();//删除按钮点击
+					oedit();//td编辑点击
+				}
+
+				function list() {
+					var msgList = [
+							username.value,
+							age.value,
+							tel.value,
+							qq.value
+						]
+						//整理输入框的节点数据
+						//console.log(msgList);
+						//console.log(typeof msgList);
+						//新建tr
+					var tr = tbody.insertRow(-1);
+					//新建td
+					//新建序列的td
+					var td = tr.insertCell(0);
+					td.innerHTML = tbody.rows.length;
+					for (var j = 1; j <= msgList.length; j++) {
+						td = tr.insertCell(j);
+						td.innerHTML = msgList[j - 1];
+					}
+					//新建复制 删除的td
+					td = tr.insertCell(j);
+					var button = document.createElement("button");
+					button.className = "copy";
+					button.innerHTML = "复制"
+					td.appendChild(button);
+					var button = document.createElement("button");
+					button.className = "del";
+					button.innerHTML = "删除"
+					td.appendChild(button);
+				}
+				//绑定点击复制事件并封装
+				function copy() {
+					var copys = tableList.getElementsByClassName('copy');
+					for (var j = 0; j < copys.length; j++) {
+						copys[j].onclick = function() {
+							var currentTr = this.parentElement.parentElement.cloneNode(true);
+							tbody.appendChild(currentTr);
+							copy();
+							del();
+							oedit();
+						}
+					}
+				}
+				//绑定点击删除事件并封装
+				function del() {
+					var dels = tableList.getElementsByClassName('del');
+					for (var k = 0; k < dels.length; k++) {
+						dels[k].onclick = function() {
+							var delTr = this.parentElement.parentElement;
+							tbody.removeChild(delTr);
+						}
+					}
+				}
+				//封装编辑事件
+				function oedit() {
+
+					//获取td节点
+					var tds = tableList.getElementsByTagName('td');
+					//绑定点击事件
+					var len = tds[0].parentElement.cells.length;
+					for (var l = 0; l < tds.length; l++) {
+						if ( (l + 1) % len != 0  ) {//排除最后一个td的二次点击事件
+							// 进入编辑状态
+							tds[l].onclick = function() {
+								var currentTd = this;
+								var input = document.createElement('input');
+								input.type = 'text';
+								input.value = this.innerHTML;
+
+								//阻止点击冒泡
+								input.onclick = function(e) {
+									e.stopPropagation();
+									return false;
+								}
+
+								// 保存退出编辑状态
+								input.onblur = function() {
+										currentTd.innerHTML = this.value;
+									}
+									//把原来的td内容清空,插入一个input
+								this.innerHTML = '';
+								this.appendChild(input);
+								input.focus();
+							}
+						}
+					}
+
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<label for="username">姓名</label>
+		<input type="text" id="username" name="username">
+		<label for="age">年龄</label>
+		<input type="text" id="age" name="age">
+		<label for="tel">电话</label>
+		<input type="text" id="tel" name="tel">
+		<label for="qq">QQ号</label>
+		<input type="text" id="qq" name="qq">
+		<button id="btnSave">保存</button>
+		<div class="list">
+			<table id="tableList">
+				<thead>
+					<tr>
+						<th width="40">序号</th>
+						<th width="160">姓名</th>
+						<th width="60">年龄</th>
+						<th width="160">电话</th>
+						<th width="160">QQ号</th>
+						<th width="160">操作</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.tab_head{
+				overflow: hidden;
+			}
+			button{
+				width: 50px;
+                height: 25px;
+                margin: 0;
+                float: left;
+                text-align: center;
+			}
+			.tab_content {
+                border: solid red 1px;
+                width: 148px;
+                height: 100px;
+            }
+            .tab_content div{
+            	display: none;
+            }
+			.tab_content .block{
+				display: block;
+			}
+			.bgColor{
+				background-color: blue;
+			}
+		</style>
+		<script>
+		
+			//老套路
+			window.onload = function(){
+				//获取页面元素
+				//通过类获得父级元素的节点
+				var tab_head = document.getElementsByClassName("tab_head")[0];
+				//通过父级元素节点获取子级的标签数组
+				var tabs = tab_head.getElementsByTagName("button");//button数组
+				var tab_content = document.getElementsByClassName("tab_content")[0];
+				var contents = tab_content.getElementsByTagName("div");//content数组
+				//遍历标签数组绑定点击事件
+				for (var i=0;i<tabs.length;i++){
+					tabs[i].onclick = function  (){
+						//再遍历一次数组实现9次循环,自身点击一次,剩余的组内元素也修改一次;
+						for(var j=0;j<tabs.length;j++){
+							//在方法中调用自己的属性是可以用this,所以this跟自己的属性的比较可以作为一个判断条件
+							if(tabs[j] == this){
+								tabs[j].className = 'bgColor';
+								contents[j].className = 'block';
+							}
+							else {
+								tabs[j].className = '';
+								contents[j].className = '';
+							}
+						}
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="tab_head">
+            <button class="bgColor">tab1</button>
+            <button>tab2</button>
+            <button>tab3</button>
+        </div>
+        <div class="tab_content">
+            <div class="block">content1</div>
+            <div>content2</div>
+            <div>content3</div>
+        </div>
+	
+	</body>
+</html>

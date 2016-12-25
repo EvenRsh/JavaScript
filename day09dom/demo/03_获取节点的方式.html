@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			window.onload = function(){
+				//返回的是String类型
+				var box = document.getElementById('box');
+				//var top1 = document.getElementById('top1');
+				
+				
+				//下面的返回的都是类数组 
+				var list = document.getElementsByClassName('list');//整个页面下去寻找
+				var list = box.getElementsByClassName('list');//在#box里面去寻找
+				
+				//节点关系(属性/非方法)
+				//父级: ele.parentNoded
+						//w3c版.parentElementNode			
+				//兄弟: 前一个节点:previousSibling;/后一个节点:nextSibling;//很容易获取到文本节点
+						//w3c版.	previousElementSibling  / nextElementSibling
+				
+				//子级:childNodes //w3c版:children
+				     //fisrtChild //fisrtElementChild
+				     //lastChild //lastElementChild
+				
+				
+			}
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<h1>华语歌曲</h1>
+			<ul class="list">
+				<li id='top1'><a href="#">小苹果</a><span>筷子兄弟</span></li>
+				<li class='minzufeng'><a href="#">最炫民族风</a><span>凤凰传奇</span></li>
+				<li><a href="#">我们屯里的人</a><span>刘德华</span></li>
+				<li><a href="#" id='xiaoxingyun'>小幸运</a><span>田馥甄</span></li>
+			</ul>
+		</div>
+	</body>
+</html>

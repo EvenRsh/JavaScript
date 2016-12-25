@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.clear{
+				zoom:1;
+			}
+			.clear:after{
+				content:'';
+				display:block;
+				clear:both;
+			}
+			.warea{
+				width:500px;
+				height:300px;
+				background:#eee;
+				float:left;
+				margin:20px 0 20px 50px;
+				/*overflow:hidden;*/
+				
+			}
+			textarea,button{
+				margin-left:50px;
+			}
+			.area{
+				margin:auto;
+				width:600px;
+				height:480px;
+				background:#1baacb;
+			}
+			textarea{
+				width:494px;
+				height:100px;
+				display:block;
+			}
+			
+		</style>
+		<script>
+		window.onload = function(){
+			//获取元素
+			var textarea = document.getElementsByTagName("textarea")[0];
+			var btn = document.getElementsByTagName("button")[0]; 
+			var warea = document.getElementsByClassName("warea")[0];
+			var ul = document.getElementsByTagName('ul')[0];
+			ul.style.cssText = 'overflow:auto;width:500px;height:300px;padding:0;margin:0';
+			//问题函数选项:
+			var arr= ['你好吗','你白痴吗','天气真好','吃毛线啊','风萧萧兮易水寒','你讲咩啊']
+			
+			//onclick事件
+			btn.onclick = function(){ 
+				var li = document.createElement("li");
+				ul.appendChild(li);
+				ul.scrollTop = ul.scrollHeight;
+				li.style.cssText = 'list-style:none;margin:10px 0;height:40px;width:100%;overflow:hidden;'
+				var div  = document.createElement("div");
+				div.innerHTML = textarea.value;
+				li.appendChild(div);
+				div.style.cssText = 'float:right;background:#817efa;color:#fff;font-family:"微软雅黑";font-size:20px;height:30px;line-height:30px;border-radius:5px;margin-right:15px;padding:5px;'
+				answer();
+				textarea.value = '';
+				textarea.focus();
+			}
+			var arr1 = ['你好我好大家好','你傻帽吗','风和日丽，万里无云','不吃','壮士一去兮不复还','无法识别....'];
+			//回答函数
+			function answer(){
+				for(i=0;i<arr.length;i++){
+					if(arr[i] == textarea.value){
+						var li = document.createElement("li");
+				ul.appendChild(li);
+				ul.scrollTop = ul.scrollHeight;
+				li.style.cssText = 'list-style:none;margin:10px 0;height:40px;width:100%'
+				li.setAttribute('class','clear');
+				var div  = document.createElement("div");
+				div.innerHTML = arr1[i];
+				li.appendChild(div);
+				div.style.cssText = 'float:left;background:#817efa;color:#ee0645;font-family:"微软雅黑";font-size:20px;height:30px;line-height:30px;border-radius:5px;margin-left:15px;padding:5px;'
+					}
+				}
+			}
+
+		}
+			
+		</script>
+	</head>
+	<body>
+		<div class = 'area'>
+			<div class = 'warea'>
+				<ul class = "clear"></ul>
+			</div>
+			<textarea></textarea>
+			<button>提交</button>
+		</div>
+	</body>
+</html>

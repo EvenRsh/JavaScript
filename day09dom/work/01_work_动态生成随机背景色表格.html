@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>动态生成随机背景色表格</title>
+		<style>
+		
+			table{margin-top:20px;width:800px;border:1px solid #ddd;border-collapse:collapse;}
+		
+			td{border:1px solid #ddd;padding:10px 10px;}
+		</style>
+		<script>
+			//获取页面元素
+			//绑定点击按钮
+			//创建table表格
+			//td的背景用随机颜色
+			
+			//老套路
+			window.onload = function(){
+				//获取页面元素
+				var row = document.getElementsByTagName("input")[0];
+				var line = document.getElementsByTagName("input")[1];
+				var btn = document.getElementById('btn');
+				var tableList = document.getElementById('tableList');
+				//绑定事件
+				btn.onclick = function(){
+					var _row = row.value || 0;
+					var _line = line.value || 0;
+					//循环增加tr
+					for(var i=0; i<_row; i++){
+						var tr = tableList.insertRow(-1);
+						//循环增加td
+						for(var j=0; j<_line; j++){
+							var td = tr.insertCell(j);
+							var bgColor = ranColor();
+							td.style.backgroundColor = bgColor;
+						}
+					}
+					
+					//随机颜色
+					function ranColor(){
+						var str = '0123456789abcdef';
+						var bgColor = '#';
+						for (var i=0;i<6;i++){
+						var idx = parseInt(Math.random()*str.length);
+							bgColor += str[idx];
+						}
+						return bgColor;
+					}
+
+				
+				
+				
+					
+					
+					
+					
+					
+					
+					
+					
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<lable>行</lable>
+		<input type="text" />
+		<lable>列</lable>
+		<input type="text" />
+		<button id="btn">动态生成随机背景色表格</button>
+		<table id="tableList"></table>
+	</body>
+</html>

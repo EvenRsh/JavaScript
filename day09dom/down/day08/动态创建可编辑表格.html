@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>动态生成表格</title>
+	<style>
+		table{margin-top:20px;width:800px;border:1px solid #ddd;border-collapse:collapse;}
+		td,th{border:1px solid #ddd;padding:5px 10px;}
+	</style>
+	<script>
+	window.onload = function(){
+		/*
+			[案例]动态生成表格
+				1)获取子节点：children,lastChild
+				2）新建节点：createElement
+				3）添加节点：appendChild
+				4）删除节点：removeChild
+				5）获取元素属性值：getAttribute()/setAttribute()
+				6）自定义属性：data-*
+		 */
+		
+		var username = document.getElementById('username');
+		var age = document.getElementById('age');
+		var tel = document.getElementById('tel');
+		var qq = document.getElementById('qq');
+		var btnSave = document.getElementById('btnSave');
+		var tableList = document.getElementById('tableList');
+
+		// #tableList表格最后一个<子>节点
+		var tbody = tableList.lastChild;
+		var trs = tbody.children;//得到的就仅仅是html元素节点
+
+		//数据
+		var dataList = [];
+
+		// 绑定点击事件
+		btnSave.onclick = function(){
+			// 获取输入的值
+			var rowData = {username:username.value,age:age.value,tel:tel.value,qq:qq.value};
+			dataList.push(rowData);
+			// 把数据显示在页面上
+			render(dataList);
+		}
+
+		function render(data){
+			tbody.innerHTML = '';
+			for(var i=0;i<data.length;i++){
+				// 新建一行tr
+				var tr = document.createElement('tr');
+
+				// 给tr添加td
+				tr.innerHTML = '<td style="text-align:center">'+(i + 1) + '</td><td>' + data[i].username + '</td><td>' + data[i].age + '</td><td>' + data[i].tel + '</td><td>' + data[i].qq + '</td><td><button class="del">删除</button></td>';
+
+				// 把tr添加到tbody里面
+				tbody.appendChild(tr);
+			}
+
+			// 事件绑定一定要在元素出现后操作
+			var btnDel = tableList.getElementsByClassName('del');
+
+			// 对删除按钮进行遍历
+			for(var i=0;i<btnDel.length;i++){
+				btnDel[i].index = i;
+				// 给删除按钮添加点击事件
+				btnDel[i].onclick = function(){
+					dataList.splice(this.index,1);
+					render(dataList);
+				}
+			}
+
+			//即时编辑
+			var tds = tableList.getElementsByTagName('td');
+			for(var i=0;i<tds.length;i++){
+				// 进入编辑状态
+				tds[i].onclick = function(){
+					var currentTd = this;
+					var input = document.createElement('input');
+					input.type = 'text';
+					input.value = this.innerHTML;
+					
+					//阻止点击冒泡
+					input.onclick = function(e){
+						e.stopPropagation();
+						return false;
+					}
+
+					// 保存退出编辑状态
+					input.onblur = function(){
+						currentTd.innerHTML = this.value;
+					}
+
+					this.innerHTML = '';
+					this.appendChild(input);
+					input.focus();
+
+					
+				}
+
+
+			}
+		}
+	}
+	</script>
+</head>
+<body>
+	<label for="username">姓名</label>
+	<input type="text" id="username" name="username">
+	<label for="age">年龄</label>
+	<input type="text" id="age" name="age">
+	<label for="tel">电话</label>
+	<input type="text" id="tel" name="tel">
+	<label for="qq">QQ号</label>
+	<input type="text" id="qq" name="qq">
+	<button id="btnSave">保存</button>
+	<div class="list">
+		<table id="tableList">
+			<thead>
+				<tr>
+					<th width="40">序号</th>
+					<th width="160">姓名</th>
+					<th width="60">年龄</th>
+					<th width="160">电话</th>
+					<th width="160">QQ号</th>
+					<th width="60">操作</th>
+				</tr>
+			</thead>
+			<tbody></tbody></table>
+		</div>	
+</body>
+</html>

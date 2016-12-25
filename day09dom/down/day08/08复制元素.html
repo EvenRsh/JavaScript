@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>印钞机</title>
+	<script>
+		window.onload = function(){
+			/*var rmb = document.getElementsByTagName('img')[0];
+			var btn = document.getElementsByTagName('button')[0];
+
+			// 点击按钮复制rmb
+			btn.onclick = function(){
+				//不传参表示：只复制当前标签
+				var newRmb = rmb.cloneNode();
+
+				document.body.appendChild(newRmb);
+			}
+
+			rmb.onclick = function(){
+				rmb.src = 'img/100usd.jpg';
+			}
+*/
+
+			// 复制.rmb元素
+			var rmb100 = document.getElementsByClassName('rmb')[0];
+			var btn = document.getElementsByTagName('button')[0];
+
+			btn.onclick = function(){
+				// 参数为true表示深复制：把内容一起复制
+				var newRmb = rmb100.cloneNode(true);
+
+				document.body.appendChild(newRmb);
+			}
+
+
+		}
+	</script>
+</head>
+<body>
+	<div class="rmb">
+		<img src="img/100rmb.jpg">
+		100RMB
+	</div>
+	<button>按钮</button>
+</body>
+</html>

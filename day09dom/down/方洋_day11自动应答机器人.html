@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				margin: 50px auto;
+				width: 600px;
+				border: 1px solid #CCCCCC;
+				padding: 20px 10px 10px 10px;
+				background-color: skyblue;
+				border-radius:8px ;
+				position: relative;
+			}
+			#show{
+				height: 300px;
+				border: 1px solid #CCCCCC;
+				background-color: #efefef;
+				overflow: auto;
+				position: relative;
+			}
+			textarea{
+				display: block;
+				resize: none;
+				height: 100px;
+				width: 574px;
+				margin: 20px auto 10px auto;
+				border: 1px solid #CCCCCC;
+				background-color: #EfEfEf;
+				font-size: 16px;
+				font-family: "微软雅黑";
+				padding: 10px;
+				outline: none;
+			}
+			button{
+				margin-left: 10px;
+			}
+			p{
+				position: absolute;
+				top: 0;
+				left: 10px;
+				height: 80px;
+				width: 180px;
+				border-radius: 0 100px 100px 0;
+				background-color: pink;
+				padding: 10px;
+				font-family: "微软雅黑";
+			}
+		</style>
+		<script type="text/javascript">
+			var oMsg = {
+				"你的名字": "无敌美少女...机器人!",
+				"你的年龄": "保密！",
+				"今天天气如何？": "白天看太阳，晚上看星星。"
+			}
+			window.onload = function(){
+				var show = document.getElementById("show");
+				var btnsend = document.getElementById("btnsend");
+				var textField = document.getElementsByTagName("textarea")[0];
+				btnsend.onclick = function(){
+					//输入内容不为空时
+					if (textField.value.trim()) {
+						//用户信息框
+						var userDiv = document.createElement("div");
+						userDiv.style.cssText = "padding: 10px;line-height: 26px;position: relative;overflow: hidden;";
+						//用户头像
+						var userName = document.createElement("img");
+						userName.src = "img/13.jpg";
+						userName.style.cssText = "width: 26px;height: 28px;float: left;";
+						//用户聊天信息
+						var userSpan = document.createElement("span");
+						userSpan.style.cssText = "background-color: #ccc;display: inline-block;margin-left:20px ;border: 1px solid #bbb;padding: 0 10px;font-family: 微软雅黑;border-radius: 3px;max-width: 486px;float: left;";
+						userSpan.innerHTML = textField.value;
+						//设置小三角 模拟聊天气泡
+						var userqipao = document.createElement("div");
+						userqipao.style.cssText = "position: absolute;width: 8px;height: 8px;transform: rotate(45deg);border-bottom:  1px solid #bbb;border-left: 1px solid #bbb;background-color: #CCCCCC;top: 20px;left: 52px;";
+						//各种插入
+						userDiv.appendChild(userName);
+						userDiv.appendChild(userSpan);
+						userDiv.appendChild(userqipao);
+						show.appendChild(userDiv);
+						//插入完成保证滚动条始终处于最下端
+						show.scrollTop = show.scrollHeight;
+						//机器人应答
+						//机器人应答框
+						var computerDiv = document.createElement("div");
+						computerDiv.style.cssText = "text-align: right;padding: 10px;line-height: 26px;position: relative;margin-right: 15px;";
+						//机器人应答信息
+						var computerSpan = document.createElement("span");
+						computerSpan.style.cssText = "background-color: pink;display: inline-block;margin-right:20px ;border: 1px solid #CCCCCC;padding: 0 10px;font-family: 微软雅黑;border-radius: 3px;";
+						//机器人头像
+						var computerName = document.createElement("img");
+						computerName.src = "img/3.jpg";
+						computerName.style.cssText = "width: 26px;height: 28px;vertical-align: middle;";
+						//模拟机器人聊起气泡
+						var computerqipao = document.createElement("div");
+						computerqipao.style.cssText = "position: absolute;width: 8px;height: 8px;transform: rotate(45deg);border-top:  1px solid #bbb;border-right: 1px solid #bbb;background-color: pink;top: 20px;right: 52px;";
+						//将机器人应答信息插入聊天框
+						var _val = oMsg[textField.value];
+						//设置应答延迟时间，模拟真实聊天，提高用户体验；
+						setTimeout(function(){
+							if (_val) {//存在预设问题
+								computerSpan.innerHTML = _val ;
+							}else{//不存在预设问题
+								computerSpan.innerHTML = "听不懂你在讲什么...";
+							}
+							//各种插入
+							computerDiv.appendChild(computerSpan);
+							computerDiv.appendChild(computerName);
+							computerDiv.appendChild(computerqipao);
+							show.appendChild(computerDiv);
+							//插入完成保证滚动条始终处于最下端
+							show.scrollTop = show.scrollHeight;
+						},1200)
+						//清空输入框信息，并让输入框获得焦点
+						textField.value = "";
+						textField.focus();
+					}
+					else{//输入内容为空时
+						var tips = document.createElement("span");
+						tips.innerHTML = "不能发送空的信息！";
+						//设置提示框样式
+						tips.style.cssText = "font-family: 微软雅黑;font-size: 14px;color: red;padding-left: 15px;position: absolute;";
+						//插入tips标签并保证滚动条处于最下端
+						show.appendChild(tips);
+						show.scrollTop = show.scrollHeight;
+						//1.5s后提示框消失
+						setTimeout(function(){
+							tips.parentElement.removeChild(tips)
+						},1500)
+					}
+				}
+				//窗口抖动
+				var box = document.getElementById("box");
+				var btnshake = document.getElementById("btnshake");
+				btnshake.onclick = function(){
+					var times = 0;
+					var timer = setInterval(function(){
+						times++;
+						var x =parseInt(Math.random()*16)-8;
+						var y =parseInt(Math.random()*16)-8;
+						box.style.cssText = "top:"+x+"px;left:"+y+"px;";
+						if (times == 20) {
+							clearInterval(timer);
+						}
+					},50)	
+					setTimeout(function(){
+						//机器人应答
+						var computerDiv = document.createElement("div");
+						computerDiv.style.cssText = "text-align: right;padding: 10px;line-height: 26px;position: relative;margin-right: 15px;"
+						var computerSpan = document.createElement("span");
+						computerSpan.style.cssText = "background-color: pink;display: inline-block;margin-right:20px ;border: 1px solid #CCCCCC;padding: 0 10px;font-family: 微软雅黑;border-radius: 3px;";
+						var computerName = document.createElement("img");
+						computerName.src = "img/3.jpg";
+						computerName.style.cssText = "width: 26px;height: 28px;vertical-align: middle;";
+						var computerqipao = document.createElement("div");
+						computerqipao.style.cssText = "position: absolute;width: 8px;height: 8px;transform: rotate(45deg);border-top:  1px solid #bbb;border-right: 1px solid #bbb;background-color: pink;top: 20px;right: 52px;";
+						computerSpan.innerHTML = "抖你妹啊！！";
+						computerDiv.appendChild(computerSpan);
+						computerDiv.appendChild(computerName);
+						computerDiv.appendChild(computerqipao);
+						show.appendChild(computerDiv);
+						show.scrollTop = show.scrollHeight;
+					},1050)
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<div id="show">
+			</div>
+			<textarea name="" rows="" cols=""></textarea>
+			<button id="btnsend">发送</button>
+			<button id="btnshake">抖动</button>
+		</div>
+		<p>接受问题：<br />1.你的名字<br />2.你的年龄<br />3.今天天气如何？</p>
+	</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		
+		</style>
+		<script>
+			/*
+			[{
+				label:"用户名",
+				name:"username",
+				type:"text"
+			},{
+				label:"密码",
+				name:"password",
+				type:"password"
+			},{
+				label:"性别",
+				name:"gender",
+				type:"select",
+				value:['男','女']
+			},{
+				label:"爱好",
+				name:"hobby",
+				type:"checkbox",
+				value:['篮球','足球','羽毛球','兵乓球','爬山','购物','旅游','看美女']
+			}, {
+			    label: '是否已婚',
+			    name: 'married',
+			    type: 'radio',
+			    value:['已婚','未婚']
+			}]
+			*/
+			//定义一个数组承接里面的对象内容
+			//提取数组中的元素(这个元素是对象)
+			//用元素对象type属性判断这个对象是什么类型的标签
+			//再有对象拿到属性值给标签附上属性
+			
+			//老套路
+			window.onload = function(){
+				var bigText = [{
+				label:"用户名",
+				name:"username",
+				type:"text"
+				},{
+				label:"密码",
+				name:"password",
+				type:"password"
+				},{
+				label:"性别",
+				name:"gender",
+				type:"select",
+				value:['男','女']
+				}
+				, {
+			    label: '是否约么',
+			    name: 'arrange',
+			    type: 'radio',
+			    value:['约','不约']
+				}
+				,{
+				label:"爱好",
+				name:"hobby",
+				type:"checkbox",
+				value:['篮球','足球','羽毛球','兵乓球','爬山','购物','旅游','看美女']
+				}
+				, {
+			    label: '是否已婚',
+			    name: 'married',
+			    type: 'radio',
+			    value:['已婚','未婚']
+				}
+				];
+				//获取页面元素
+				var form = document.getElementsByTagName('form')[0];
+				//循环遍历数组,保证数组中的每一个对象按顺序插入元素节点
+				for(var i=0;i<bigText.length;i++){
+					var label = document.createElement('label');
+					label.innerHTML = bigText[i].label + ":";
+					label.style.cssText="display: inline-block;width: 80px;text-align: right;line-height:30px";
+					//判断该对象type = text或password;执行插入元素节点
+					if(bigText[i].type == 'text' || bigText[i].type == 'password'){
+						var input = document.createElement('input');
+						input.id = bigText[i].name;
+						input.name = bigText[i].name;
+						input.type = bigText[i].type;
+						form.appendChild(label);
+						form.appendChild(input);
+						//聚焦效果做出来
+						label.setAttribute("for",input.id);
+					}
+					//判断该对象type = radio/checkbox执行插入元素节点
+					else if(bigText[i].type == 'radio' || bigText[i].type == 'checkbox'){
+							form.appendChild(label);
+						for(var j=0; j<bigText[i].value.length;j++){
+							var input = document.createElement('input');
+							var label = document.createElement('label');
+							input.id = bigText[i].name + j;
+							input.name = bigText[i].name;
+							input.type = bigText[i].type;
+							label.innerHTML = bigText[i].value[j];
+							form.appendChild(input);
+							form.appendChild(label);
+							label.setAttribute("for",input.id);
+						}
+					}
+					//判断该对象type = select;执行插入元素节点
+					else if(bigText[i].type == 'select' ){
+						form.appendChild(label);
+						var select = document.createElement('select');
+						select.id = bigText[i].name;
+						select.name = bigText[i].name;
+						form.appendChild(select);
+						for(var k=0; k<bigText[i].value.length;k++){
+							var option = document.createElement('option');
+							option.innerHTML = bigText[i].value[k];
+							select.appendChild(option);
+						}
+					}
+
+					//每插入一个对象的元素节点就插入一个换行
+					var br = document.createElement('br');
+					form.appendChild(br);
+				}
+				
+			}
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<form>
+			
+		</form>
+	</body>
+</html>

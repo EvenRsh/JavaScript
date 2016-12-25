@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{
+				width: 400px;
+				height: 300px;
+				font-size: 30px;
+				border: 1px solid #f00;
+				display: none;
+			}
+			#text1{
+				display: block;
+			}
+
+		</style>
+		<script>
+			
+			window.onload = function(){
+				var btn1 = document.getElementById('btn1');	
+				var btn2 = document.getElementById('btn2');
+				var btn3 = document.getElementById('btn3');
+				var text1 = document.getElementById('text1');
+				var text2 = document.getElementById('text2');
+				var text3 = document.getElementById('text3');
+				aa();
+				function aa(){
+					btn1.style.backgroundColor= 'red';
+				}
+				
+				btn1.onclick =function(){
+					btn1.style.backgroundColor= 'red';
+					btn2.style.backgroundColor= '';
+					btn3.style.backgroundColor= '';
+					text1.style.display = 'block';
+					text2.style.display = 'none';
+					text3.style.display = 'none';
+				}
+				btn2.onclick =function(){
+					btn1.style.backgroundColor= '';
+					btn2.style.backgroundColor= 'red';
+					btn3.style.backgroundColor= '';
+					text1.style.display = 'none';
+					text2.style.display = 'block';
+					text3.style.display = 'none';
+				}
+				btn3.onclick =function(){
+					btn1.style.backgroundColor= '';
+					btn2.style.backgroundColor= '';
+					btn3.style.backgroundColor= 'red';
+					text1.style.display = 'none';
+					text2.style.display = 'none';
+					text3.style.display = 'block';
+				}
+			}
+			
+		</script>
+		
+		
+	</head>
+	<body>
+		<nav>
+			<button id='btn1'>TAB1</button>
+			<button id='btn2'>TAB2</button>
+			<button id='btn3'>TAB3</button>
+			<div id ='text1'>text1</div>
+			<div id ='text2'>text2</div>
+			<div id ='text3'>text3</div>
+		</nav>
+	
+	</body>
+</html>

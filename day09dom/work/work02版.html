@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.tab-head{
+				overflow: hidden;
+			}
+			button {
+                /*border-top: solid cornflowerblue 1px;
+                border-left: solid cornflowerblue 1px;*/
+                width: 50px;
+                height: 25px;
+                margin: 0;
+                float: left;
+                text-align: center;
+            }
+            
+            .tab-content {
+                border: solid blue 1px;
+                width: 152px;
+                height: 100px;
+            }
+            
+            .tab-content div{
+                display: none;
+            }
+            
+            .selected {
+                background-color: red;
+            }
+            
+            .tab-content .show{
+                display: block;
+            }
+			
+		</style>
+		<script>
+			window.onload = function(){
+            var tabs = document.getElementsByClassName('tab-head')[0].getElementsByTagName('button');
+        	var contents = document.getElementsByClassName('tab-content')[0].getElementsByTagName('div');
+
+            (function changeTab() {
+                for(var i = 0, len = tabs.length; i < len; i++) {
+                    tabs[i].onclick = showTab;
+                }
+            })();
+
+            function showTab() {
+                for(var i = 0, len = tabs.length; i < len; i++) {
+                    if(tabs[i] === this) {
+                        tabs[i].className = 'selected';
+                        contents[i].className = 'show';
+                    } else {
+                        tabs[i].className = '';
+                        contents[i].className = '';
+                    }
+                }
+            }
+
+			}
+			
+		</script>
+		
+		
+	</head>
+	<body>
+		 <div class="tab-head">
+            <button class="selected">tab1</button>
+            <button>tab2</button>
+            <button>tab3</button>
+        </div>
+        <div class="tab-content">
+            <div class="show">content1</div>
+            <div>content2</div>
+            <div>content3</div>
+        </div>
+	
+	</body>
+</html>

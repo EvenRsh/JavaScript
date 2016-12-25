@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+	window.onload = function(){
+		/*
+			根据数据生成表单
+			目的：根据数据生成html结构
+				1）生成select下拉框 ==> <label for="">xx</label><select><option></option></select>
+				2）生成多行文本框   ==> <label>xx</label><textarea></textarea>
+				2）checkbox/radio ==> <labe>xx</labe> <label><input type="checkbox">篮球</label>
+				3）其他情况 ==> <label>xxx</label> <input type="text">
+		 */
+		
+		var arr = [{
+                label: "用户名",
+                name: "username",
+                type: "text"
+            }, {
+                label: "密码",
+                name: "password",
+                type: "password"
+            }, {
+                label: "性别",
+                name: "gender",
+                type: "select",
+                value: ['男', '女', '不男', '不女', 'Gay', '妖王']
+            }, {
+                label: "爱好",
+                name: "hobby",
+                type: "checkbox",
+                value: ['篮球', '足球', '羽毛球', '兵乓球', '爬山', '购物', '旅游', '看美女']
+            }, {
+                label: '是否已婚',
+                name: 'married',
+                type: 'radio',
+                value: ['已婚', '未婚']
+            },
+            {
+                label: '简介',
+                name: 'resume',
+                type: 'textarea'
+            }];
+
+
+        // 遍历数据，根据类型生成不同的html结构
+        for(var i=0;i<arr.length;i++){
+        	console.log(arr[i])
+
+        	// 生成一个p标签
+        	var p = document.createElement('p');
+
+        	// 生成label标签
+        	// 每个表单元素都会有一个label标签
+        	var label = document.createElement('label');
+        	label.innerHTML = arr[i].label;
+        	label.for = arr[i].name;
+
+        	var input;
+
+        	// 先判断特殊性
+        	switch(arr[i].type){
+        		case 'select':
+        			input = document.createElement('select');
+        			input.id = arr[i].name;
+        			input.name = arr[i].name;
+
+        			// 生成下拉选项
+        			for(var j=0;j<arr[i].value.length;j++){
+        				var opt = document.createElement('option');
+        				opt.value = arr[i].value[j];
+        				opt.innerHTML = arr[i].value[j];
+
+        				input.appendChild(opt);
+        			}
+        			break;
+        		case 'textarea':
+        			input = document.createElement('textarea');
+        			input.id = arr[i].name;
+        			input.name = arr[i].name;
+        			break;
+        		case 'checkbox':
+        		case 'radio':
+	        		// <label><input type="checkbox">篮球</label>
+
+	        		// 生成一个span标签，用于方式所有的选项
+	        		input = document.createElement('span');
+
+	        		// 循环value值，把所有的选项生成html结构
+	        		for(var j=0;j<arr[i].value.length;j++){
+	        			var item = document.createElement('label');
+		        		var checkbox = document.createElement('input');
+
+		        		// 设置类型
+		        		checkbox.type = arr[i].type;
+		        		checkbox.name = arr[i].name;
+		        		item.appendChild(checkbox);//=> <label><input type="checkbox"></label>
+
+		        		// 创建一个文本节点
+		        		var txt = document.createTextNode(arr[i].value[j]);
+		        		item.appendChild(txt); // => <label><input type="checkbox">篮球</label>
+
+		        		input.appendChild(item);
+	        		}
+	        		break;
+	        	default:
+	        		input = document.createElement('input');
+	        		input.type = arr[i].type;
+
+        	}
+
+
+        	// 把label&input写入p标签
+        	p.appendChild(label);
+        	p.appendChild(input);
+
+
+        	// 把元素写入页面
+        	document.body.appendChild(p)
+        }
+	}
+		
+
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

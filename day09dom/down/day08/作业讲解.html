@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作业讲解</title>
+	<style>
+		.tab{border:1px solid #ddd;width:572px;}
+		.tab header{border-bottom:2px solid #ddd;height:50px;line-height:50px;overflow:hidden;}
+		.tab header span{float:left;padding:0 10px;border-right:1px solid #ddd;}
+		.tab header span.active{background-color:#f60;color:#fff;}
+		.tab img{width:550px;height:307px;}
+		.tab .content{display:none;text-align:center;padding:10px;}
+		.tab .content:first-of-type{display:block;}
+	</style>
+	<script>
+		window.onload = function(){
+			var tab = document.getElementsByClassName('tab')[0];
+			var spans = tab.getElementsByTagName('span');
+			var contents = tab.getElementsByClassName('content');
+
+			// 任何节点都是一个对象
+			// obj = {}
+			// obj.idx = 10
+
+			// 给每个span标签绑定点击事件
+			for(var i=0;i<spans.length;i++){
+				// 给每个span节点添加一个属性idx
+				spans[i].idx = i;
+
+				spans[i].onclick = function(){
+					// 这里的this是什么:点击的span元素
+
+					// 获取当前节点的idx属性
+					console.log(this.idx);
+
+					// 先把所有的span的类名去掉
+					// 先把所有的图片隐藏
+					for(var i=0;i<spans.length;i++){
+						spans[i].className = '';
+						contents[i].style.display = 'none';
+					}
+
+					// 给当前添加高亮效果
+					this.className = 'active';
+
+					// 显示对应的图片
+					contents[this.idx].style.display = 'block';
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="tab">
+		<header>
+			<span class="active">Tab1</span>
+			<span>Tab2</span>
+			<span>Tab3</span>
+		</header>
+		<div class="content"><img src="img/1.jpg"></div>
+		<div class="content"><img src="img/2.jpg"></div>
+		<div class="content"><img src="img/3.jpg"></div>
+	</div>
+</body>
+</html>

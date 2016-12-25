@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			window.onload = function(){
+				var checkAll = document.getElementById("checkAll");
+				var checkInvert = document.getElementById("checkInvert"); 
+				var hobby = document.getElementsByClassName("hobby")[0];
+				
+				var checkboxs = hobby.getElementsByTagName("input");
+				
+				
+				
+			}
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<h1>爱好</h1>
+		<input type="checkbox" id="checkAll" />全选
+		<input type="checkbox" id="checkInvert" />反选
+		<ul class="hobby">
+			<li><input type="checkbox" />写代码</li>
+			<li><input type="checkbox" />玩游戏</li>
+			<li><input type="checkbox" />看电影</li>
+			<li><input type="checkbox" />撩妹</li>
+			<li><input type="checkbox" />撩汉</li>
+			<li><input type="checkbox" />篮球</li>
+			<li><input type="checkbox" />羽毛球</li>
+		</ul>
+	</body>
+</html>

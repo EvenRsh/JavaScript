@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			window.onload = function(){
+				//找出节点
+				//1元素节点:div
+				//2属性节点:class title
+				//3文本节点:测试Div
+				
+				//元素节点
+				var div = document.getElementsByTagName('div')[0];
+				console.log(div.nodeType);//1  元素类型
+				//属性节点
+				var attrs = div.attributes;
+				console.log(attrs[0].nodeType);//2 属性类型
+				
+				//文本节点
+				var txt = div.childNodes[0];
+				console.log(txt.nodeType);//3 文本类型
+			}
+		</script>
+	</head>
+	<body>
+		<div class="content" title='属性节点'>测试Div</div>
+	</body>
+</html>

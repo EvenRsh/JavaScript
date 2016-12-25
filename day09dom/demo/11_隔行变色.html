@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>隔行变色</title>
+		
+		<script>
+			//隔行变色
+			//获取input button div的节点
+			//在div里面创建元素节点.创建的个数为input输入的数字
+			//创建的元素相邻位置的附加背景颜色
+			
+			//老套路
+			window.onload = function(){
+				//获取input button div的节点
+				var input = document.getElementsByTagName('input')[0];
+				var btn = document.getElementsByTagName('button')[0];
+				var content = document.getElementsByClassName('content')[0];
+				
+				//绑定按钮事件 
+				btn.onclick = function(){
+					//创建的元素个数
+					var len = input.value;
+					for(var i=0;i<len;i++){
+						var div = document.createElement('div');
+						div.id = i;
+						div.style.cssText = "height:30px;border:1px solid #0f0";
+						content.appendChild(div);
+						if(i%2 != 0){
+							div.style.cssText = "height:30px;border:1px solid #0f0;background-color:blue";
+						}
+					}
+					
+					
+					
+					
+					
+					
+					
+					
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		
+			
+			
+			
+			
+			
+			
+		</script>
+		
+		
+		
+		
+	</head>
+	<body>
+		<input type="text" />
+		<button>输入</button>
+		<article class="content">
+			
+		</article>
+	</body>
+</html>

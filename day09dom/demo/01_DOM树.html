@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>DOM树</title>
+		<script>
+			//DOM :文档对象模型
+			//页面加载延时
+			window.onload = function(){
+				//获取页面元素
+				var list = document.getElementById('list');
+				//通过标签名获取元素节点
+				//得到一个(类)数组
+				var h1 = document.getElementsByTagName('h1')[0];
+				console.log(h1);
+				
+				var link = document.getElementsByTagName('a');
+				console.log(link[0].innerHTML);
+				
+				//通过类名获取元素
+				var gg = document.getElementsByClassName('gg')[0];
+				
+				
+			}
+		</script>
+	</head>
+	<body>
+		<h1>DOM树</h1>
+		<div id="list">
+			<a href="#" class='gg'>link1</a>
+			<a href="#">百度</a>
+			<a href="#">link2</a>
+		</div>
+	</body>
+</html>

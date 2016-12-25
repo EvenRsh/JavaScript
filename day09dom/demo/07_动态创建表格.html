@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			/*border-collapse: collapse: 是指表格的边框合并*/
+			table{border-collapse: collapse;}
+			table td {border: 1px solid #00d;text-align: center;color:#0d0}
+		</style>
+		<script>
+			window.onload = function(){
+				//创建表格
+				//1)创建table
+				//2)创建tbody
+				//3)创建tr*10
+				//4)创建td*5
+				var body = document.getElementsByTagName('body')[0];
+				var table = document.createElement('table');
+				var tbody = document.createElement('tbody');
+				
+				//循环创建10行表格
+				for (var i=1;i<=10;i++){
+					var tr = document.createElement ('tr');
+					
+					//循环创建单元格
+					for (var j=1;j<=5;j++){
+						var td = document.createElement ('td');
+//						td.innerHTML = '单元格' + i + j;
+						var txt = document.createTextNode("单元格" + i + j);
+						td.appendChild(txt);
+						//td.setAttribute("border","1px solid #00d"); 错误,这里只能加H5标签的属性,非CSS属性 
+						//把td插入tr中
+						tr.appendChild(td);
+					}
+					//添加删除单元格 
+					var td = document.createElement ('td');
+					var btn =document.createElement ('button');
+					btn.innerHTML = '删除';
+					td.appendChild(btn);
+					tr.appendChild(td);
+					
+					
+					tbody.appendChild(tr);
+				}
+				table.appendChild(tbody);
+				body.appendChild(table);
+				
+				//获取按钮的数组
+				var btns = tbody.getElementsByTagName("button");
+				
+				// 遍历btns，给每个按钮绑定点击事件
+				// 删除按钮所在的当前行:tbody.removeChild(tr)
+				for(var i=0;i<btns.length;i++){
+					btns[i].onclick = function (){
+						// this表示所点击的button
+						var currentTr = this.parentElement.parentElement
+						// 删除行.增删都是通过父级节点来操作子节点,所以可以通过自己活动父级节点调用removeChild来删除自己
+						currentTr.parentElement.removeChild(currentTr);
+					}
+				}
+				
+				
+			}
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

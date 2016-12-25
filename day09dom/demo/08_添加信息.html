@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			textarea{display: block;width: 500px;height: 60px;}
+		</style>
+		
+		<script>
+		
+			window.onload = function(){
+//			1)给按钮添加点击事件
+//			2)创建li,把内容写入li
+//			3)把创建的li 写入.datalist
+			var msg = document.getElementsByTagName("textarea")[0];//只要是Elements的都是数组,需要配合下标取得其中的元素
+			var btn = msg.nextElementSibling;//兄弟节点
+			var datalist = document.getElementsByClassName("datalist")[0];//通过类获取到同样类名的数组,配合下标取得其中的元素
+			
+			//1)给按钮添加点击事件
+			btn.onclick = function(){
+				var _msg = msg.value;//表单的内容都是通过value赋予
+				//创建li
+				var li = document.createElement('li');
+				li.innerHTML = _msg;
+				datalist.appendChild(li);
+				
+				//清空输入框
+				msg.value = "";
+				
+				//自动获取焦点
+				msg.focus();
+				
+			}
+			
+			
+				
+			}
+			
+		</script>
+	</head>
+	<body>
+		<textarea ></textarea><button>提交</button>
+		<ul class="datalist"></ul>
+	</body>
+</html>
