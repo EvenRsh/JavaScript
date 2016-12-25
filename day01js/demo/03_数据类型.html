@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>数据类型</title>
+		<script>
+//			JS的数据类型
+			/*
+			 * Boolean 布尔类型
+			 * Number 数值类型
+			 * String 字符串类型
+			 * Array 数组类型
+			 * Object 对象类型
+			 * Undefined(未定义) Null(空对象): 特殊类型
+			 */
+			
+			//第一个undefined表示age的值,第二个是undefined表示类型的值
+			
+			var age;
+			console.log(age);//undefined
+			console.log(typeof age);//undefined
+			
+			//Boolean: 布尔类型,只有两个值true, false;
+			//第一个是Boolean类型变量isMe的值,第二个是Boolean类型的值
+			var isMe = false;
+			console.log(isMe); //flase
+			console.log(typeof isMe); //boolean
+			
+			//Boolean(); :把任意其他类型的值转换成Boolean的值;
+			var str = '1';
+			var isTrue = Boolean(str);
+			console.log(isTrue);
+			
+			/*
+			 * String: 非空字符串为真true,空字符串则为假flase
+			 * Number: 0和NaN(Not a number)为false 其他则为true
+			 * Object: 非空对象为true null为false
+			 * Undefined: undefined为false
+			 */
+			
+			//Null类型: 只有一个值null,object
+			var b = null;
+			console.log(b);//null
+			console.log(typeof b);//object
+			
+			
+			
+			//Number类型:数值类型
+			var age = 22;
+			console.log(age);//22
+			console.log(typeof age);//number
+			
+			//String类型 :字符串类型
+			var str = "hello world";
+			console.log(str);// hello world
+			console.log(typeof str);//string
+			
+			//Array类型 :数组类型
+			var arr = [1,2,3,4,"张三"];
+			console.log(arr);//1,2,3,4 ,张三
+			console.log(typeof arr);//object
+			
+			
+			//Object 对象类型 
+			var obj = {name:"李四",age:23,sex:"其他"};
+			console.log(obj);//[object object]
+			console.log(typeof obj);// object
+			
+			
+			//Function类型 :函数
+			//function可以定义一个函数,func是函数名,
+//			var func = function(){};
+			function func(){};
+			console.log(func);
+			console.log(typeof func);
+			
+			
+			var a1;
+			var a2 = null;
+			//=    表示赋值
+			//==   表示值相等
+			//===  表示值相等,类型也要相等,叫做恒等(全等)
+			console.log(a1 == a2); //true 表示值相等
+			console.log(a1 === a2);//false 表示类型不一样
+			
+			//Number类型
+			// 整形 和 浮点型
+			var age = 100;
+			console.log(age);//100
+			console.log(typeof age);//number
+			
+			//var age = 2.8;
+			var age = .8
+			console.log(age);//0.8
+			
+			//这里将浮点型的8.0自动转换成了整型8;
+			//整形数值所占的内存:4字节;
+			//浮点型所占的内存:8字节;
+			var age =8.0
+			console.log(age);//8
+			
+			//1位 = 0(或1)
+			//1字节 = 8位
+			//1kb = 1024byte(1024字节)
+			//1Mb....
+			
+			
+			//科学计数法
+			var n = 4.12e6;
+			console.log(n);//4120000
+			
+			var n = 4.12e-6;
+			console.log(n);//0.00000412
+			
+			//正无穷大
+			var a = 1/0;
+			console.log(a);//Infinity:正无穷大,-Infinity:负无穷大
+			
+			//NaN(Not a number):不合法的数值
+			var b = 1/0 * 0;
+			console.log(b);//NaN
+
+			var c = 0/0;
+			console.log(c);//NaN
+			
+			//isNaN(): 判断是否不合法的数值
+			console.log(isNaN(NaN));//true
+			console.log(isNaN(23));//false , 23是合法数值
+			console.log(isNaN("23"));//false , 字符串"23"是合法数值
+			console.log(isNaN("张三"));//true , 不是合法数值
+			console.log(isNaN(true));//false , true(1)是合法数值
+			console.log(isNaN(false));//false , false(0)是合法数值
+
+			console.log(isNaN(NaN) == isNaN("张三"));
+			
+			
+			//类型转换
+			//parseInt(): 转换成整型
+			//parseFloat():转换成浮点型
+			var str = "22";
+			var a1 = parseInt(str);
+			console.log(a1);//22
+			console.log(typeof a1);//number类型
+			
+			var str = "22a33";
+			var a2 = parseInt(str);
+			console.log(a2);//22
+			console.log(typeof a2);//number类型
+			
+			
+			var str = "44.2aa33";
+			var a3 = parseFloat(str);
+			console.log(a3);//11
+			console.log(typeof a3);//number类型
+			
+			
+			var str = "44.2aa33";
+			var a4 = parseInt(str);
+			console.log(a4);//44
+			console.log(typeof a4);//number类型
+			
+			console.log(Math.round(33.4));//33
+			console.log(Math.round(33.5));//34
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

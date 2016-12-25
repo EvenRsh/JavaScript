@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>变量</title>
+		<script>
+			//变量 : 使用var定义变量(varible),可以改变的量
+			//我们可以使用变量存储数据
+			var age; //变量名字为age
+			console.log(age);//undefined,表示定义了一个变量,但没有赋值
+			
+			//给age赋一个值22,=表示赋值
+			age = 22;
+			console.log(age);
+			
+			//定义一个变量age1,并赋值23
+			var age1 = 23;
+			console.log(age1);
+			
+			//定义相同名称的变量,后面的覆盖前面的变量,不会报错
+			var age = 30;
+			console.log(age);
+			
+			var name1 = "张三" ,
+				age = 33 ,
+				sex = "其他";
+			console.log(name1 + "," + age + "," + sex);//张三,33,其他
+			
+			//js中的变量都是弱类型
+//			typeof :　检查数据类型
+			var a = 22;
+			console.log(a);
+			console.log(typeof(a));//number 数据类型 
+			
+			a = "李四";
+			console.log(a);
+			console.log(typeof(a));
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

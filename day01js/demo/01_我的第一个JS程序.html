@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>我的第一个JS程序</title>
+		
+		<!--css代码-->
+		<style></style>
+		
+		<!--Js代码-->
+		<script type="text/javascript">
+			//弹出一个警告框
+			//alert() : JS函数
+			//"我是一个警告框" : JS字符串, 单引号或双引号表示字符串
+			//; 分号表示这一条js语句的结束,JS的分号可以不写(js,swift),其他语言基本都要写.建议写上分号结束语句
+			//alert("我是一个警告框");
+			
+			//将内容显示在页面中
+			//document.write("我是显示在html里面的");
+			//document.write("我可以识别<br>html标签");
+			
+			//控制台打印
+			console.log("人不努力,和咸鱼有什么区别~ ---周星驰");
+			
+		</script>
+		<!--第二个script标签-->
+		<script>
+			console.log("我是第二个script标签中输出的")
+		</script>
+		
+		<!--引入外部js文件-->
+		<script src="01_demo.js">
+			//引用外部的js文件的script不会执行其内嵌的代码
+			console.log("我是在导入了外部js文件的script标签中输出的");
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
