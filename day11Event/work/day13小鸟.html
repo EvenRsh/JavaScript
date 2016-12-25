@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			img{
+				width: 120px;
+				height: 90px;
+				position: absolute;
+				transition:transform  1s;
+			}
+			.turnaround{
+				transform: rotateY(180deg);
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var maxHeight = window.innerHeight;
+				var maxWidth = window.innerWidth;
+				var bird = document.getElementById("bird");
+				//键盘事件
+				document.onkeydown = function(e){
+					e = e || window.event;
+					if (e.keyCode == 38) {//上
+						if (bird.offsetTop<=-90) {
+							bird.style.top = maxHeight-90 + "px"
+						}
+						bird.style.top = bird.offsetTop - 10 + "px";
+					}
+					if (e.keyCode == 39) {//右
+						if (bird.offsetLeft>=maxWidth-120) {
+							bird.style.left = 0 + "px"
+						}
+						bird.className = "turnaround";
+						bird.style.left = bird.offsetLeft + 10 + "px";
+					}
+					if (e.keyCode == 40) {//下
+						if (bird.offsetTop>=maxHeight-90) {
+							bird.style.top = 0 + "px"
+						}
+						bird.style.top = bird.offsetTop + 10 + "px";
+					}
+					if (e.keyCode == 37) {//左
+						if (bird.offsetLeft<=-120) {
+							bird.style.left = maxWidth-120 + "px"
+						}
+						bird.className = "";
+						bird.style.left = bird.offsetLeft - 10 + "px";
+					}
+				}
+				//鼠标拖拽事件
+				bird.onmousedown = function(evt){
+					evt = evt || window.event;
+					evt.preventDefault();
+					document.onmousemove = function(e){
+						e = e || window.event;
+						bird.style.left = e.clientX- evt.offsetX +"px";
+						bird.style.top = e.clientY- evt.offsetY +"px";
+					}
+				}
+				document.onmouseup = function(){
+					document.onmousemove = ""
+				}
+			}
+		</script>
+		
+	</head>
+	<body>
+		<img id="bird" src="img/bird.jpg"/>
+	</body>
+</html>

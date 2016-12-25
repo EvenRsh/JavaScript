@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//事件:
+			//格式:
+			//内联方式:<div onclick = 'text()'></div>
+			//推荐: div.onclick = function(){}
+			//事件类型:
+			//鼠标:
+			//单击:onclick 双击:ondblclick
+			//移入:onmouseover ===> onmoseenter
+			//移出:onmouseout ===>onmouseleave
+			//移动:onmousemove /尽量不能在这个事件里定义变量
+			
+			//右键事件:oncontextmenu/右键菜单展开之前
+			
+			//键盘
+			//onkeydown
+			//onkeyup
+			//onkeypress
+			
+			
+			
+			//表单
+			//UI
+			//其他事情
+			
+			
+			//event对象:包含事件发生时的信息
+			//获取:
+			//标准:事件处理函数的第一个参数
+			//ie8-:window.event
+			
+			//div.onclick = function(e){
+			//	e = e || window.event;
+			//}
+			
+			//鼠标按钮:
+			//e.button  ==>0:左键,1:滚轮,2:右键
+			
+			//鼠标的位置:
+			//e.clientX,clientY;范围:可视范围
+			//e.screenX,escreenY;鼠标在设备屏幕中的坐标
+			
+			//event 对象
+			//target:
+			//事件委托:事件冒泡原理
+			//捕捉阶段 ==> 冒泡阶段(默认)
+			
+			//div.onmousedown = function(){
+				
+//			}
+			//事件监听
+			//div.addEventListener('mousedown',hd,true);
+			
+			//移除div.removeEventListener('mousedown',hd,true);
+			/*function hd(){
+			 * 	
+			 * }
+			 */
+			
+			//拖拽:
+			//1)鼠标按下 + 鼠标移动
+			//2)鼠标松开后,移除鼠标移动事件
+			
+			
+
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

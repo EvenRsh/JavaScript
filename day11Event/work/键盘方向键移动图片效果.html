@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			#box{
+				width: 100px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				transition:transform  1s;
+				/*transform:rotateY(180deg);*/
+			}
+			img{
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+		
+		<script>
+			/*
+			 * 1)给#box绑定keydown事件;
+			 * 2)在#box摁下改变left top
+			 
+			*/
+			window.onload = function(){
+				var box = document.getElementById('box');
+				var maxWidth = window.innerWidth;
+				var minHeight = window.innerHeight;
+				
+				
+				//左:37 上38右39下40(ascii码)
+					var i =0;
+					var j =0;
+				document.body.onkeydown = function(e){
+//					console.log(e.keyCode);
+					e = e || window.event;
+					/*if(e.keyCode === 37){
+						i-=10;
+						box.style.left =i+'px';
+						box.style.transform = "";
+						if(i<=0){
+								i = window.innerWidth;
+						}
+					}
+					else if(e.keyCode === 38){
+						j-=10;
+						box.style.top =j+'px';
+						box.style.transform = "rotate(90deg)";
+						if(j<=0){
+								j = window.innerHeight;
+						}
+					}
+					else if(e.keyCode === 39){
+						i+=10;
+						box.style.left =i+'px';
+						box.style.transform = "rotateY(180deg)";
+						if(i>=window.innerWidth){
+								i = 0;
+						}
+					}
+					else if(e.keyCode === 40){
+						j+=10;
+						box.style.top =j+'px';
+						box.style.transform = "rotate(270deg)";
+						if(j>=window.innerHeight){
+								j = 0;
+						}
+					}*/
+					
+					switch(e.keyCode){
+						case 37 :
+							i-=10;
+							box.style.left =i+'px';
+							box.style.transform = "";
+							if(i<=-box.offsetWidth){
+									i = maxWidth-box.offsetWidth;
+							}
+							break;
+						case 38 :
+							j-=10;
+							box.style.top =j+'px';
+							box.style.transform = "rotate(90deg)";
+							if(j<=-box.offsetHeight){
+									j = minHeight-box.offsetHeight;
+							}
+							break;
+						case 39:
+							i+=10;
+							box.style.left =i+'px';
+							box.style.transform = "rotateY(180deg)";
+							if(i>=maxWidth+box.offsetWidth){
+									i = -box.offsetWidth;
+							}
+							break;
+						case 40:
+							j+=10;
+							box.style.top =j+'px';
+							box.style.transform = "rotate(-90deg)";
+							if(j>=minHeight+box.offsetHeight){
+								j = -box.offsetHeight;
+							}
+							break;
+						default:
+							break;
+					}
+				}
+				
+
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<div id="box"><img src="img/bird.jpg"  /></div>
+	</body>
+</html>
