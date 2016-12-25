@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>DOM的简单操作</title>
+		<script>
+			//在输入框中输入数字,点击按钮调用函数判断奇偶数?
+			//onclick: 单击事件
+			//document.getElementById(): 通过id值获取元素节点的对象
+			//innerHTML: 赋值或获取元素的内容
+			//oInput.value ="";清空元素节点的内容;
+			//onclick="btnClick()": 点击调用btnClick函数
+			
+			function btnClick(){
+				console.log("点击了按钮");
+				var oInput = document.getElementById("a");//获取id=a的整个input的元素节点
+				var val = oInput.value;//将元素节点的内容赋值给val,一般是字符串类型
+				oInput.value ="";//清空元素节点的内容;
+				console.log(val);//字符串类型的value值
+				
+				var oP = document.getElementById("b");//获取id=b的元素节点p
+				val = val - 0;//转换成数值类型;
+				if(val%2 ==0) {
+					oP.innerHTML = "是偶数";
+				}
+				else {
+					oP.innerHTML = "是奇数";
+				}
+				
+				 
+			}
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<input type="text" placeholder="请输入数字" id="a"/>
+		<input type="button" value="按钮" onclick="btnClick()"/>
+		<p id="b">0</p>
+	</body>
+</html>

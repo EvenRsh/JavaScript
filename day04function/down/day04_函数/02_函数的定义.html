@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			
+			//函数function
+			//内置函数: alert(), console.log(), docuemnt.write(), Boolean(), isNaN()....
+			//自定义函数: 自己写的函数
+			
+			//简单的定义
+			/*
+			 function 函数名(){
+			 	JS代码;
+			 }
+			 */
+			//function: 是定义函数的关键字 
+			//printOut: 是函数名称(自己给一个名字)
+			function printOut(){
+				console.log("hello world!");
+				console.log("hello world!");
+			}
+			//注意: 函数不会自动执行
+			
+			//函数调用: 函数名()
+			printOut();
+			
+			
+			//函数的标准定义
+			/*
+			 function 函数名(参数1, 参数2, ...){
+			 	JS代码;
+			 	return 返回值;
+			 }
+			 */
+			
+			//sum: 函数名
+			//a 和 b: 是参数, 没有类型修饰符
+			//return : 关键字
+			function sum(a, b){
+				var s = a + b; //求和
+				console.log(a);
+				console.log(b);
+				return s; //返回s
+			}
+			var result = sum(3,2); //1会赋值给a(a=1), 2会赋值给b(b=2)
+			console.log(result);
+			
+			
+			//1, 写一个函数计算1到n的和, 并返回结果打印出来;(n为函数参数)
+			function sum1(n){
+				var s = 0;
+				for (var i=1; i<=n; i++) {
+					s += i;
+				}
+				return s; //返回1~n的和
+			}
+			var ret = sum1(100);
+			console.log( ret );
+			
+			
+			
+			//2, 写一个函数计算n的阶乘,并返回结果打印出来
+			function func(n){
+				var s = 1;
+				for(var i=1; i<=n; i++){
+					s *= i;
+				}
+				return s;
+			}
+			var ret = func(10);
+			console.log(ret);
+			
+			//break: 跳出循环, 后面的代码不会执行了
+			//return: 返回值,并跳出函数, 后面的代码不会执行了
+			//3, 写一个函数计算两个数的最小公倍数; 并返回结果打印出来
+			function func2(a, b){
+				var max = a>b ? a : b;
+				for (var i=max; i<=a*b; i++){
+					if (i%a == 0 && i%b == 0){
+						console.log("return 之前的代码");
+						return i;  //后面的代码不会执行了
+						console.log("return 之后的代码");
+					}
+				}
+			}
+			var ret = func2(9, 6);
+			console.log(ret); //18
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

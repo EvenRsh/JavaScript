@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			
+			//1, 打印1~100的除了7的倍数和带7的数, 7, 17,27, 37, 70,71,72
+			for (var i=1; i<=100; i++){
+				if (i%7 == 0 || i%10 == 7 || parseInt(i/10) == 7 ) {
+					continue;
+				}
+				console.log(i);
+			}
+			
+			//2, 通过do-while，找出1000以内所有的7的倍数
+			var i = 1;
+			do {
+				if (i%7 == 0){
+					console.log(i);
+				}
+				i++;
+			} while(i <= 1000)
+			
+			//3, 求5! (1*2*3*4*5) 
+ 			//4, 求1!+2!+3!+4!+5! 
+			var s = 0;
+			var n = 1; //i的阶乘
+			for (var i=1; i<=5; i++) {
+				
+				/*
+				var n = 1; //乘积, i的阶乘
+				for(var j=1; j<=i; j++){
+					n = n*j;
+				}
+				*/
+				
+				n = n * i;
+				
+				s += n;
+			}
+			console.log(s);
+			
+			
+			//5, 找出所有的水仙花数，三位数，各位立方和等于该数本身。
+        	//   如: 153 = 1 ^ 3 + 5 ^ 3 + 3 ^ 3 
+			for (var i=100; i<1000; i++){
+				var a = parseInt(i/100); //百位
+				var b = parseInt(i/10)%10; //十位
+				var c = i%10; //个位
+				
+				if (a*a*a + b*b*b + c*c*c == i){
+					console.log(i + "是水仙花数");
+				}
+			}
+			
+			//6, 输入任意两个数，
+			//如果第一个数小，从第一个数打印到第二个数，
+			//如果第二个数小，从第二个数打印到第一个数
+			var a = 2;
+			var b = 10;
+			
+			var min = a>b ? b : a;
+			var max = a>b ? a : b;
+			
+			for (var i=min; i<=max; i++) {
+				console.log(i);
+			}
+			
+			
+			// 7,  输入一个数，判断是否是偶数 
+ 			//8,  输入两个数，求两个数的最大公约数（*****）
+ 			/*
+			        如: 12和8的最大公约数是4
+			        提示: 能够同时整除两个数的最大数          
+			         1, 先找出两个数中最小的那个数, 
+			         2, 最小数--, 找出能被两个数整除的数(退出循环break)
+			*/
+			//24 36 : 1,2,3,4,6,12
+			var a = 24;
+			var b = 36;
+			var min = a>b ? b : a; //较小数
+			for (var i=min; i>=1; i--) {
+				if (a%i == 0 && b%i == 0){
+					console.log(i); //12
+					break; //跳出循环
+				}
+			}
+			
+			// 9,  输入两个数，求两个数的最小公倍数（****）
+			/*
+			        如: 9和6的最小公倍数是18
+			         1, 先找出两个数中的最大数
+			         2, 最大数++，找出能被两个数整除的数(退出循环)
+			*/
+			//12 6: 18, 36, ....
+			var a = 9;
+			var b = 6;
+			var max = a>b ? a : b;
+			for (var i=max; i<=a*b; i++){
+				if (i%a == 0 && i%b == 0){
+					console.log(i);
+					break;
+				}
+			}
+			
+			while(max) {
+				if (max%a == 0 && max%b == 0){
+					console.log(max);
+					break;
+				}
+				max++;
+			}
+			
+			
+			/*
+			 10,  输入两个数n，a，如果n==3， a == 2；
+			       输出 2 + 22 + 222 的值。（不用输出式子）（****）
+			      如: n == 4， a == 3；
+			      输出 3 + 33 + 333 + 3333的值。
+			      提示: 1、n = 3,相加三次,每次相加比前一次相加的数,多一位
+               		 2、每次多的这个位数的值为a,  3, 3*10+3(33), 33*10+3(333),...
+			 * */
+			var n = 4;
+			var a = 3;
+			
+			var s = 0; //和
+			var m = 0; 
+			for (var i=1; i<=n; i++){ //循环n次
+				m = m*10 + a;
+				//console.log(m);
+				s += m;
+			}
+			console.log(s); //3702
+			
+			
+			// 11, 五位数中，对称的数称为回文数，找出所有的回文数。
+      		//     如: 12321
+			for (var i=10000; i<100000; i++) {
+				var a = parseInt(i/10000); //万位
+				var b = i%10; //个位
+				var c = parseInt(i/10)%10; //十位
+				var d = parseInt(i/1000)%10; //千位
+				
+				if (a==b && c==d){
+					console.log(i + "是回文数");
+				}
+				
+			}
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

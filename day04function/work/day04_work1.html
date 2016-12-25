@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>work</title>
+		<script>
+			//2,  写个函数计算所有传入参数相乘的结果(参数数量不定)
+			function mul() {//n个参数相乘的函数
+				var m = 1;//借用变量存储循环体的值
+				for (var i=0; i<arguments.length; i++){//输入多少个参数,就执行多少次循环
+					m *=arguments[i];//每次循环,都与前面的值进行运算
+				}
+				return m;//返回值,将m赋值给mul();
+			}
+			var ret = mul(-10,1,2,3,4,9);
+			console.log(ret);
+
+			
+			//3,  写个函数实现加减乘除运算(两个操作数, 一个操作符)
+			//通过三个参数实现减乘除运算的函数
+			function cal(a,b,c){//赋予三个参数,两个操作数, 一个操作符
+				var s = 0;//定义一个变量,作为返回值存储
+				if(c == "+"){//通过操作符的判断,将两个操作数的参数进行运算
+					s = a + b;
+				}
+				else if( c == "-") {
+					s = a - b;
+				}
+				else if( c == "*") {
+					s = a * b;
+				}
+				else if( c == "/") {
+					s = a / b;
+				}
+				return s;//返回值
+			}
+			var ret = cal(5,10,"*");
+			console.log(ret);
+			
+			
+			
+			//4,  写个函数实现n的阶乘
+			//实现n的阶乘的函数
+			function fac(n) {
+				var s = 1;//定义变量存储返回值
+				for (var i=1; i<=n; i++){//n的阶乘,n个循环
+					s *= i;//每次循环与上次循环的结果运算
+				}
+				return s;//返回值
+			}
+			var ret = fac(3);
+			console.log(ret); 
+			
+			//5,  找出0-100之间7的倍数，和包含7的数字
+			function mue(a,b) {//赋予两个参数,
+				var min = a>b ? b : a;//比较参数大小找区间
+				var max = a>b ? a : b;//
+				for (var i=min; i<=max; i++) {//循环次数为区间大小
+					if (i == 0) {
+						continue;//跳过0整除的情况
+					}
+					else if (i%7 == 0 || i%10 == 7 || parseInt(i/10) == 7) {
+						console.log(i);
+					}
+				}
+			}
+			mue(0,100);
+			 
+			
+			
+			//6,  不用循环，计算0-100以内的数字和
+			//第一次 :sum(2), 2+sum(1)
+			//第一次 :sum(2), 2 + 1
+			function sum(n) {
+				if(n == 0) {
+					return 0;
+				}
+				n=n+sum(n-1);
+				return n;
+			}
+			var ret = sum(100);
+			console.log(ret);
+			
+			
+			
+			//在输入框中输入数字,点击按钮调用函数判断奇偶数?
+			//onclick: 单击事件
+			//document.getElementById(): 通过id值获取元素节点的对象
+			//innerHTML: 赋值或获取元素的内容
+			//oInput.value ="";清空元素节点的内容;
+			//onclick="btnClick()": 点击调用btnClick函数
+			//7,  制作一个简易计算器（计算两个数的加减乘除, 带可手动输入数字和运算符）
+			function btnClick (){
+				console.log("点击运算");
+				var oA = document.getElementById("ipt1");
+				var valA = oA.value;
+				//console.log(valA);
+				valA -=0;//转换类型
+				var oB = document.getElementById("ipt3");
+				var valB = oB.value;
+				//console.log(valB);
+				valB -=0;//转换类型
+				var oC = document.getElementById("ipt2");
+				var valC = oC.value;
+				//console.log(valC);
+				var a = valA;
+				var b = valB;
+				var c = valC;
+				var s=cal(a,b,c);
+				console.log(s);
+				var oOut = document.getElementById("opt");
+				oOut.innerHTML = s;
+				oA.value = "";
+				oB.value = "";
+				oC.value = "";
+			}
+			
+			
+			//8,  兔子繁殖问题，设有一对新生兔子，从第四个月开始他们每个月, 月初都生一
+			//对兔子,  新生的兔子从第四个月月初开始又每个月生一对兔子按此规律，并假定
+			//兔子没有死亡, n(n<=20)个月月末共有多少对兔子？
+			/*
+			        一月大       二月大     三月大     四月大
+			 1     1       0       0       0         1
+			 2     0       1       0       0         1
+			 3     0       0       1       0 		 1
+			 4     1       0       0       1         2
+			 5     1       1       0       1         3
+			 6     1       1       1       1         4
+			 7     2       1       1       2         6   
+			 8     3       2       1       3         9
+			 9     4       3       2       4         13
+			 ...
+			 
+			 */
+			//fn(n) = fn (n-1) + fn (n-3); (n>3);
+			//n<= 3 fn(n)=1
+			
+			
+			
+			/*
+			
+			 1 	2 	3 	4 	 5 	  6 	  7 	  8  		9  	     10            11              12
+			 1 	1 	1  	2 	 3 	  4 	  6 	  9 	   13 	     18            24              31
+			            2+0  3+0  4+0    5+1    6+2+1   7+3+2+1   8+4+3+2+1   9+5+4+3+2+1   10+6+5+4+3+2+1
+			 
+			 
+			 
+			 f(n)=f(n-2)+f(n-6)+f(n-7)....
+			 */
+			
+			
+			function f(n){
+				if(n<=3) {//三个月的成长期~都是只有一对兔子
+					return 1;
+				}
+				
+				return f(n-3)+f(n-1);
+			}
+			var ret = f(6);
+			console.log(ret);
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<input type="text" id="ipt1" placeholder="a"/><br />
+		<input type="text" id="ipt2" placeholder="运算符"/><br />
+		<input type="text" id="ipt3" placeholder="b"/><br />
+		<input type="button" value="=" onclick="btnClick()" />
+		<span id="opt" >0</span>
+		
+	</body>
+</html>

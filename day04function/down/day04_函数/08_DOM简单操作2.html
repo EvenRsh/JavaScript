@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			
+			//点击搜索按钮调用函数打印出文本框内容, 再清空文本框的内容
+			
+			function btnClick(){
+				
+				var oInput = document.getElementById("a"); //获取输入框的元素节点
+				var val = oInput.value; //获取输入框的内容
+				console.log("输入框的内容是:" + val);
+				
+				oInput.value = ""; //清空输入框内容
+			}
+			
+		</script>
+	</head>
+	<body>
+		<input type="text" value="" placeholder="请输入电影名" id="a" />
+		<input type="button" value="搜索" onclick="btnClick()" />
+	</body>
+</html>

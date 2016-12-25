@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//1,写一个函数判断一个年份是不是闰年
+			function year1(n){
+				if(n%4==0 && n%100!=0 || n%400==0){
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			var ret = year1(2017);
+			var result = ret ? "是闰年":"是平年";
+			console.log(result);
+
+
+			
+			
+			
+			
+			//2,写一个函数判断一个数是不是素数(又称质数,除了1和本身以外不再有其他数整除)
+			function prime(n){
+				for (var i=2; i<n; i++){
+					
+					if(n%i == 0) {
+						return false;
+					}
+				}
+				return true;
+			}
+			
+			var ret = prime(123); 
+			console.log(ret?"是素数":"不是素数")
+			
+			//3, 年月日分别为自定义函数的参数，判断某一个日期是否为合法的日期;;
+			//如:  2016年12月33日不是合法的日期
+			//2016年11月13日是合法的日期
+			
+			function func2(year,month,day){
+				if(month<1 || month>12) {//月份在1~12
+					return false;
+				}
+				
+				var d = 30;//默认每个月的天数是30天
+				if (month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12){//31天的月份
+					d = 31;
+				}
+				else if (month == 2) {
+					if (year1(year) ){//调用闰年判断函数,闰年2月29天;
+						d = 29;
+					}
+					else{
+						d = 28;//其余年份2月是28天
+					}
+				}
+				
+				if (day > d) {
+					return false;//天数大于d的不合法
+				}
+				return true;//不能进入上述条件的均为true;
+			}
+			
+			var ret = func2(2016,5,31);
+			console.log(ret ? "是合法的" : "不是合法的");
+
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

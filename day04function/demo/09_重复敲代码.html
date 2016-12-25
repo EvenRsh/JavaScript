@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+		
+			//1,  课堂代码写一遍,    掌握函数的定义,调用, 能够灵活使用函数
+			//2,  写个函数计算所有传入参数相乘的结果(参数数量不定)
+			function fn(){
+				var mul = 1;
+				for (var i=0; i<arguments.length;i++) {//arguments表示输入参数的数组
+					//ECMAScript  中的参数在内部是用一个数组(arguments)来表示的。
+					//函数接收到的始终都是这个数组
+					mul *= arguments[i]; 
+				}
+				return mul;
+			} 
+//			var s = fn(1,2,3,4,5,6);
+//			console.log(s);
+			console.log(fn(1,3,2,4,5));
+			//3,  写个函数实现加减乘除运算(两个操作数, 一个操作符)
+			function fn1(a,b,p){
+				
+//				if (p == "+"){
+//					return a+b;
+//				}
+//				else if(p == "-"){
+//					return a-b;
+//				}
+//				else if(p == "/"){
+//					return a/b;
+//				}
+//				else if(p == "*"){
+//					return a*b;
+//				}
+//				else{
+//					return "错误输入";
+//				}
+				switch(p){
+					case "+":
+					return a+b;
+					case "-":
+					return a-b;
+					case "*":
+					return a*b;
+					case "/":
+					return a/b;
+					default:
+					return "错误输入"
+				}
+				
+			}
+			console.log(fn1(3, 6, "/"));//0.5
+			
+			
+			//4,  写个函数实现n的阶乘
+			function fn2(n){
+				var temp =1;
+				for (var i=1; i<=n; i++){
+					temp *=i;
+				}
+				return temp;
+			}
+			console.log(fn2(8));//40320
+			//递归
+			function fnc(n){
+				if(n==1 || n==0){
+					return 1;
+				}
+				return n*fnc(n-1);
+			}
+			console.log(fnc(8));//40320
+			
+			
+			//5,  找出0-100之间7的倍数，和包含7的数字
+			function fn3(a,b){
+				var min=a>b?b:a;
+				var max=a>b?a:b;
+				var arr = [];
+				var temp = 0;
+				for (var i =min; i<=max;i++) {
+					temp = i;
+					if(i!=0 && i%7 == 0 || temp%10 == 7 ) {
+						arr.push(i);
+					}
+					temp = parseInt(i/10);
+				}
+				return arr;
+			}
+			console.log(fn3(0,100)); 
+			
+			
+			
+			//6,  不用循环，计算0-100以内的数字和
+			//递归函数
+			function fn4(n){
+				if(n == 0){
+					return 0;
+				}
+				return n+fn4(n-1);
+			}
+			console.log(fn4(100));
+			
+			
+			//7,  制作一个简易计算器（计算两个数的加减乘除, 带可手动输入数字和运算符）
+			//8,  兔子繁殖问题，设有一对新生兔子，从第四个月开始他们每个月, 月初都生一
+			//对兔子,  新生的兔子从第四个月月初开始又每个月生一对兔子按此规律，并假定
+			//兔子没有死亡, n(n<=20)个月月末共有多少对兔子？
+			function fn5(n){
+				if (n<=3){
+					return 1;
+				}
+				return fn5(n-1)+fn5(n-3);
+			}
+			console.log(fn5(9));
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

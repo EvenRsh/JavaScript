@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>作用域</title>
+		<script>
+			//作用域	:局部变量,全局变量
+			
+			function sum(a, b){//形参
+				var n = 4;
+			}
+			sum(3,4);//实参
+			//在函数内部定义的变量(包括形参)是局部变量
+			
+			//在js中,if,for,while中的变量是全局变量,作用全局
+			
+			
+			
+			function fac(){//形参
+				var m = 4;//局部变量,只能在该函数中使用
+				m1=2;//不写var,则是全局变量
+			}
+			
+			
+			var a = 10;//全局变量
+			function func(){
+				console.log(a);//10
+				var a = 5;
+				console.log(a);
+			}
+			
+			
+			//函数嵌套
+			function mm1(){
+				console.log("mm1");
+				//mm2();
+				function mm2(){
+					console.log("mm2");
+				}
+				function mm3(){
+					console.log("mm3");
+				}
+			}
+			
+			mm1();//mm2 is not defined
+			//mm3(); mm3 is not defined
+				
+			function nn1(){
+				console.log("nn1");
+				nn2();
+				function nn2(){
+					console.log("nn2");
+					mm1();//可以调用
+				}
+			}
+			nn1(); 
+			
+			
+			//匿名函数(扩展);
+			//函数的函数名既是函数名,也会死指向该函数的对象(指针)
+			
+			var kk1 = function (){
+				console.log("kk1");
+			}
+			kk1();//调用kk1
+			
+			var kk2 = kk1;
+			kk2();//调用kk2
+			
+			function pp1(){
+				return function pp2(){
+					console.log("pp2");
+				}
+			}
+			
+			pp1()(); 
+			//			var pp2 = pp1();
+			//			pp2();
+			
+			//上面的函数不可以自动运行,主动调用才会执行;
+			//自运行函数:自动运行;
+			(function (a){
+				console.log("oo函数:" + a);
+			})(3)
+		
+			//1,写一个函数判断一个年份是不是闰年
+			function year1(n){
+				if(n%4==0 && n%100!=0 || n%400==0){
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+			var ret = year1(2017);
+			var result = ret ? "是闰年":"是平年";
+			console.log(result);
+
+
+			
+			
+			
+			
+			//2,写一个函数判断一个数是不是素数(又称质数,除了1和本身以外不再有其他数整除)
+			function prime(n){
+				for (var i=2; i<n; i++){
+					
+					if(n%i == 0) {
+						return false;
+					}
+				}
+				return true;
+			}
+			
+			var ret = prime(123); 
+			console.log(ret?"是素数":"不是素数")
+			
+			//3, 年月日分别为自定义函数的参数，判断某一个日期是否为合法的日期;;
+			//如:  2016年12月33日不是合法的日期
+			//2016年11月13日是合法的日期
+			
+			function func2(year,month,day){
+				if(month<1 || month>12) {//月份在1~12
+					return false;
+				}
+				
+				var d = 30;//默认每个月的天数是30天
+				if (month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12){//31天的月份
+					d = 31;
+				}
+				else if (month == 2) {
+					if (year1(year) ){//调用闰年判断函数,闰年2月29天;
+						d = 29;
+					}
+					else{
+						d = 28;//其余年份2月是28天
+					}
+				}
+				
+				if (day > d) {
+					return false;//天数大于d的不合法
+				}
+				return true;//不能进入上述条件的均为true;
+			}
+			
+			var ret = func2(2016,5,31);
+			console.log(ret ? "是合法的" : "不是合法的");
+
+
+
+
+
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

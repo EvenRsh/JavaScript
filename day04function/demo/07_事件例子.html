@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>事件</title>
+		<script>
+			//示例:  点击搜索按钮调用函数打印出文本框内容, 再清空文本框的内容
+			//在输入框中输入数字,点击按钮调用函数判断奇偶数?
+			//onclick: 单击事件
+			//document.getElementById(): 通过id值获取元素节点的对象
+			//innerHTML: 赋值或获取元素的内容
+			//oInput.value ="";清空元素节点的内容;
+			function btnClick(){
+				console.log("点击搜索栏");
+				var oInput = document.getElementById("a");//通过id"a"获取了元素节点input
+				var val = oInput.value; //获取输入框的内容
+				console.log("输入框的内容是:" + val);
+				oInput.value = "";//清空输入框
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<input type="text" placeholder="请输入电影名字" id="a"/>
+		<input type="button" value="搜索" onclick="btnClick()"/>
+	</body>
+</html>
