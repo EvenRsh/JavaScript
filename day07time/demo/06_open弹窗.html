@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>open弹窗</title>
+		<script>
+			(function(){
+				//open 打开新窗口
+				var newWin = open('http://www.qq.com','tx','width=400;heigth=400');
+				//setTimeout(fn,200)：两百毫秒后执行fn这个函数（只执行一次）,返回一个id标识
+				//10s后关闭弹窗
+				//close();关闭弹窗
+				setTimeout(function(){
+					newWin.close();
+				},2000);
+				//print(): 调出打印对话框
+			})();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

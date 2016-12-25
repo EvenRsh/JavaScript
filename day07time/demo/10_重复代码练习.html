@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//创建时间对象
+//			var now = new Date();
+//			console.log(now);
+//			
+//			var years = now.getFullYear();
+//			console.log(years);
+		
+		
+			function afterDate(date,n){
+				var d = new Date(date);//
+				console.log(typeof d);
+				///setDate(25)设置日期,需要配合一个时间量;
+				d.setDate(d.getDate()+n);
+//				console.log(d);
+				console.log(d.toLocaleDateString());
+				return d.toLocaleDateString(); //返回一个输入日期N天后的日期
+			}
+			
+			afterDate("2016/12/12",10); 
+			
+			var d = Date.now();
+			console.log(d);
+			var e = new Date(d);
+			console.log();
+//			e.setTime(d);
+			var R = e.toLocaleDateString();
+			console.log(R);
+			
+			function afterDate(date,n){
+				var nowDate = Date.parse(date);
+				var afterDate = new Date();
+				afterDate.setTime(nowDate + n*3600*1000*24); 
+				console.log(afterDate.toLocaleDateString());
+			}
+			afterDate('2010-10-1',100);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

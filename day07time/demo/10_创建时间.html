@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>10_创建时间</title>
+		
+		<script>
+			window.onload = function (){
+
+				var time =document.getElementById("time");
+				var arr = ["星期天","星期一","星期二","星期三","星期四","星期五","星期六",]
+				showTime();
+				setInterval(showTime,1000)//定时器 1000毫秒执行一次
+				function showTime(){
+						
+					//运行这段代码时的时间;
+					var now = new Date();	
+					//console.log(now);
+					
+					//需求:2016-12-6 星期二
+					var year = now.getFullYear();
+					var month = now.getMonth();//0~11
+					var date = now.getDate();
+					
+					var hours = now.getHours();
+					var mins = now.getMinutes();
+					var secs = now.getSeconds();
+					
+					//补0操作
+					hours = hours<10 ? "0"+hours : hours;
+					mins = mins<10 ? "0"+mins : mins;
+					secs = secs<10 ? "0"+secs : secs;
+					
+					var day = now.getDay();//0~6
+					
+					//console.log(now.getFullYear());//=>2016
+					//console.log(now.getMonth());//=>11 月份是0~11;等于12月
+					//console.log(now.getDate());//6==>
+					
+					var res =year + "-" + (month+1) + "-" + date + " " + hours + ":" + mins + ":" + secs + " " + arr[day];
+					
+	//				console.log(res);
+					time.innerHTML = res;
+				//setInterval(fn,30): 每隔30毫秒执行一次fn函数
+				}
+				
+			}
+			
+		</script>
+	</head>
+	<body>
+		<div id="time"></div>
+	</body>
+</html>

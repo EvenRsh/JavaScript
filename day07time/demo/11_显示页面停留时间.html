@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>显示页面停留时间</title>
+		<script>
+			window.onload = function(){
+				var stayTime = document.getElementById("stayTime");
+				//获取进入页面时的时间
+				var enterTime = new Date();
+				//console.log(enterTime.getTime());//获取某个日期自1970年1月1日0时以来的毫秒数
+				//设置定时器,每秒对比
+				setInterval(function(){
+					var currentTime = new Date();
+					var offset =Math.round( (currentTime.getTime()-enterTime.getTime())/1000);
+					
+					//要进行时间的运算,要先把时间转换毫秒
+					//currentTime - enterTime
+					//10,74+>1:14
+					var min = parseInt(offset/60);
+					var sec = offset%60;
+					stayTime.innerHTML = min + "分" + sec + "秒";
+				},1000)
+			}
+			
+		</script>
+	</head>
+		停留在页面的时间: <span id="stayTime"></span>
+	<body>
+	</body>
+</html>

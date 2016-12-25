@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>全局作用域</title>
+		<script>
+		
+			window.onload = function (){
+				
+				//全局变量
+				
+				//定义在全局环境下的变量都会成为window对象的属性
+				var num = 100;
+				function text(){
+					var num = 10;
+					var str = 'my test';
+					
+					//通过var在全局作用域下声明的变量用delete无法删除
+					myname = '一拳 超人';
+					
+				}
+				
+				console.log(myname);
+				delete myname;
+				console.log(myname);
+				delete num;
+			}
+			//匿名函数运行格式
+			//把变量定义在函数体里，可以有效减少全局环境下的变量冲突，避免污染全局环境
+			(function(){
+				console.log('www');
+				setInterval(function(){
+					console.log('wo');
+				},1000)
+			})();
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

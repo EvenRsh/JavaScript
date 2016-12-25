@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>window提示框</title>
+		<script>
+			window.onload = function(){
+				var btnAlert = document.getElementById('btnAlert');
+				var msg = document.getElementById('msg');
+				var btnConfirm = document.getElementById('btnConfirm');
+				
+				
+				
+				btnAlert.onclick = function (){
+					alert('你好,world');
+				}
+				btnConfirm.onclick = function (){
+					var res = confirm('你真的不爱天安门?');
+					console.log(res);
+					if(res){
+						msg.innerHTML = '';
+					}
+					
+				}
+				//alert(msg)//弹出对话框
+				//confirm(msg)//弹出警告框，返回布尔值
+				//prompt(msg,default)//弹出输入框，返回消息或null
+				//**三个方法都是中断代码的执行
+				var name = prompt("请输入你的大名");
+				msg.innerHTML = name + "说:" + msg.innerHTML ;	
+			}
+		</script>
+	</head>
+	<body>
+		<button id="btnAlert">点击提示信息</button>
+		<br />
+		<div id="msg">我爱北京天安门...</div>
+		<button id="btnConfirm">点击提示信息</button>
+	</body>
+</html>

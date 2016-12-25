@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>时间的创建</title>
+	<script>
+	window.onload = function(){
+		var time = document.getElementById('time');
+		var arr = ['星期天','星期一','星期二','星期三','星期四','星期五','星期六'];
+
+		showTime();
+
+		// 每秒执行一次
+		// showTime()：表示函数的执行（立即执行）
+		// showTime：表示函数的引用
+		setInterval(showTime,1000);
+
+		function showTime(){
+			// 运行这行代码时的时间
+			var now = new Date();
+			// console.log(now);
+
+			// 得到：2016-12-6 星期二
+			var year = now.getFullYear();//=>2016
+			var month = now.getMonth(); //=>11 月份表示：0-11
+			var date = now.getDate();//=>6
+
+			var hours = now.getHours();
+			var min = now.getMinutes();
+			var sec = now.getSeconds();
+
+			// 补0操作
+			// 三元运算格式：条件?条件成立:条件不成立
+			hours = hours<10 ? '0'+hours : hours;
+			min = min<10 ? '0'+min : min;
+			sec = sec<10 ? '0'+sec : sec;
+
+			var day = now.getDay();
+
+			var res = year + '-' + (month+1) + '-' + date + ' ' + hours + ':' + min + ':' + sec + ' ' + arr[day];
+
+			// console.log(res);
+
+			// document.write(res)
+			time.innerHTML = res;
+		}
+	}
+	</script>
+</head>
+<body>
+	<div id="time"></div>
+</body>
+</html>

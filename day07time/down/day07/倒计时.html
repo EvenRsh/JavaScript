@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1元秒杀</title>
+	<script>
+		window.onload = function(){
+			// 获取元素
+			var time = document.getElementById('time');
+			var btnBuy = document.getElementById('btnBuy');
+
+			// 设置开始购买的时间2016-12-12
+			// var endDate = new Date('2016/12/12')
+			var end = Date.parse('2016/12/7 14:38:00');
+
+			var timer = setInterval(showTime,1000);
+
+			// 立即执行
+			showTime();
+
+			function showTime(){
+				var now = Date.now();
+
+				// 计算时间差(s)
+				// 剩余时间
+				var offset = parseInt((end - now)/1000);
+
+				if(offset<=0){
+					btnBuy.src = 'img/btn_buy.jpg';
+
+					// 清除定时器
+					clearInterval(timer);
+
+					time.innerHTML = '';
+
+					return;
+				}
+
+				// 转换格式：xx时xx分xx秒
+				// 剩余时间
+				var secLeft = offset%60;
+				var minLeft = parseInt(offset/60%60);
+				var hourLeft = parseInt(offset/60/60%24);
+				var dateLeft = parseInt(offset/60/60/24);
+
+				time.innerHTML = '距活动开始还剩' + dateLeft + '天' + hourLeft + '时' + minLeft + '分' + secLeft + '秒';
+			}
+		}
+		
+	</script>
+</head>
+<body>
+	<img src="img/g2.jpg" alt="">
+	<div id="time"></div>
+	<img src="img/btn_buy0.jpg" id="btnBuy">
+</body>
+</html>

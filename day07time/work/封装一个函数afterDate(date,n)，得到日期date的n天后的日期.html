@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//封装一个函数afterDate(date,n)，得到日期date的n天后的日期
+			window.onload = function(){
+				//获取页面元素
+//				var enterYear = document.getElementById("enterYear");
+//				var enterMonth = document.getElementById("enterMonth");
+//				var enterDate = document.getElementById("enterDate");
+				var enterDay = document.getElementById("enterDay");
+				var btnSubmit = document.getElementById("btnSubmit");
+				var output = document.getElementById("output");
+				btnSubmit.onclick = function () {
+					//获取点击瞬间的日期
+					var date = Date.now();
+					console.log(date);
+					//获取输入的天数
+//					date();
+					var year = newDate.getFullYear();
+//					console.log(year);
+					var months = newDate.getMonth();
+//					console.log(months);
+					var date = newDate.getDate();
+//					console.log(date);
+					//console.log(year +"-" + (months+1)+ "-" + date)
+					output.innerHTML = year +"-" + (months+1)+ "-" + date ;
+				}
+				function date(date){
+					var _enterDay = enterDay.value;
+					
+//					console.log(_enterDay); 
+					//输入的天数转换成毫秒
+					// 新日期
+					var newDate =  new Date();
+					_enterDay = _enterDay*24*3600*1000;
+					
+					//给N天后的毫秒一个变量
+					var afterDate = _enterDay + nowtime;
+					newDate.setTime(afterDate);
+					console.log(newDate);
+					
+				}
+//					
+				 
+				
+				
+				
+				
+			}
+		</script>
+	</head>
+	<body>
+		<form >
+			<!--<p>
+				<lable for="enterYear">输入的年份</lable>
+				<input type="text" id="enterYear" placeholder="输入的年份"/>
+			</p>
+			<p>
+				<lable for="enterMonth">输入的月份</lable>
+				<input type="text" id="enterMonth" placeholder="输入的月数"/>
+			</p>
+			<p>
+				<lable for="enterDate">输入的天数</lable>
+				<input type="text" id="enterDate" placeholder="输入的天数"/>
+			</p>-->
+			<p>
+				<lable >输入N天</lable>
+				<input type="text" id="enterDay" placeholder="输入N天数"/>
+			</p>
+			<p>
+				<button type="submit" id="btnSubmit">输出</button>
+				<span id="output"></span>
+			</p>
+		</form>
+	</body>
+</html>

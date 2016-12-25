@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			header{
+				background: #fff;
+				height: 80px;
+			}
+			button{
+				width: 100px;
+				height: 60px;
+				margin: 10px;
+				text-align: center;
+			}
+			
+		</style>
+			<script>
+			window.onload = function(){
+				
+				var btnBcak = document.getElementById('btnBcak');
+				var btnForward = document.getElementById('btnForward');
+				
+				btnBcak.onclick = function(){
+					history.go(-1);
+				}
+				btnForward.onclick = function(){
+					history.go(1);
+				}
+			}
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<header >
+			<button id="btnBcak">&lt;后退</button>
+			<button id="btnForward">下一页&gt;</button>
+			
+		</header>
+		
+		
+		
+		<a href="07_list.html">列表1</a>
+		<a href="07_history.html">返回首页</a>
+	</body>
+</html>

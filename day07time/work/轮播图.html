@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>轮播图</title>
+		<style>
+			img{
+				width: 300px;
+			}
+		</style>
+		<script>
+			//clearInterval(intervllID):清除id标识的定时器操作
+			window.onload= function (){
+				var bigImg = document.getElementById("bigImg"); 
+				var btnStop = document.getElementById("btnStop");
+				var btnContinue = document.getElementById("btnContinue");
+				//通过图片名字的变量替换图片
+				var index = 1;
+				//clearInterval(intervalID)：清除指定id标识的定时器操作
+				var timer = setInterval(function(){
+					index++;
+					if(index > 20){
+						index = 1;
+					}
+					bigImg.src="../demo/img/"+index+".jpg" ;//这是一个字符串连接
+				},1200)
+				
+				btnStop.onclick=function(){
+					clearInterval(timer);
+				}
+				btnContinue.onclick=function(){
+					timer = setInterval(function(){
+						index++;
+						if(index > 20){
+							index = 1;
+						}
+						bigImg.src="../demo/img/"+index+".jpg" ;//这是一个字符串连接
+					},1200)
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<img src="../demo/img/1.jpg" id="bigImg" />
+		<button id="btnStop">停止</button>
+		<button id="btnContinue">继续</button>
+	</body>
+</html>
+ 

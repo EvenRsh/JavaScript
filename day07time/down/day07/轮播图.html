@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style>
+		img{width:480px;}
+	</style>
+	<script>
+		window.onload = function(){
+			var bigImg = document.getElementById('bigImg');
+			var btnStop = document.getElementById('btnStop');
+			var btnContinue = document.getElementById('btnContinue');
+
+			// 替换图片
+			var index = 1;
+
+			// timer得到一个定时器的id标识
+			var timer = setInterval(function(){
+				index++;
+
+				// 防止index值超出图片数量
+				// 当index大于6时，重置位1
+				if(index>6){
+					index = 1;
+				}
+				bigImg.src = 'img/'+index+'.jpg';
+			},2000);
+
+			// 点击停止
+			btnStop.onclick = function(){
+				clearInterval(timer);
+			}
+
+			// 点击继续
+			btnContinue.onclick = function(){
+				timer = setInterval(function(){
+					index++;
+
+					// 防止index值超出图片数量
+					// 当index大于6时，重置位1
+					if(index>6){
+						index = 1;
+					}
+					bigImg.src = 'img/'+index+'.jpg';
+				},2000);
+			}
+			
+		}
+	</script>
+</head>
+<body>
+	<img src="img/1.jpg" id="bigImg">
+	<button id="btnStop">停止</button>
+	<button id="btnContinue">继续</button>
+</body>
+</html>
