@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>02障碍物反弹效果</title>
+	<style>
+		html,body{overflow:hidden;}
+		#ball{position:absolute;width:50px;height:50px;border-radius: 50%;background: #f00;}
+		#wall{position:absolute;left:50%;bottom:150px;width:250px;height:400px;background-color: #cfcfcf;}
+	</style>
+	<script>
+		window.onload = function(){
+			var ball = document.getElementById('ball');
+			var wall = document.getElementById('wall');
+
+			var hspeed = 15;
+			var vspeed = 9;
+			setInterval(function(){
+				// 碰到边沿
+				// 不断改变水平/垂直方向的方向
+				if(ball.offsetLeft < 0 || ball.offsetLeft > window.innerWidth - ball.offsetWidth || ((
+
+					// 左侧水平方向
+					ball.offsetLeft > wall.offsetLeft - ball.offsetWidth
+
+					// 右侧水平方向
+					 && ball.offsetLeft < wall.offsetLeft + wall.offsetWidth) 
+
+					// 判断小球不在上下空白区域
+					&& ball.offsetTop > wall.offsetTop - ball.offsetHeight/2 
+					&& ball.offsetTop < wall.offsetTop + wall.offsetHeight - ball.offsetHeight/2
+					))
+
+				{
+					hspeed *= -1;
+				}
+
+				if(ball.offsetTop < 0 || ball.offsetTop > window.innerHeight - ball.offsetHeight || 
+					
+					ball.offsetTop > wall.offsetTop - ball.offsetHeight 
+					&& ball.offsetTop < wall.offsetTop + wall.offsetHeight
+
+					&& ball.offsetLeft > wall.offsetLeft - ball.offsetWidth/2
+					&& ball.offsetLeft < wall.offsetLeft + wall.offsetWidth - ball.offsetWidth/2
+
+					){
+					vspeed *= -1;
+				}
+
+				ball.style.left = ball.offsetLeft + hspeed + 'px';
+				ball.style.top = ball.offsetTop + vspeed + 'px';
+			},30);
+		}
+	</script>
+</head>
+<body>
+	<div id="ball"></div>
+	<div id="wall"></div>
+</body>
+</html>

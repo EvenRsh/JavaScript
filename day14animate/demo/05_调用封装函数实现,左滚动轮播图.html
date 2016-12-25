@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>05_调用封装函数实现,左滚动轮播图</title>
+		<style>
+			ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			
+			.focus img {
+				display: block;
+			}
+			
+			.focus {
+				position: relative;
+				height: 320px;
+				overflow: hidden;
+				margin: 0 auto;
+				width: 810px;
+			}
+			
+			.focus ul {
+				position: absolute;
+				overflow: hidden;
+			}
+			
+			.focus ul li {
+				float: left;
+			}
+			/*			.focus ul::after {
+				content: '';
+				display: block;
+				clear: both;
+			}*/
+			
+			.focus .page {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				padding: 10px;
+			}
+			
+			.focus .page span {
+				display: inline-block;
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				background: rgba(0, 0, 0, 0.8);
+				text-align: center;
+				color: #fff;
+				border-radius: 50%;
+				margin: 0 5px;
+				box-shadow:0 0 10px rgba(0,0,0,.5);
+				cursor: pointer;
+			}
+			
+			.focus .page span.active {
+				background: rgba(255, 125, 0, 0.8);
+			}
+		</style>
+		<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				/*
+				 * 1)设置ul宽度.达到水平排列的效果 
+				 * 2)水平轮播效果
+				 * 3)移入移出,清除轮播效果
+				 * 4)添加分页效果;
+				 */
+				var focus = document.getElementsByClassName('focus')[0];
+				var ul = focus.children[0];
+				var len = ul.children.length;
+
+				//设置ul宽度,达到水平排列效果
+				ul.style.width = len * ul.children[0].offsetWidth + 'px';
+
+				// 2)水平轮播效果
+				var index = 0;
+				var timer = setInterval(carousel, 3000)
+				//ul定时器的函数封装
+				function carousel() {
+					index++;
+//					var speed;
+					//当ul最后一个li轮播完了,重置index
+					if (index >= len) {
+						index = 0;
+					}
+					//嵌套定时器,实现滚动效果
+					//目标值
+					var target = -index * 810;
+//					var currentLeft = ul.offsetLeft;
+					clearInterval(ul.timer);
+					animate(ul,'left',target);
+//					ul.timer = setInterval(function() {
+//							var oldLeft = ul.offsetLeft;
+//							speed = (target - oldLeft) / 10;
+//							speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+//							if (Math.abs(speed) <= 1) {
+//								oldLeft = target
+//							}
+//							//到达目标值时,清除定时器
+//							if (oldLeft == target) {
+//								clearInterval(ul.timer);
+//								oldLeft = target - speed;
+//							}
+//							ul.style.left = oldLeft + speed + 'px';
+//						}, 50)
+						//跟随高亮效果
+						//清除所有高亮
+					for (var i = 0; i < len; i++) {
+						page.children[i].className = '';
+					}
+					page.children[index].className = 'active';
+				}
+					// 3)移入移出,清除轮播效果
+				focus.onmouseover = function() {
+					clearInterval(timer);
+				}
+				focus.onmouseout = function() {
+						timer = setInterval(carousel, 3000)
+					}
+					// 4)添加分页效果;
+				var page = document.createElement("div");
+				page.className = 'page'
+				for (var i = 1; i <= len; i++) {
+					var span = document.createElement("span");
+					span.innerHTML = i;
+					page.appendChild(span);
+					if (i === 1) {
+						span.className = 'active';
+					}
+				}
+				focus.appendChild(page);
+
+
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="focus">
+			<ul>
+				<li><img src="img/001.jpg" alt="" /></li>
+				<li><img src="img/002.jpg" alt="" /></li>
+				<li><img src="img/003.jpg" alt="" /></li>
+				<li><img src="img/004.jpg" alt="" /></li>
+			</ul>
+		</div>
+
+	</body>
+
+</html>

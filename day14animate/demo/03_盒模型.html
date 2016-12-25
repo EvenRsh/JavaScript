@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>03_盒模型</title>
+		<style>
+			#box {
+				width: 200px;
+				height: 100px;
+				background: #fc0;
+				border: 5px solid #f60;
+				padding: 10px;
+			}
+			.container{
+				position: relative;
+				padding: 20px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				var box = document.getElementById("box");
+				//offset
+				console.log('offsetWidth', box.offsetWidth); //230 border*2+padding*2+content.width
+				console.log('offsetHeight', box.offsetHeight); //130
+				console.log('offsetLeft', box.offsetLeft); //20
+				//client
+				console.log('clientWidth', box.clientWidth);//220 padding*2+content.width
+				console.log('clientHeight', box.clientHeight);//120
+				console.log('clientLeft', box.clientLeft);//5
+				console.log('clientTop', box.clientTop);//5
+
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class="container">
+			<div id="box"></div>
+		</div>
+	</body>
+
+</html>

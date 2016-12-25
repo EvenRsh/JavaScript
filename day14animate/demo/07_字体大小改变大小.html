@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>07_字体大小改变动画</title>
+		<style type="text/css">
+			#box{
+				width: 200px;
+				height: 100px;
+				border: 2px solid #f00;
+				font-size: 16px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function (){
+				var box = document.getElementById('box');
+				var speed = 1;
+				//移上去
+				box.onmouseover = function(){
+					box.timer = setInterval(function(){
+						var currentfontSize = parseInt(getComputedStyle(box).fontSize);
+						if(currentfontSize >= 30){
+							currentfontSize = 30 - speed;
+							clearInterval(box.timer);
+						}
+						box.style.fontSize = currentfontSize + speed + 'px';
+					},50)
+				}
+				//移出
+				box.onmouseout = function(){
+					box.timer = setInterval(function(){
+						var currentfontSize = parseInt(getComputedStyle(box).fontSize);
+						if(currentfontSize <= 16){
+							currentfontSize = 16 + speed;
+							clearInterval(box.timer);
+						}
+						box.style.fontSize = currentfontSize - speed + 'px';
+					},50)
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box">厉害了,我的哥!</div>
+	</body>
+</html>

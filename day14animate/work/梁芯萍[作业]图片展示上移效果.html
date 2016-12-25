@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title></title>
+		<meta charset='utf-8' />
+		<style type="text/css">
+			body,
+			ul,
+			li,
+			ol {
+				list-style: none;
+				padding: 10px;
+				margin: 20px;
+				font-size: 12px;
+				font-family: 微软雅黑;
+			}
+			
+			img {
+				border: 0px;
+			}
+			
+			.picList {
+				width: 100%;
+				float: left;
+			}
+			
+			.picList .col {
+				width: 300px;
+				height: 200px;
+				position: relative;
+				overflow: hidden;
+				float: left;
+				margin: 10px 0 0 10px;
+			}
+			
+			.picList .col img,
+			.col a {
+				position: absolute;
+				top: 10px;
+				left: 10px;
+			}
+			
+			.picList .col img {
+				width: 100%;
+			}
+			
+			.picList .col a {
+				display: block;
+				width: 280px;
+				height: 180px;
+				top: 160px;
+				background: #000;
+				color: white;
+				font-style: normal;
+				line-height: 25px;
+				padding: 10px;
+				opacity: 0.8;
+				text-decoration: none;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				
+				var picList = document.getElementById('picList');
+				
+				//事件委托
+				picList.onmouseover = function(e){
+					e = e || window.event;
+					var target = e.target || e.srcElement;
+					
+					if(target.className === 'col'){
+						console.log(target.children[1]);
+						move(target.children[1],'top',10);
+					}
+				}
+				
+				
+				
+				//封装动画
+				function move(obj,attr,iTarget){
+					//清除旧的定时器
+					clearInterval(obj.timer);
+					
+					//设置新的定时器
+					obj.timer = setInterval(function(){
+						//获取当前值
+						var current = parseInt(getStyleAttribute(obj,attr));
+						//设置速度，速度是变量！
+						var iSpeed = (iTarget - current) / 8;
+						//设置最小运动单位的为1
+						iSpeed = Math.ceil(iSpeed);
+						//判断临界值
+						if(current >= iTarget){
+							//清除定时器，并退出方法
+							clearInterval(obj.timer);
+							return;
+						}
+						
+						//改变属性值
+						obj.style[attr] = current + iSpeed + 'px';
+					},30);
+				}
+				
+				
+				//兼容  --->  css属性的方法
+				function getStyleAttribute(obj,attr){
+					//判断是否是ie9+，谷歌，或者火狐
+					if(window.getComputedStyle){   //是
+						return window.getComputedStyle(obj,null)[attr];
+					}
+					return obj.currentStyle(attr);
+				}
+				
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class='picList' id="picList">
+			<div class='col' id="pic1">
+				<img src="images/b1.jpg" />
+				<a href='#'>学会html5 <br/> 本课程由浅入深，逐步推进，以示例为主线，详细完整地介绍HTML5的新功能与新特征
+				</a>
+			</div>
+			<div class='col' id="pic2">
+				<img src="images/b2.jpg" />
+				<a href='#'>圆角水晶按钮制作<br/> 网页中的圆角按钮和宽度自适应按钮就这么轻松制作！
+				</a>
+			</div>
+			<div class='col' id="pic3">
+				<img src="images/b3.jpg" />
+				<a href='#'>导航条菜单的制作<br/> 30分钟教你轻松制作出各种形式的网站导航条菜单
+				</a>
+			</div>
+		</div>
+	</body>
+
+</html>

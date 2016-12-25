@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>12_淡入淡出轮播图</title>
+	<style>
+		ul{list-style: none;padding:0;margin:0;}
+		.focus{width:810px;overflow: hidden;}
+		.focus img{display: block;}
+		.focus ul{position:relative;}
+		.focus .big{height:330px;}
+		.focus .big li{position:absolute;left:0;top:0;opacity:0;}
+		.focus .big li:first-child{opacity:1;}
+
+		.focus .small{overflow:hidden;}
+		.focus .small li{float:left;width:150px;}
+		.focus .small img{width:140px;}
+		.focus .small li:not(:first-child){opacity: 0.5}
+	</style>
+	<script src="../../js/common.js"></script>
+	<script>
+		window.onload = function(){
+			var focus = document.getElementsByClassName('focus')[0];
+			var big = focus.firstElementChild;
+			var bigLi = big.children;
+			var len = bigLi.length;
+			
+			//创建小图
+			//复制big
+			var small = big.cloneNode(true);
+			small.className = 'small';
+			//插入页面
+			focus.appendChild(small);
+			var smallLi = small.children;
+			//设置small的宽度,超出部分隐藏
+			small.style.width = smallLi[0].offsetWidth*len + "px";
+			/*
+			 * 淡出淡入,显示的页面index的opacity定为1;上一张设为0;
+			 * 小图淡出淡入效果, 显示的页面index的opacity定为1;上一张设为0.5;
+			 * 小图移动效果,改变ul的left值实现滚动效果
+			 */
+			//轮播显示,设置定时器
+			//定义变量,存储下标
+			var index = 0;
+			//前一个下标
+			var lastIndex = 0;
+			
+			var timer = setInterval(function(){
+				index++;
+				showPic();
+			},3000);
+			
+			//移入鼠标停止
+			big.onmouseenter = function(){
+				clearInterval(timer);
+			}
+			
+			//移开鼠标继续
+			big.onmouseleave = function(){
+				timer = setInterval(function(){
+				index++;
+				showPic();
+				},3000);
+			}
+			//小图点击事件
+			for(var i=0;i<len;i++){
+				//给当前的li添加属性idx 存储i;
+				smallLi[i].idx = i;
+				smallLi[i].onclick = function(){
+					//设置index为当前的li的idx值
+					index = this.idx;
+					showPic();
+				}
+	
+			}
+			
+			
+			
+			function showPic(){
+				
+				//判断index到达len的时候,重置index为0;
+				if(index == len){
+					index = 0;
+				}
+				//淡出淡入轮播
+				//改变当前的图片的opacity,变为1;
+				animate(bigLi[index],{opacity:1});
+				//改变上一张的图片的opacity,变为0;
+				animate(bigLi[lastIndex],{opacity:0});
+				//小图淡出淡入轮播
+				//改变当前的图片的opacity,变为1;
+				animate(smallLi[index],{opacity:1});
+				//改变上一张的图片的opacity,变为0;
+				animate(smallLi[lastIndex],{opacity:0.5});
+				//小图滚动轮播 small
+				var target
+				if(index<2){
+					target = 0
+				}else{
+					target = smallLi[0].offsetWidth*(index-2)
+				}
+				
+				animate(small,{left:-target});
+				
+				
+				
+				//用前一个下标存储当前的index;
+				lastIndex = index ;
+			}
+			
+		}
+	</script>
+</head>
+<body>
+	<div class="focus">
+		<ul class="big">
+			<li><img src="img/001.jpg"></li>
+			<li><img src="img/002.jpg"></li>
+			<li><img src="img/003.jpg"></li>
+			<li><img src="img/004.jpg"></li>
+			<li><img src="img/001.jpg"></li>
+			<li><img src="img/002.jpg"></li>
+			<li><img src="img/003.jpg"></li>
+			<li><img src="img/004.jpg"></li>
+		</ul>
+	</div>
+</body>
+</html>

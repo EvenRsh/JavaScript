@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>运动函数的使用</title>
+		<style>
+			#box {
+				width: 100px;
+				height: 100px;
+				background: #f00;
+				position: absolute;
+			}
+			
+			#btn {
+				margin-top: 200px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				var box = document.getElementById("box");
+				var btn = document.getElementById("btn");
+				btn.onclick = function() {
+					animate(box, {width: '200px'},function(){
+						animate(box, {width: '100px',height:'200px',top:'100px'},function(){
+							animate(box, {left: '200px'})
+						})
+					});
+//					animate(box, {width: '200px',left :'300px'});
+				}
+
+				function animate(ele, opt, fn) {
+					//计算定时器的个数
+					ele.timerLen = 0;
+
+					for(var attr in opt) {
+
+						createTimer(attr);
+					}
+					
+					function createTimer(attr) {
+						//元素存储定时器下标的属性
+						var timerName = attr + 'timer';
+						//每启动一次定时器就增加1
+						ele.timerLen++;
+						//目标值
+						var target = parseFloat(opt[attr]);
+						//提取单位
+						var unit = "";
+						//判断是否有没有单位
+						if(opt[attr].match(/[a-z]*$/i)[0]) {
+							unit = opt[attr].match( /[a-z]*$/i)[0];
+						}
+						//启动定时器前清除相同的属性的定时器
+						clearInterval(ele[timerName]);
+						//涉及运动必然定时器
+						ele[timerName] = setInterval(function() {
+							//需要变更的属性的当前值
+							var current = parseFloat(getComputedStyle(ele)[attr]);
+							//通过目标值与当前值的差值获取变更的速度
+							var speed = (target - current) / 10;
+							//判断处理一些特殊属性的变更速度
+							if(attr === 'opacity') {
+								speed = speed.toFixed(2) * 1;
+							} else {
+								speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+							}
+							//达到目标值后.清除定时器
+							if(target === current) {
+								clearInterval(ele[timerName]);
+								//每清除一次就减一
+								ele.timerLen--;
+								//保证当前值为目标值
+								current = target - speed;
+								//判断回调函数
+								if(ele.timerLen === 0 && fn){
+									fn();
+								}
+							}
+							//达到目标值显示结果	
+							ele.style[attr] = current + speed + unit;
+						}, 50)
+					}
+
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="box"></div>
+		<button id="btn">按钮</button>
+	</body>
+
+</html>

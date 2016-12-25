@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>zzzz</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body {
+				width: 1000px;
+				margin: 100px auto;
+				background-color: #fff;
+			}
+			
+			#wrapper {
+				overflow: hidden;
+				width: 600px;
+				height: 100px;
+				position: relative;
+			}
+			
+			#wrapper ul {
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			
+			#wrapper li {
+				float: left;
+				list-style: none;
+			}
+			
+			#wrapper li img {
+				width: 150px;
+				border-radius: 9px;
+			}
+			
+			input[type=button] {
+				margin-top: 20px;
+				width: 35px;
+				height: 25px;
+				line-height: 25px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				var timer = null;
+				var speed = 4;
+				var od = document.getElementById("wrapper");
+				var au = od.getElementsByTagName('ul')[0];
+				var ali = au.getElementsByTagName('li');
+				au.innerHTML = au.innerHTML + au.innerHTML;
+				au.style.width = ali[0].offsetWidth * ali.length + 'px';
+				timer = setInterval(move, 30)
+
+				function move() {
+					if (au.offsetLeft < -au.offsetWidth / 2) {
+						au.style.left = '0';
+					}
+					if (au.offsetLeft > 0) {
+						au.style.left = -au.offsetWidth / 2 + 'px';
+					}
+					au.style.left = au.offsetLeft + speed + 'px';
+				}
+				od.onmouseover = function() {
+					clearInterval(timer);
+				}
+				od.onmouseout = function() {
+					timer = setInterval(move, 30)
+				}
+				document.getElementById("btn1").onclick = function() {
+					speed = -4;
+				}
+				document.getElementById("btn2").onclick = function() {
+					speed = 4;
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<ul>
+				<li><img src="img/001.jpg" /></li>
+				<li><img src="img/002.jpg" /></li>
+				<li><img src="img/003.jpg" /></li>
+				<li><img src="img/004.jpg" /></li>
+			</ul>
+		</div>
+		<input type="button" name="" id="btn1" value="向左" />
+		<input type="button" id="btn2" value="向右" />
+	</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset='utf-8' />
+		<title>work_[作业]图片展示上移效果</title>
+		<style type="text/css">
+			body,
+			ul,
+			li,
+			ol {
+				list-style: none;
+				padding: 10px;
+				margin: 20px;
+				font-size: 12px;
+				font-family: 微软雅黑;
+			}
+			
+			img {
+				border: 0px;
+			}
+			
+			.picList {
+				width: 100%;
+				float: left;
+			}
+			
+			.picList .col {
+				width: 300px;
+				height: 200px;
+				position: relative;
+				overflow: hidden;
+				float: left;
+				margin: 10px 0 0 10px;
+			}
+			
+			.picList .col img,
+			.col a {
+				position: absolute;
+				top: 10px;
+				left: 10px;
+			}
+			
+			.picList .col img {
+				width: 100%;
+			}
+			
+			.picList .col a {
+				display: block;
+				width: 280px;
+				height: 180px;
+				top: 160px;
+				background: #000;
+				color: white;
+				font-style: normal;
+				line-height: 25px;
+				padding: 10px;
+				opacity: 0.8;
+				text-decoration: none;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				/*
+				 * 思路:
+				 * 1)使用定时器改变a标签的top值
+				 * 2)鼠标移入启动定时器 当top值到达临界值就清除定时器
+				 * 3)鼠标移出启动定时器 当top值到达初始值就清除定时器
+				 */
+				var picList = document.getElementById("picList");
+				var aCol = picList.children;
+				var aList = picList.getElementsByTagName('a');
+				var downTop = aList[0].offsetTop;
+
+				//a往上移动top
+				function topUp(target) {
+					var speed = 10;
+					if (target.timer) {
+						clearInterval(target.timer);
+					}
+					target.timer = setInterval(function() {
+						var top = target.offsetTop;
+						if (top <= 10) {
+							clearInterval(target.timer);
+							target.timer = undefined;
+							top = 0;
+						} else {
+							target.style.top = top - speed + 'px';
+						}
+					}, 30)
+				}
+				//a往下移动top;
+				function topDown(target) {
+					var speed = 10;
+					if (target.timer) {
+						clearInterval(target.timer);
+					}
+					target.timer = setInterval(function() {
+						var top = target.offsetTop;
+						if (top >= downTop) {
+							clearInterval(target.timer);
+							target.timer = undefined;
+							top = downTop;
+						} else {
+							target.style.top = top + speed + 'px';
+						}
+					}, 30)
+				}
+
+				
+				function getUp(e) {
+					e = e || window.event;
+					var target = e.target || e.srcElement;
+					//事件源为'a'时;
+					if (target.tagName.toLocaleLowerCase() === 'a') {
+						topUp(target);
+						//事件源为'img'时;
+					}else if(target.tagName.toLocaleLowerCase() === 'img'){
+						target = target.nextElementSibling;
+						topUp(target);
+					}
+				}
+				picList.addEventListener('mouseover', getUp);
+				function getDown(e) {
+					e = e || window.event;
+					var target = e.target || e.srcElement;
+
+					if (target.tagName.toLocaleLowerCase() === 'a') {
+						topDown(target);
+					}else if(target.tagName.toLocaleLowerCase() === 'img'){
+						target = target.nextElementSibling;
+						topDown(target);
+					}
+				}
+				picList.addEventListener('mouseout', getDown);
+			}
+		</script>
+	</head>
+
+	<body>
+		<div class='picList' id="picList">
+			<div class='col' id="pic1">
+				<img src="images/b1.jpg" />
+				<a href='#'>学会html5 <br/>
+	 本课程由浅入深，逐步推进，以示例为主线，详细完整地介绍HTML5的新功能与新特征
+	   </a>
+			</div>
+			<div class='col' id="pic2">
+				<img src="images/b2.jpg" />
+				<a href='#'>圆角水晶按钮制作<br/>
+	网页中的圆角按钮和宽度自适应按钮就这么轻松制作！
+	   </a>
+			</div>
+			<div class='col' id="pic3">
+				<img src="images/b3.jpg" />
+				<a href='#'>导航条菜单的制作<br/>
+	30分钟教你轻松制作出各种形式的网站导航条菜单
+	   </a>
+			</div>
+		</div>
+	</body>
+
+</html>

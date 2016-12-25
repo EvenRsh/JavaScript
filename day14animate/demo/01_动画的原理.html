@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>动画的原理</title>
+		<style>
+			html,body{
+				overflow: hidden;
+			}
+			img{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100px;
+			}
+		</style>
+		<script src="../../js/common.js"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+				//匀速运动
+				//速度保持不变的运动成为匀速移动
+				var bird = getId('bird');
+				//改变元素的位置
+				var left = 0;
+				var top = 0;
+				var speed = 5;
+				var vspeed = 3;
+				setInterval(function(){//定时器在执行时属于   异步执行:  不同的代码同时执行; 
+					//top +=2;
+					//边界反弹
+					if(left > window.innerWidth - bird.offsetWidth || left <0){
+						speed *= -1;//改变方向需求
+					}
+					if(top > window.innerHeight - bird.offsetHeight || top <0){
+						vspeed *=-1
+					}
+					left += speed;
+					top += vspeed;
+					bird.style.left = left + 'px';
+					bird.style.top = top + 'px';
+					
+				},16.7);//最小不要小于16.7;
+				
+				
+			}
+			
+		</script>
+	</head>
+	<body>
+		<img src="img/bird.jpg" id='bird'/>
+	</body>
+</html>

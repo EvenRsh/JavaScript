@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>无缝代码(原生)</title>
+		<style type="text/css">
+			html,
+			body,
+			ul,
+			li,
+			img {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#banner {
+				position: relative;
+				width: 810px;
+				height: 320px;
+				margin: 50px auto;
+				overflow: hidden;
+				border-radius: 8px
+			}
+			
+			#banner ul {
+				position: absolute;
+				top: 0;
+				left: 0;
+				list-style: none;
+			}
+			
+			#banner .page {
+				position: absolute;
+				right: 0;
+				bottom: 10px;
+				padding: 10px;
+				/*width: 120px;
+				height: 30px;
+				line-height: 30px;*/
+			}
+			
+			#banner .page span {
+				display: inline-block;
+				width: 30px;
+				height: 30px;
+				line-height: 30px;
+				border-radius: 50%;
+				margin: 0 5px;
+				background: #000;
+				color: #fff;
+				text-align: center;
+			}
+			
+			#banner .page span.active {
+				background-color: #fc0;
+			}
+			
+			#banner>span {
+				position: absolute;
+				width: 40px;
+				height: 30px;
+				line-height: 30px;
+				border-radius: 5px;
+				background: #00FF00;
+				text-align: center;
+				cursor: pointer;
+			}
+			
+			.prvePage {
+				top: 45%;
+				left: 0;
+			}
+			
+			#banner .nextPage {
+				top: 45%;
+				right: 0;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				/*
+				 * 通过改变ul的Top来实现滚动
+				 * 
+				 */
+				var oBanner = document.getElementById("banner");
+				var oUl = oBanner.firstElementChild;
+				var aLi = oUl.children;
+				// 记录原li数
+				var len = aLi.length;
+				console.log(len);    //4
+				//实现无缝滚动，防止出现空白的bug
+				//需要增加一组li
+				oUl.innerHTML += oUl.innerHTML;
+
+				var index = 0
+				
+				// 设置定时器，实现自动上下轮播的效果
+				var timer = setInterval(function() {
+					index++;   //图片下标+1，表示移动到下一张图片
+					showPic();
+				}, 3000);
+
+				//鼠标移入停止轮播
+				oBanner.onmouseenter = function() {
+					clearInterval(timer);
+				}
+					//移出鼠标重启轮播
+				oBanner.onmouseleave = function() {
+					timer = setInterval(function() {
+						index++;
+						showPic();
+					}, 3000);
+				}
+				
+				//创建分页效果
+				var page = document.createElement("div");
+				page.className = 'page';
+				for(var i = 1; i <= len; i++) {
+					var pageSpan = document.createElement("span");
+					pageSpan.innerHTML = i;
+					page.appendChild(pageSpan);
+					page.firstElementChild.className = 'active'
+				}
+				oBanner.appendChild(page);
+				//绑定分页点击事件
+				//事件委托
+				page.onclick = function(e) {
+					clearInterval(timer);
+					e = e || window.event;
+					var target = e.target || e.srcElemet;
+					//遍历pageSpan
+					for(var i = 0; i < page.children.length; i++) {
+						if(target === page.children[i]) {
+							// 切换图片
+							index = target.innerHTML - 1;      
+							showPic();
+						}
+					}
+				}
+
+				//创建上下页效果
+				var prvePage = document.createElement("span");
+				var nextPage = document.createElement("span");
+				prvePage.innerHTML = "&lt;";
+				nextPage.innerHTML = "&gt;";
+				prvePage.className = 'prvePage';
+				nextPage.className = 'nextPage';
+				oBanner.appendChild(prvePage);
+				oBanner.appendChild(nextPage);
+
+				//上下页绑定点击
+				prvePage.onclick = function() {
+					if(index == 0) {      //如果当前显示的是第一张图片
+						index = len - 1;
+						//瞬间移动到第四张图片
+						oUl.style.top = -oUl.children[0].offsetHeight * len + 'px';
+					} else {
+						//回到上一张图片
+						index = index - 1;
+					}
+					showPic();
+				}
+				
+				nextPage.onclick = function() {
+					index++;
+					showPic();
+				}
+
+				//封装一个多次调用的函数
+				function showPic() {
+					//如果index大于原来的li数，回到原来的位置，index=1
+					if(index > len) {
+						index = 1;
+						oUl.style.top = 0;
+					}
+					//目标值  ---> 列表往上移动，为负值
+					var target = -aLi[0].offsetHeight * index;
+					//=========滚动效果
+					//清除旧的定时器
+					clearInterval(oUl.timer);
+					//开启新的定时器
+					oUl.timer = setInterval(function() {
+						//获取当前值，getComputedStyle()获取到的是字符串
+						var oldTop = getComputedStyle(oUl)["top"];
+//						console.log(oUl.offsetTop)
+						oldTop = parseFloat(oldTop);
+						//速度是变量！
+						var speed = (oldTop - target) / 10;
+//						console.log(speed)
+						//控制速度
+						speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+						if(Math.abs(speed) <= 0.5) {
+							speed = 0;
+							oldTop = target;
+						}
+						//达到目标值
+						if(oldTop == target || speed == 0) {
+							clearInterval(oUl.timer);
+							oldTop = target + speed;
+						}
+						//运动
+						oUl.style.top = oldTop - speed + 'px';
+					}, 50);
+					//跟随高亮效果
+					//先全部清除高亮效果
+					for(var i = 0; i < page.children.length; i++) {
+						page.children[i].className = "";
+					}
+					//判断index
+					if(index < len) {
+						page.children[index].className = "active";
+					} else { //如果是第五张图就让第一个分页高亮效果
+						page.children[0].className = "active";
+					}
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="banner">
+			<ul>
+				<li><img src="images/001.jpg" alt="" /></li>
+				<li><img src="images/002.jpg" alt="" /></li>
+				<li><img src="images/003.jpg" alt="" /></li>
+				<li><img src="images/004.jpg" alt="" /></li>
+			</ul>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>11_运动函数的使用</title>
+		<style>
+			#box {
+				margin-top: 40px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100px;
+				height: 100px;
+				background: #f00;
+			}
+			#btn{
+			}
+		</style>
+		<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+				var box = document.getElementById("box");
+				var btn = document.getElementById("btn")
+				
+				/*animate(box,'left',500);
+				animate(box,'top',500);
+				animate(box,'width',500);*/
+				//left:500,top:500,width:500,opacity:0.5
+				
+				btn.onclick =function(){
+				animate(box,{left:500},function(){
+					console.log('动画');
+				});
+//					animate(box,'opacity',0.5);
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box"></div>
+		
+		<button id="btn">按钮</button>
+	</body>
+</html>

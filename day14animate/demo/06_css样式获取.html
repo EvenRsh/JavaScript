@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>06_css样式获取</title>
+		<style type="text/css">
+			.box{
+				width: 200px;
+				height: 100px;
+				border: 2px solid #f00;
+				font-size: 30px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function (){
+				var box = document.getElementsByClassName('box')[0];
+				//内联样式
+				console.log(box.style.width);
+				console.log(box.offsetWidth);
+				
+				//全局方法getComputedStyle()
+				//获取计算后的样式(最终的样式);
+				//
+				var css = getComputedStyle(box);
+				console.log(css.fontSize);
+				console.log(css.width);
+				
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div class="box">厉害了,我的哥!</div>
+	</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>无缝轮播</title>
+		<style>
+			ul{list-style:none; padding:0; margin:0;}
+			.focus img{display:block;}
+			.focus{margin:20px auto; position:relative; width:810px; height:320px; overflow:hidden;}
+			.focus ul{position:absolute; overflow:hidden;}
+			.focus ul li{float:left;}
+			.focus .page{position:absolute; right:0; bottom:0; padding:10px;}
+			.focus .page span{display:inline-block; margin:0 5px; width:30px; height: 30px; line-height:30px; background-color:rgb(0,0,0,.6); text-align:center; color:#fff; border-radius:50%; box-shadow:0 0 10px rgba(0,0,0,.5); cursor:pointer;}
+			.focus .page span.active{background-color:rgba(255,0,0,.8);}
+			.preBtn,.nextBtn{display:inline-block; position:absolute; padding:10px; background-color:#e1fde1; border-radius:6px; cursor:pointer;}
+			.preBtn{left:0; top:50%;}
+			.nextBtn{right:0; top:50%;}
+			.preBtn:hover,.nextBtn:hover{background-color:#efe7e1;}
+		</style>
+		<script>
+			window.onload = function(){
+				
+				/*
+				 		1）设置ul宽度，达到水平排列的效果
+				 		2）水平轮播效果
+				 		3）移入移出，清除轮播效果
+				 		4）添加分页效果
+				 */
+				
+				var focus = document.getElementsByClassName('focus')[0];
+				var ul = focus.children[0];
+				// li增加一倍，防止出现空白
+				ul.innerHTML += ul.innerHTML;
+				var len = ul.children.length;			
+				
+				//设置ul的宽度，达到水平排列的效果
+				ul.style.width = len * ul.children[0].offsetWidth + 'px';
+//				console.log(ul.style.width);
+				
+				//水平轮播的效果
+				var index = 0;
+				var timer = setInterval(carousel,3000);
+				
+				//移入，清除轮播效果
+				focus.onmouseover = function(){
+					clearInterval(timer);
+				}
+				
+				//移出，重启定时器
+				focus.onmouseout = function(){
+					timer = setInterval(carousel,3000);
+				}
+				
+				//添加分页效果
+				var page = document.createElement('div');
+				page.className = 'page';
+				for(var i = 1; i <= len/2; i++){
+					var span = document.createElement('span');
+					span.innerHTML = i;
+					if(i === 1){
+						span.className = 'active';
+					}
+					page.appendChild(span);
+				}
+				focus.appendChild(page);
+				
+				//添加上下页按钮
+				var preBtn = document.createElement('span');
+				preBtn.className = 'preBtn';
+				preBtn.innerHTML = '上一页';
+				var nextBtn = document.createElement('span');
+				nextBtn.className = 'nextBtn';
+				nextBtn.innerHTML = '下一页';
+				
+				focus.appendChild(preBtn);
+				focus.appendChild(nextBtn);
+				
+				
+				
+				// 封装轮播函数
+				function carousel(){
+					// 判断是否切换到了最后一张图片，如果是就瞬间切换回第一张图片
+					if(index >= len/2){
+						ul.style.left = 0;
+						index = 0;
+					}
+					index++;
+					var speed;
+					
+					console.log(index);
+					//判断index是否大于len，如果大于等于就返回到0，即返回第一张图片
+//					if(index >= len){
+//						index = 0;
+//					}
+					
+					//嵌套定时器，实现滚动效果
+					//目标值
+					//var currentLeft = ul.offsetLeft;
+					var target = -index * ul.children[0].offsetWidth;
+					
+					//先清除旧的定时器
+					clearInterval(ul.timer);
+					//创建新的定时器
+					ul.timer = setInterval(function(){
+						//获取当前值
+						var oldLeft = ul.offsetLeft;
+//						console.log(oldLeft);
+						
+						//速度是变量！
+						speed = (target - oldLeft) / 10;
+						//速度取整
+						speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+						
+						//当达到目标值时，清除定时器
+						if(oldLeft == target){
+							clearInterval(ul.timer);
+							oldLeft = target - speed;
+						}
+						
+						//修改样式
+						ul.style.left = oldLeft + speed + 'px';
+					},50)
+					
+					
+					//当前高亮
+					for(var i = 0; i < page.children.length; i++){
+						if(i == index){
+							page.children[i].className = 'active';
+						}else{
+							page.children[i].className = '';
+						}
+					}
+					
+					//如果切换到了最后一张的下一张，就让按钮显示为第一张的状态
+					if(index == len/2){
+						page.children[0].className = 'active';
+					}
+				}
+				
+				//下一页
+				preBtn.onclick = function(){
+					//如果是最后一张图片，就要瞬间回到第一张图片
+					if(index == 0){
+						ul.style.left = - ul.children[0].offsetWidth * len / 2 + "px";					
+						index = len / 2 - 2;
+					}else{
+						//由于进入滚动函数中,进去会先加++,所以上一张的效果应该是-1再-1;
+						index = index - 2;
+					}
+					carousel();
+				}
+				
+				//上一页
+				nextBtn.onclick = function(){
+					//直接执行定时器的函数就是进入下一个定时器的函数中
+					carousel();
+				}
+				
+				// 给分页添加点击事件
+				for(var i = 0; i < page.children.length; i++){
+					page.children[i].index = i;
+					page.children[i].onclick = function(){
+						index = this.index - 1;
+						carousel();
+					}
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div class="focus">
+			<ul>
+				<li><img src="images/001.jpg" /></li>
+				<li><img src="images/002.jpg" /></li>
+				<li><img src="images/003.jpg" /></li>
+				<li><img src="images/004.jpg" /></li>
+			</ul>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>05变速运动</title>
+	<style>
+		body{padding-top:200px;}
+		#box{position:absolute;top:0;left:0;width:100px;height:100px;background-color: #f00;}
+	</style>
+	<script>
+		window.onload = function(){
+			var box = document.getElementById('box');
+			var btn = box.nextElementSibling;
+
+			// 点击按钮#box走动
+			btn.onclick = function(){
+				// 加速运动
+				var oldLeft = box.offsetLeft;
+				var speed = 1;
+				box.timer = setInterval(function(){
+					if(box.offsetLeft > 600){
+						speed--;
+					}else{
+						speed++;
+					}
+
+					if(speed < 1){
+						speed = 1;
+						clearInterval(box.timer);
+					}
+					
+					box.style.left = box.offsetLeft + speed + 'px';
+				},50)
+				
+			}
+
+		}
+	</script>
+</head>
+<body>
+	<div id="box"></div>
+	<button>走你~！</button>
+</body>
+</html>
