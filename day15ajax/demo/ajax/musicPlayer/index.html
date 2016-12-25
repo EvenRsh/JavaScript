@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>音乐播放器</title>
+	<link rel="stylesheet" href="font/iconfont.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/app.js"></script>
+</head>
+<body>
+	<div class="player">
+		<header>
+			<div class="play-main">
+				<span class="iconfont icon-previous" id="btnPrev"></span>
+				<span class="portrait">
+					<img src="media/default.jpg">
+					<span class="iconfont icon-play" id="btnPlay"></span>
+				</span>
+				<span class="iconfont icon-next" id="btnNext"></span>
+				<span class="iconfont icon-audio" id="btnVolume"></span>
+			</div>
+			<section class="controls">
+				<h1 class="title">陈奕迅-十年</h1>
+				<div class="play-status">
+					<progress max="100" value="20"></progress>
+					<time class="left">-00:16</time>
+				</div>
+				<div class="play-model">
+					<span class="iconfont icon-random" data-model="4" title="随机播放"></span>
+					<span class="iconfont icon-list" data-model="2" title="列表播放"></span>
+					<span class="iconfont icon-list-loop" data-model="3" title="列表循环"></span>
+					<span class="iconfont icon-loop" data-model="1" title="单曲循环"></span>
+				</div>
+			</section>
+		</header>
+		<div class="list">
+				
+		</div>
+	</div>
+</body>
+</html>

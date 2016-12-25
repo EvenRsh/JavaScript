@@ -1,0 +1,19 @@
+[
+	{
+		"name":"长城",
+		"actor":["景甜","老外"],
+		"director":"张艺谋",
+		"poster":"img/g6.jpg"
+	},{
+		"name":"寻龙诀",
+		"actor":["黄渤","陈坤","舒淇"],
+		"director":"谢导",
+		"poster":"img/g7.jpg"
+	},{
+		"name":"老炮儿",
+		"actor":["冯小刚","吴亦凡","李易峰"],
+		"director":"冯导",
+		"poster":"img/g8.jpg"
+	}
+]
+

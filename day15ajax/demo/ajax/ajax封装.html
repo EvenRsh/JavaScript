@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>ajax封装</title>
+		<style></style>
+		<script type="text/javascript">
+			
+			var xhr;
+			try{
+				xhr = new XMLHttpRequest();
+			}catch(error){
+				console.log(error);
+				try{
+					xhr = new ActiveXObject("Msxml2.XMLHTTP");
+				}catch(error){
+					try{
+						xhr = new ActiveXObject("Microsoft.XMLHTTP");
+					}catch(error){
+						alert('你的世界我不懂~');
+					}
+				}
+			}
+			
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState === 4 && xhr.status === 200){
+					console.log(xhr.responseText);
+					
+				}
+			}
+			
+			xhr.open("get","http://localhost:3000//ajax/getJSONP",true);
+			xhr.send();
+			
+			//opt = {URL:xxx,type:xx,async:xx,callback}
+			function ajax(opt){
+				
+				var xhr;
+				try{
+					xhr = new XMLHttpRequest();
+				}catch(error){
+					console.log(error);
+					try{
+						xhr = new ActiveXObject("Msxml2.XMLHTTP");
+					}catch(error){
+						try{
+							xhr = new ActiveXObject("Microsoft.XMLHTTP");
+						}catch(error){
+							alert('你的世界我不懂~');
+						}
+					}
+				}
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState === 4 && xhr.status === 200){
+						opt.callback(xhr.responseText);
+					}
+				}
+				xhr.open(opt.type,opt.URL,opt.async);
+				xhr.send();
+				
+			}
+			
+			//JSONP封装
+			
+			function callback(){
+				console.log(date);
+			}
+			var script =document.createElement("script");
+			script.src = 'http://localhost:3000//ajax/getJSONP'+'?callback='+ String(callback);
+			document.head.appendChild(script);
+			
+			//opt={URL:xx,callback:"callback"}
+			function jsonp(opt){
+				var script =document.createElement("script");
+				script.src = opt.URL +'?callback='+ opt.callback;
+				document.head.appendChild(script);
+			}
+			
+		</script>
+		
+		
+		
+	</head>
+	<body>
+	</body>
+</html>

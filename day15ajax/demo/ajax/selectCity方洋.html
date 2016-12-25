@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>请选择城市</title>
+	<style type="text/css">
+		select{
+			width: 100px;
+		}
+	</style>
+	<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+
+	<script type="text/javascript">
+		window.onload = function(){
+			var sltProvince = document.getElementById("sltProvince");
+			var sltCity = document.getElementById("sltCity");
+			var sltArea = document.getElementById("sltArea");
+			ajax({"type":"get","url":"region.json","async":true,"callback":function(data){
+//				console.log(data);
+				data.regions.forEach(function(item){
+					var option = document.createElement("option");
+					option.innerHTML = item.name;
+					sltProvince.appendChild(option);
+				})
+			}})
+			
+		
+			sltProvince.onchange = function(){
+				ajax({"type":"get","url":"region.json","async":true,"callback":function(data){
+					data.regions.forEach(function(item){
+						if (item.name == sltProvince.value) {
+							//2级下拉框
+							sltCity.innerHTML = "";
+							if (item.regions) {//非港澳台
+								item.regions.forEach(function(item){
+									var option = document.createElement("option");
+									option.innerHTML = item.name;
+									sltCity.appendChild(option);
+								})
+								//3级下拉框
+								sltArea.innerHTML = "";
+								item.regions[0].regions.forEach(function(item){
+									var option = document.createElement("option");
+									option.innerHTML = item.name;
+									sltArea.appendChild(option);
+								})
+								
+							}else{//港澳台
+								sltCity.innerHTML = "";
+								sltArea.innerHTML = "";
+								var option = document.createElement("option");
+								option.innerHTML = item.name;
+								sltCity.appendChild(option);
+								var _option = document.createElement("option");
+								_option.innerHTML = item.name;
+								sltArea.appendChild(_option);
+							}
+							sltCity.onchange = function(){
+								ajax({"type":"get","url":"region.json","async":true,"callback":function(data){
+									item.regions.forEach(function(item){
+										if (item.name == sltCity.value) {
+											item.regions.forEach(function(item){
+												sltArea.innerHTML = "";
+												var option = document.createElement("option");
+												option.innerHTML = item.name;
+												sltArea.appendChild(option);
+											})
+										}
+									})
+								}})
+							}
+							
+							
+							
+						}
+					})
+					
+					
+				}})
+			}
+			
+			
+			
+
+			
+		}
+	</script>
+</head>
+<body>
+	<select id="sltProvince">
+		<option>请选择地址</option>
+	</select>
+	<select id="sltCity">
+		
+	</select>
+	<select id="sltArea">
+		
+	</select>
+</body>
+</html>

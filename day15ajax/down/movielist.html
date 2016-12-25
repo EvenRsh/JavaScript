@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>模拟电影数据</title>
+	<script>
+		var xhr = new XMLHttpRequest();
+
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState === 4 && xhr.status === 200){
+				var res = JSON.parse(xhr.responseText);
+
+				var ul = document.createElement('ul');
+				ul.className = 'movielist';
+				for(var i=0;i<res.length;i++){
+					var li = document.createElement('li');
+					li.innerHTML = '<div class="pic"><img src="'+res[i].poster+'"/></div><p>影片：' + res[i].name + '</p><p>主演：' + res[i].actor + '</p><p>导演：' + res[i].director + '</p>';
+
+					ul.appendChild(li);
+				}
+
+				document.body.appendChild(ul);
+			}
+		}
+
+		xhr.open('get','data/movielist.json',true);
+		xhr.send();
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

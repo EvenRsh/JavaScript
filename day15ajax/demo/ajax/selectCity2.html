@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>三级城市</title>
+		<style type="text/css">
+			select {
+				width: 80px;
+			}
+		</style>
+		<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			/*
+			 * 先在三个选择框填充所有数据;
+			 * 当选择框发生事件,获取当前的数据,再重新把数据加入对应的选择框
+			 */
+			window.onload = function() {
+				var first = document.getElementById("first");
+				var secend = document.getElementById("secend");
+				var third = document.getElementById("third");
+				var city = document.getElementById("city");
+
+				//先在三个选择框填充所有数据;
+				function getCity(data) {
+					console.log(data);
+					data.regions.forEach(function(item) {
+						createOption(item, 'name','id',first);
+						if (item.regions) {
+							item.regions.forEach(function(item) {
+								createOption(item, 'name','id', secend);
+								if (item.regions) {
+									item.regions.forEach(function(item) {
+										createOption(item, 'name','id', third);
+									})
+								}
+							})
+						}
+					})
+				}
+				ajax({
+					url: 'http://localhost:3000/data/region.json',
+					type: 'get',
+					async: 'true',
+					callback: getCity
+				})
+
+				//选择框发生事件
+
+				city.onchange = function(e) {
+					e = e || window.event;
+					var target = e.target || e.srcElement;
+					//判断事件源
+					//console.log(target.value);
+					function getCity(data) {
+//						console.log(data.regions);
+						data.regions.forEach(function(item) {//读取数据
+							if (target.value === item.name) {//判断事件为一级城市的选框
+								if (item.regions) {//判断是否存在二级城市
+									secend.innerHTML='';//清空二级城市数据
+									item.regions.forEach(function(item) {//读取二级城市数据
+										createOption(item, 'name','id', secend);//添加二级城市数据
+										if (item.regions) {//判断二级城市中是否存在三级城市
+											third.innerHTML='';//清空三级城市数据
+											item.regions.forEach(function(item) {//读取三级城市数据
+												createOption(item, 'name','id', third);//添加三级城市数据
+											})
+										}
+										else{
+											return;
+										}
+									})
+								}//港澳台
+								else{
+									secend.innerHTML='';
+									third.innerHTML='';
+									createOption(target, 'value','id', secend);
+									createOption(target, 'value','id', third);
+								}
+							}
+							else{//判断事件为二,三级城市的选框
+								if (item.regions) {
+									item.regions.forEach(function(item) {
+										if(target.value === item.name){
+											if (item.regions) {
+												third.innerHTML='';
+												item.regions.forEach(function(item) {
+												createOption(item, 'name','id', third);
+												})
+											}
+										}
+										else{//判断事件为三级城市的选框
+											return;
+										}
+									})
+								}
+							}
+						})
+					}
+
+					ajax({
+						url: 'http://localhost:3000/data/region.json',
+						type: 'get',
+						async: 'true',
+						callback: getCity
+					})
+				}
+				// opt = {item:item,type:{} }
+				function createOption(item, type1,type2, parent) {
+					var option = document.createElement("option");
+					option.value = item[type1];
+					option.innerHTML = item[type1];
+					option.setAttribute('data-id',item[type2]);
+					parent.appendChild(option);
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="city">
+			<select id="first"></select>
+			<select id="secend"></select>
+			<select id="third"></select>
+		</div>
+	</body>
+
+</html>

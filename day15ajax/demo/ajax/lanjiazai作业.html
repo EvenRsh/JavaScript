@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>lanjiazai作业</title>
+		<style>
+
+
+			ul{list-style: none;padding:0;margin:0;}/*reset*/
+			#datalist{border:1px solid #ddd;padding:15px;}
+			#datalist li{padding:15px 5px;border-bottom:1px dotted #ccc;}
+			#datalist li h4{margin:0;}
+			#page span{display:inline-block;margin:5px;width:40px;line-height:1.8;text-align: center;background-color:#dfdfdf;color:#666;}
+			#page span.active{background-color:#fc0;color:#fff;}
+		</style>	
+		<script type="text/javascript">
+			window.onload = function() {
+				var datalist = document.getElementById("datalist");
+				var page = document.getElementById("page");
+				var index = 1;
+				//声明一个变量
+				var pageLen;
+				//创建一个请求对象
+				var xhr = new XMLHttpRequest();
+				//改变状态发生的事件.就绪状态事件
+				xhr.onreadystatechange = function(){
+					//判断响应完成
+					if(xhr.readyState === 4 && xhr.status === 200){
+						//获取服务器响应返回的数据
+						//JSON转换
+						index++;
+						var res = JSON.parse(xhr.responseText);
+						//创建一个UL
+						pageLen = Math.ceil(res.total/res.pageCount);
+						var ul = document.createElement("ul");
+						//遍历获取到的res.data;
+						for(var i=0;i<res.data.length;i++){
+							//创建li
+							var li = document.createElement("li");
+							//把res.data的name和content放到li里面
+							li.innerHTML = '<h4>'+res.data[i].name+'</h4><p>'+res.data[i].content+'</p>';
+							//把li放到ul里面
+							ul.appendChild(li);
+						}
+						
+						//把ul放到datalist里面
+						datalist.appendChild(ul);
+						//第一页的数据显示在页面完成
+					}
+				}
+				
+				//建立与服务器的连接
+				xhr.open('get','http://localhost:3000/ajax/football?pageNo=' + index,true)
+				//发送
+				xhr.send();
+				//懒加载效果
+				//可视区域高度+滚动过的距离=滚动条的高度
+				//innerHeight+scrollTop=scrollHeight;
+				//滚动事件
+				
+				window.onscroll = function(){
+					
+					//获取可视高度
+//					var innerHeight = window.innerHeight;
+
+					//滚动过的距离
+					var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+
+					//scrollTop
+//					var scrollHeight = document.body.scrollHeight;
+//					var scrollHeight = document.documentElement.offsetHeight;
+
+					//判断滚动条是否到达滚动条底部 
+
+					if(scrollTop >= document.documentElement.offsetHeight - window.innerHeight - 50){
+						//重新建立与服务器的连接,获取下一页的数据
+						if(index < pageLen){
+							xhr.open('get','http://localhost:3000/ajax/football?pageNo=' + index,true)
+							//发送
+							xhr.send();
+						}
+					}
+					
+					
+				}
+				
+				
+				
+				
+			}	
+		</script>
+	</head>
+
+	<body>
+		<h1>足球解说</h1>
+		<div id="datalist"></div>
+	</body>
+
+</html>
