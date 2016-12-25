@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>06_页面之间的数据传递</title>
+		<script>
+			window.onload = function(){
+				// 把链接改成:07_data.html?name=lx%age=19&gender=男
+				var obj = {
+					name:'lx',
+					age:19,
+					gender:'男',
+					hobby:['打羽毛']
+				}
+				
+				var link = document.getElementById('link');
+				
+				//先加问号(一个url中只能存在一个?)
+				link.href += "?";
+				
+				
+				//获取dom节点属性
+				//遍历对象:for ...in
+				for(var key in obj){
+					//console.log(key);
+					//console.log(obj[key])
+					link.href += key + '=' + obj[key] +'&';
+				}
+				
+			}
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<a href="07_data.html" id="link">到下个页面</a>
+		
+	</body>
+</html>

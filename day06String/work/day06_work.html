@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			mark{
+				display: inline-block;
+				width: 80px;
+				height: 20px;
+				text-align: right;
+				background: #fff;
+				display:none;
+			}
+			input{
+				outline:none;
+			}
+			
+		</style>
+		<script>
+			/*
+			1)注册页面的简单数据校验，并在页面上显示输入的内容
+			用户名只能包含数字、字母和下划线，数字不可以开头，长度不低于6，不高于20
+			密码必须一致
+			输入框中要有默认提示
+			昵称一栏要将敏感词或特殊符号自动过滤，删除不文明用语
+			所有输入框不能为空，并数据合法，点击提交才可以正确提交表单数据
+			
+			2)已知字符串 “a,a,b,c,c,d” 编程实现以下功能。
+			统计每个字符出现的次数，结果显示 a：2、b：1、c：2、d：1
+			去掉重复的字符，使结果显示 abcd
+			
+			3)输出所有1-100之间7的倍数和包含7的数字
+			
+			*/
+			
+//			1)注册页面的简单数据校验，并在页面上显示输入的内容
+//			用户名只能包含数字、字母和下划线，数字不可以开头，长度不低于6，不高于20
+//			密码必须一致
+//			输入框中要有默认提示
+//			昵称一栏要将敏感词或特殊符号自动过滤，删除不文明用语
+//			所有输入框不能为空，并数据合法，点击提交才可以正确提交表单数据
+			
+			//1)获取页面元素
+			//2)绑定点击事件=>注册button
+			window.onload = function (){//延迟执行,待Html加载完了再执行;
+				//1)获取页面元素
+				var userName = document.getElementById("userName");
+				var name = document.getElementById("name");
+				var passWord = document.getElementById("passWord");
+				var subPassWord = document.getElementById("subPassWord");
+				var btnSubmit = document.getElementById("btnSubmit");
+				var output = document.getElementById("output");
+				//2)绑定点击事件=>注册button
+				btnSubmit.onclick = function (){
+					//用户名只能包含数字、字母和下划线，数字不可以开头，长度不低于6，不高于20
+					var valUserName = userName.value;
+					var valName = name.value;
+					var valPassWord = passWord.value;
+					var valSubPassWord = subPassWord.value;
+					
+					//将获取的元素转换成数组;
+					var arrUser = valUserName.split("");
+					
+					if(arrUser[0]%1 == 0){
+						output.innerHTML="请重新输入用户名";
+						//阻止表单提交 ,用return false;
+						return false;
+					}
+					for(var i=0; i<arrUser.length; i++){
+						
+						if (!((arrUser[i]%1>=0 && arrUser[i]%1<=9) && (arrUser[i]) =="_") && (valUserName.charCodeAt(i)>='a' && valUserName.charCodeAt(i)<='z')){
+							output.innerHTML="请重新输入用户名";
+						}
+					}
+					if(arrUser.length<6 || arrUser.length>20) {
+						output.innerHTML="用户名长度不对";
+					}
+					if(valPassWord != valSubPassWord){
+						output.innerHTML="密码不一致";
+					}
+					var sensitive = '法轮功,达赖,金三胖,fuck,shit,bitch'.split(",");
+					var res = valName;
+					for (var i=0; i<sensitive.length;i++){
+						var reg = new RegExp(sensitive[i],'g');
+						while (res.indexOf(sensitive[i]) != -1){
+							res =res.replace(reg,'');
+						}
+						output.innerHTML="呢称包含敏感辞";
+					}
+					if(valUserName.length ==0 || valName.length ==0 || valPassWord.length ==0 || valSubPassWord.length ==0) {
+						output.innerHTML="输入框均不能为空";
+					}
+else{
+					output.innerHTML="注册成功"
+					
+					}
+					
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<form action="#">
+			<h3>注册页面的简单数据校验，并在页面上显示输入的内容</h3>
+			<mark>用户名:</mark><input type="text" id="userName" placeholder="用户名"/><br />
+			<mark>呢称:</mark><input type="text" id="name" placeholder="呢称"/><br />
+			<mark>密码:</mark><input type="password" id="passWord" placeholder="密码"/><br />
+			<mark>密码确认:</mark><input type="password" id="subPassWord" placeholder="密码确认"/><br />
+			<button id="btnSubmit">注册</button>
+			<div id="output"></div>
+
+
+			
+			
+			
+			
+			
+			
+			
+		</form>
+	</body>
+</html>

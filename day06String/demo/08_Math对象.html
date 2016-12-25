@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>08_Math对象</title>
+		<style>
+			body{
+				text-align: center;
+				margin-top: 50px;
+			}
+			#vcode{
+				padding:10px;border:1px solid #ddd;background:#efefef;font-size:30px;
+			}
+		</style>
+		<script>
+/*			//四舍五入
+			Math.round(3.5);// =>4
+			
+			//向上去整
+			Math.ceil(3.6);// =>4
+			Math.ceil(3.1);// =>4
+			
+			//向下去整
+			Math.floor(3.1);// =>3
+			Math.floor(3.998);// =>3
+			
+			//随机数
+			Math.random();//返回0-1之间的随机数（不包括1）*/
+			window.onload = function(){
+				//获取元素
+				//绑定事件
+				//随机生成4位数的验证码
+				//把验证码写入#vcode
+				
+				//1)获取元素
+				var vcode = document.getElementById("vcode");
+				var btnRandom = document.getElementById("btnRandom");
+				//2)给#btnRandom绑定点击事件
+				btnRandom.onclick = function(){
+					//随机生成4位数的验证码
+					//向下取整
+					var _code = Math.floor(Math.random()*10000);
+					console.log(_code);
+					
+					//判断验证码的位数是否够4位
+					while(('' + _code).length<4){
+						_code = "0" + _code;
+					}
+					//把验证码写入#vcode
+					vcode.innerHTML =_code;
+				}
+			}
+			
+			
+			
+		</script>
+		
+	</head>
+	<body>
+		<span id="vcode">1234</span><button id="btnRandom">刷新</button>
+	</body>
+</html>

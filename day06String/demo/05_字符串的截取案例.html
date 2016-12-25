@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			
+			//https://www.baidu.com/s?name=avery&age=20&sex=male, 取出name, age和sex的值
+			//字符串截取:
+			//substring,substr,slice
+			var str = 'https://www.baidu.com/s?name=avery&age=20&sex=male';
+			
+			//通过indexOf()查找到索引值,再通过索引值用substr()获取需要的元素
+			var name = str.substr(str.indexOf('name=')+5,5);
+			var age = str.substr(str.indexOf('age=')+4,2);
+			var sex = str.substr(str.indexOf('sex=')+4,4);
+			console.log(name,age,sex);  //以浏览器的测试为准
+//			console.log(name + "," + age + "," + sex);
+
+			
+			//通过indexOf()查找到索引值,再通过索引值用slice()截取获取需要的元素,再用split()拆分截取的元素
+			//变成数组params,再遍历数组,再把数组中的每个元素同拖split()拆分成数组
+			var params = str.slice(str.indexOf('?')+1);
+			console.log(params); 
+			params = params.split('&') 
+			for(var i=0; i<params.length; i++) {
+//				console.log(params[i]);
+				var arr = params[i].split('=');
+				console.log(arr[0] + ':' +arr[1]);
+			}
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

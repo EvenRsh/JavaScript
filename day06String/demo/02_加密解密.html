@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>加密解密</title>
+		<script>
+			//1)获取页面元素;
+			//2)加密:
+			//	给#encode绑定点击事件
+			//	加密输入的字符
+			//  把加密后的字符写入#output
+			//3)解密:
+			//	给#decode绑定点击事件
+			//	把之前加密的内容解密
+			//  把加密后的字符写入#output
+			
+				// 延迟代码执行
+				window.onload = function(){
+					//获取页面元素
+//					var str = document.getElementById("str");
+//					var encode = document.getElementById("encode");
+//					var decode = document.getElementById("decode");
+//					var output = document.getElementById("output");
+				
+				//给#encode绑定点击事件
+				encode.onclick = function(){//onclick是button标签的属性/
+					//加密输入的字符
+					var val = str.value;
+					console.log(val);
+					//遍历字符串,把每一个字符进行加密
+					//先把结果拼接起来,再一次性写入#output
+					var res = '';//把取得的
+					for(var i=0; i<val.length;i++){
+						//console.log(val.charCodeAt(i));
+						res += val.charCodeAt(i) + ",";
+					}
+					//console.log(res.substring(0,res.length-1));
+					//slice():支持负数
+					//console.log(res.slice(0,-1));
+					//把加密后的字符写入#output
+					//ouput.innerHTML = res.substring(0,res.length-1);
+					output.innerHTML = res.slice(0,-1);
+				}
+				
+				//给#encode绑定点击事件
+				decode.onclick = function(){
+					//获取加密内容
+					var val = output.innerHTML;
+					//切割成数组
+					var arr = val.split(',');
+					//把之前加密的内容解密
+					var res ='';
+					for (var i=0; i<arr.length;i++){
+						res += String.fromCharCode(arr[i]);
+//						console.log(res);
+					}
+//						res += val;
+					output.innerHTML = res;
+				}
+				
+				
+			}
+			
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<!--emmet-->
+		<input type="text" id="str"/>
+		<button id="encode" >加密</button>
+		<button id="decode" >解密</button>
+		<div id="output"></div>
+	</body>
+</html>

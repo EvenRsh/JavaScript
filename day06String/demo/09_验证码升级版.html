@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>09_验证码升级版</title>
+		<style>
+			body{
+				text-align: center;
+				margin-top: 50px;
+			}
+			#vcode{
+				padding:10px;border:1px solid #ddd;background:#efefef;font-size:30px;
+			}
+			
+		</style>
+		
+		<script>
+			//Math.random();//返回0-1之间的随机数（不包括1）
+			window.onload = function(){
+				//获取元素
+				//绑定事件
+				//随机生成4位数的验证码
+				//把验证码写入#vcode
+				
+				//1)获取元素
+				var vcode = document.getElementById("vcode");
+				var btnRandom = document.getElementById("btnRandom");
+				
+				var str ='abcdefghijklmnopqrstuvwxyz0123456789';
+				
+				//2)给#btnRandom绑定点击事件
+				btnRandom.onclick = function(){
+					//随机生成4位数的验证码(包含字母)
+//					var _code= "";
+//					for(var i =0; i<4; i++){
+//						var index = parseInt(Math.random()*36);
+//						_code += str[index].toUpperCase();
+//					}
+					var _code = vcode1(str);
+					vcode.innerHTML = _code; 
+				}
+				function vcode1(){
+					var _code= "";
+					for(var i =0; i<6; i++){
+						var index = parseInt(Math.random()*36);//用随机数
+						_code += str[index].toUpperCase();
+					}
+					return _code;
+				}
+			}	
+		</script>
+	</head>
+	<body>
+		<span id="vcode">123456</span><button id="btnRandom">刷新</button>
+	</body>
+</html>

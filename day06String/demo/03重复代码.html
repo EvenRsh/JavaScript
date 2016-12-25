@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//1)获取页面元素;
+			//2)加密:
+			//	给#encode绑定点击事件
+			//	加密输入的字符
+			//  把加密后的字符写入#output
+			//3)解密:
+			//	给#decode绑定点击事件
+			//	把之前加密的内容解密
+			//  把加密后的字符写入#output
+			
+			window.onload = function() {
+				//1)获取页面元素;
+				var str = document.getElementById("str");
+				var encode = document.getElementById("encode");
+				var decode = document.getElementById("decode");
+				var output = document.getElementById("output");
+				
+				//加密
+				//绑定
+				encode.onclick = function(){
+					var val = str.value;
+					console.log(typeof val);
+					//加密输入的字符
+					var res = "";
+					for(var i=0; i<val.length; i++){
+//						console.log(val.charCodeAt(val[i])); 
+						res += val.charCodeAt(i)+",";//获取下标为i的字符的编码(ASCII码)
+					}
+					//  把加密后的字符写入#output
+					output.innerHTML = res;
+					console.log(typeof res);
+				}
+				
+				//解密
+				//绑定
+				decode.onclick = function (){
+					//#output输出的值
+					var val = output.innerHTML;
+					var arr = val.split(",");
+					console.log(arr.length);
+//					console.log(typeof arr);
+					var res = '';
+					for(var i=0;i<arr.length; i++){
+						console.log( String.fromCharCode(arr[i]));
+						res += String.fromCharCode(arr[i]);
+					}
+					output.innerHTML = res;
+				}
+				
+				var str = "abcdef";
+				var arr = str.split("");
+				console.log(arr);
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<!--emmet-->
+		<input type="text" id="str"/>
+		<button id="encode" >加密</button>
+		<button id="decode" >解密</button>
+		<div id="output"></div>
+	</body>
+</html>

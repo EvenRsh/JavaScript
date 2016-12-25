@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			lable{
+				display: inline-block;
+				width: 120px;
+				text-align: right;
+			}
+			button[type=submit]{
+				margin-left: 130px;
+			}
+		</style>
+		<script>
+			//1)注册页面的简单数据校验，并在页面上显示输入的内容
+			//用户名只能包含数字、字母和下划线，数字不可以开头，长度不低于6，不高于20
+			//密码必须一致
+			//输入框中要有默认提示
+			//昵称一栏要将敏感词或特殊符号自动过滤，删除不文明用语
+			//所有输入框不能为空，并数据合法，点击提交才可以正确提交表单数据
+			
+			//提取元素
+			window.onload = function (){
+				//提取元素
+				var username = document.getElementById("username");
+				var nickname = document.getElementById("nickname");
+				var password = document.getElementById("password");
+				var confirmpsw = document.getElementById("confirmpsw");
+				var btnSubmit = document.getElementById("btnSubmit");
+				
+				var str = 'abcdefghijklmnopkrstuvwxyz0123456789_';
+				var sensitive = '他妈的,fuck,shit,bitch'.split();
+				//绑定点击事件
+				btnSubmit.onclick = function (){
+					//校验用户名
+					var _username = username.value.trim();
+					//长度不低于6，不高于20
+					if(_username.length<6 || _username.length>20) {
+						alert("你输入的用户名不合法");
+						//阻止表单提交,用return false;
+						return false;
+					}
+					//数字不可以开头
+					//isNaN:(内置函数)判断当前字符是否为非数字. 数字:false
+					if(!isNaN(_username.charAt(0))){//失败效果
+						alert("你输入的用户名不能以数字开头");
+						return false;
+					}
+					//用户名只能包含数字、字母和下划线
+					//遍历输入的用户名每一个字符,判断如果有一个不存在str中,就说明用户名不合法;
+					for(var i=0; i<_username.length;i++){
+						if(str.indexOf(_username[i]) ==-1){//取出_username的每一个字符,在str中遍历,==-1就是找不到
+							alert("你输入的用户名应只包含字母数字和下划线");
+//							break;
+							return false;
+						}
+					}
+					
+					//密码必须一致
+					if(password.value != confirmpsw.value){
+						alert("你输入的密码不一致");
+						return false;
+					}
+					
+					//昵称一栏要将敏感词或特殊符号自动过滤，删除不文明用语
+					//遍历敏感字符库的元素,如果输入的元素包含敏感字符则警告
+					var _nickname = nickname.value; 
+					for (var j=0; j<sensitive.length; j++){
+						var reg = new RegExp(sensitive[j],'gi');
+						_nickname = _nickname.replace(reg,"***");
+//						alert("昵称包含敏感词或特殊符号");
+//						return false;
+					}
+					
+					
+					
+					//所有输入框不能为空，并数据合法，点击提交才可以正确提交表单数据
+					if (username.value.trim() == ""){
+						alert("用户名不能为空");
+						return false;
+					}
+					if (nickname.value.trim() == ""){
+						alert("呢称不能为空");
+						return false; 
+					}
+					if (password.value.trim() == ""){
+						alert("密码不能为空");
+						return false;
+					}
+					if (confirmpsw.value.trim() == ""){
+						alert("确认不能为空");
+						return false;
+					}
+					console.log(_username+","+_nickname);
+				}
+				
+				
+				
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			//trim():删除前后的所有空格,返回新的字符串;
+		</script>
+	</head>
+	<body>
+		<form >
+			<p>
+				<lable for="username">用户名:</lable>
+				<input type="text" id="username" placeholder="请输入用户名"/>
+			</p>
+			<p>
+				<lable for="nickname">呢称:</lable>
+				<input type="text" id="nickname" placeholder="请输入呢称"/>
+			</p>
+			<p>
+				<lable for="password">密码:</lable>
+				<input type="password" id="password" placeholder="请输入密码"/>
+			</p>
+			<p>
+				<lable for="confirmpsw">确认密码:</lable>
+				<input type="password" id="confirmpsw" placeholder="请输入确认密码"/>
+			</p>
+			<p>
+				<button type ="submit" id="btnSubmit">注册</button> 
+			</p>
+		</form>
+	</body>
+</html>

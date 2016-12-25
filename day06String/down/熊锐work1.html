@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>work1</title>
+	<style>
+		section{
+			width: 240px;
+			height: 400px;
+			margin: 0 auto;
+		}
+		section *{
+			margin-top: 5px;
+		}
+		section input{
+			width: 240px;
+			height: 20px;
+			text-indent: 5px;
+			display: block;
+		}
+		section button{
+			margin-right: 30px;
+		}
+		section span{
+			color: red;
+			font: 12px/12px "微软雅黑";
+		}
+		section #about_userID{
+			display: none;
+		}
+	</style>
+	<script>
+		/*
+		注册页面的简单数据校验，并在页面上显示输入的内容
+		用户名只能包含数字、字母和下划线，数字不可以开头，长度不低于6，不高于20
+		密码必须一致
+		输入框中要有默认提示
+		昵称一栏要将敏感词或特殊符号自动过滤，删除不文明用语
+		所有输入框不能为空，并数据合法，点击提交才可以正确提交表单数据
+		*/
+
+		// 延迟加载
+		window.onload = function() {
+			// 获取页面元素节点
+			var userID = document.getElementById("userID");
+			var about_userID = document.getElementById("about_userID");
+			var password = document.getElementById("password");
+			var password_again = document.getElementById("password_again");
+			var names = document.getElementById("name");
+			var register = document.getElementById("register");
+			var message = document.getElementById("message");
+
+			// 用户名输入框获取焦点时事件
+			userID.onfocus = function(){
+				about_userID.style.display = "block";
+			}
+			// 用户框失去焦点时事件
+			userID.onblur = function(){
+				about_userID.style.display = "none";
+				// 获取用户名输入框值
+				var message_value = message.innerHTML;
+				if (message_value == "该用户名可以注册") {
+					message.innerHTML = "";
+				}
+			}
+
+			// 实时监听验证用户名
+			userID.oninput = function(){
+				// 获取用户名输入框值
+				var userID_value = userID.value;
+				// 新建正则表达式
+				var user_reg = /^[a-zA-Z/_][a-zA-Z0-9/_]{6,20}/;
+				if (user_reg.test(userID_value)) {
+					message.innerHTML = "该用户名可以注册";
+					userID.boolean = "1";
+				}
+				else if(userID_value == ""){
+					message.innerHTML = "用户名不能为空";
+				}
+				else{
+					message.innerHTML = "用户名不合法";
+				}
+			}
+
+			// 实时监听验证一次密码
+			password.oninput = function(){
+				// 获取密码输入框值
+				var password_value = password.value;
+				// 新建正则表达式
+				var password_reg = /[a-zA-Z0-9]{6,20}/;
+				if (password_reg.test(password_value)) {
+					message.innerHTML = "";
+					password.boolean = "1";
+				}
+				else {
+					message.innerHTML = "密码不合法";
+				}
+			}
+			// 实时监听验证二次密码
+			password_again.oninput = function(){
+				var password_value = password.value;
+				var password_again_value = password_again.value;
+				if (password_value != password_again_value) {
+					message.innerHTML = "两次输入密码不一致";
+				}
+				else{
+					message.innerHTML = "";
+					password_again.boolean = "1";
+				}
+			}
+
+			// 非法字符集
+			
+			// input框失去焦点时监听昵称输入值
+			names.onblur = function(){
+				var name_value = names.value;
+				console.log(name_value.length);
+				var arr = ["妈的","逼","吗的","妈逼","操","肏","狗日"];
+				for(var i=0; i<arr.length; i++){
+					var name_reg = new RegExp(arr[i],'gi');
+					name_value = name_value.replace(name_reg,'');
+				}
+				names.value = name_value;
+			}
+
+			// 注册按钮点击事件
+			register.onclick = function(){
+				if (userID.boolean == "1" && password.boolean == "1" && password_again.boolean == "1") {
+					alert("注册成功");
+				}
+				else{
+					alert("注册失败");
+				}
+
+			}
+
+		}
+
+
+
+	</script>
+</head>
+<body>
+	<section>
+		<input type="text" placeholder="输入用户名" id="userID" maxlength="20"/>
+		<span id="about_userID">*&nbsp;用户名只能包含数字、字母和下划线，数字不可以开头，长度不低于6，不高于20</span>
+		<input type="password" id="password" placeholder="输入密码"/>
+		<input type="password" id="password_again" placeholder="确认密码"/>
+		<input type="text" placeholder="请输入昵称" id="name"/>
+		<button id="register">注册</button>
+		<span id="message"></span>
+	</section>
+	
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+//			2)已知字符串 “a,a,b,c,c,d” 编程实现以下功能。
+//			统计每个字符出现的次数，结果显示 a：2、b：1、c：2、d：1
+//			去掉重复的字符，使结果显示 abcd
+			//1)获取页面元素
+			//2)绑定点击事件=>注册button
+			window.onload = function (){//延迟执行,待Html加载完了再执行;
+				//1)获取页面元素
+				var inPut = document.getElementById("inPut");
+				var btn = document.getElementById("btn");
+				var outPut = document.getElementById("outPut");
+			
+			
+			btn.onclick = function (){
+			var str = inPut.value;
+			var arr = str.split(",");
+			console.log(arr);
+			var arr2 = [];
+			var obj ={};
+			var count = 0;
+//			var arr1 =[];
+			for(var i=0;i<str.length;i++){
+//				if(obj[arr[i]]) {
+//					count++;
+//					arr1[arr1.length]=arr[i] + ":" +count +"&nbsp;";
+//				}
+				if(!obj[arr[i]]){
+					arr2[arr2.length]=arr[i];
+				}
+				obj[arr[i]] = "text";
+			}
+//			var str1 =arr1.join("");
+			var str2 =arr2.join("");
+			console.log(str2)
+			outPut.innerHTML =str1 + "</br>" + str2;
+			
+		}
+		}
+		</script>
+	</head>
+	<body>
+		<input type="text" id="inPut" />
+		<button id="btn">输出</button>
+		<div id="outPut"></div>
+	</body>
+</html>

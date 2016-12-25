@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//输出所有1-100之间7的倍数和包含7的数字
+			var str = '输出所有1-100之间7的倍数和包含7的数字:';
+			for (var i=1;i<=100;i++){
+				if(i%7==0 || String(i).indexOf("7") != -1){
+					str += i +",";
+				}
+			}
+			console.log(str);
+			
+			//2)已知字符串 “a,a,b,c,c,d” 编程实现以下功能。
+//			统计每个字符出现的次数，结果显示 a：2、b：1、c：2、d：1
+//			去掉重复的字符，使结果显示 abcd
+			var arr = 'a,a,b,c,c,d'.split(',');
+			console.log(arr);
+			
+			//声明一个空的对象
+			var obj ={};
+			for (var i=0; i<arr.length;i++){
+				//判断obj中是否已经存在当前属性
+				if(obj[arr[i]] === undefined){
+					obj[arr[i]]=1; 
+				}else{
+					obj[arr[i]]++;
+				}
+			}
+			console.log(obj.split());
+			
+			//遍历对象,然后输出结果
+			var str_qc = "";
+			var str_res ="";
+			for (var key in obj){
+				str_qc += key;
+				str_res += key +":" + obj[key];
+			}
+			console.log(str_res);
+			console.log(str_qc);
+			
+		</script>
+		
+	</head>
+	<body>
+	</body>
+</html>

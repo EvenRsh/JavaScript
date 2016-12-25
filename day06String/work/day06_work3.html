@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			//3)输出所有1-100之间7的倍数和包含7的数字
+			//1)获取页面元素
+			//2)绑定点击事件=>注册button
+			window.onload = function (){//延迟执行,待Html加载完了再执行;
+				//1)获取页面元素
+				var inPut = document.getElementById("inPut");
+				var inPut1 = document.getElementById("inPut1");
+				var btn = document.getElementById("btn");
+				var outPut = document.getElementById("outPut");
+				
+				btn.onclick = function (){
+					var a = inPut.value | 0;
+					var b = inPut1.value | 0;
+					var min = a>b? b: a;
+					var max = a>b? a: b;
+					var temp = 0;
+					var arr= [];
+					for(var i=min; i<=max; i++){
+						temp=i
+						temp =parseInt(i/10);
+						if(i!=0 && i%7 == 0 || temp%10 == 7){
+							arr.push(i);
+						}
+					}
+					
+						outPut.innerHTML =arr.join();
+				}
+			
+			
+			
+			
+			
+			}
+		</script>
+	</head>
+	<body>
+		<input type="text" id="inPut" />
+		<input type="text" id="inPut1" />
+		<button id="btn">输出</button>
+		<div id="outPut"></div>
+	</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{
+				background-color:#cfcfcf;
+			}
+			
+		</style>
+		<script>
+			window.onload = function (){
+				var btn = document.getElementById("btn");
+				
+				
+				btn.onclick = function(){
+					var color = 'rgb(' +parseInt(Math.random()*256) +',' +parseInt(Math.random()*256) +','+parseInt(Math.random()*256) +')';
+					
+					
+					
+					//获取body元素 document.body
+					//改变css样式 document.body.style
+					//.style
+					document.body.style.backgroundColor = color;
+					
+				}
+				
+				
+				
+				
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<button id="btn">随机背景色</button>
+	</body>
+</html>
