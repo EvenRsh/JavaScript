@@ -232,8 +232,6 @@ function ajax(opt){
 	}
 	
 
-
-
 	if(opt.type === 'jsonp'){
 		// 怎么在这里声明一个全局函数
 
@@ -241,11 +239,15 @@ function ajax(opt){
 		var script = document.createElement('script');
 
 		// 1、声明一个全局函数
-		window.getData = function(data){
+		var fnName = 'getData' + parseInt(Math.random()*100000000000);
+		window[fnName] = function(data){
 			opt.callback(data);
 
 			// 移出script标签
 			document.head.removeChild(script);
+
+			// 删除全局函数
+			delete window[fnName];
 		}
 
 		// 判断url中是否已经有?
@@ -257,7 +259,7 @@ function ajax(opt){
 		script.src = opt.url;
 
 		// 把script标签写入页面
-		document.head.appendChild(script);
+		document.head.appendChild(script);//getData({xxxx})
 
 		return;
 	}
