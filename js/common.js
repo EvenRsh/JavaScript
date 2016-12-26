@@ -238,12 +238,26 @@ function animate(ele, opt, callback) {
 }
 
 /*
- * @opt:
- * 
+ * @opt:{type:xx, URL:xx,async:xx,callback:fn}
+ * 例如:opt = {url:'http://localhost:3000/ajax/football?pageNo=' + pageNo,type:'get',async:'true',callback:footBall}
  * 
  */
-console.log('123')
+console.log('是否使用了该js');
 function ajax(opt) {
+	var data;
+	var url
+	if (opt.data) {
+		for(var p in opt.data){
+//			console.log(p);
+			data = "&" + p + "=" + opt.data[p] ;
+//			console.log(data);
+		}
+	}else{
+		data = '';
+	}
+	var hasparams = opt.url.indexOf('?');
+	url= opt.url + (hasparams > 0 ? "&" : "?") +'callback=' +  opt.callback ;
+	url += data;
 	var xhr;
 	try {
 		xhr = new XMLHttpRequest();
@@ -262,11 +276,86 @@ function ajax(opt) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4 && xhr.status === 200) {
 			//对象调用方法
-			
-			opt.callback(xhr.responseText);
+			var data = JSON.parse(xhr.responseText);
+			opt.callback(data);
 		}
 	}
-	xhr.open(opt.type, opt.URL, opt.async);
+	xhr.open(opt.type, url, opt.async);
 	xhr.send();
 
+}
+
+
+//opt={url:xx,data:{[name:xx]},callback:callback}
+//例如opt= {url:"http://wthrcdn.etouch.cn/weather_mini",data:{city:_city},callback:getWeather}
+function jsonp(opt){
+	var data;
+	var url
+	if (opt.data) {
+		for(var p in opt.data){
+//			console.log(p);
+			data = "&" + p + "=" + opt.data[p] ;
+//			console.log(data);
+		}
+	}else{
+		data = '';
+	}
+	var hasparams = opt.url.indexOf('?');
+	url= opt.url + (hasparams > 0 ? "&" : "?") +'callback=' +  opt.callback ;
+	url += data; 
+//	console.log(url);
+	var script =document.createElement("script");
+	script.src = url;
+//	console.log(opt.url);
+//	console.log(script.src);
+	document.head.appendChild(script);
+}
+
+
+function repet(str){
+	var arr = str.split('');
+	arr.sort();
+	//声明一个空的对象
+	var obj ={};
+	for (var i=0; i<arr.length;i++){
+		//判断obj中是否已经存在当前属性
+		if(obj[arr[i]] === undefined){
+			obj[arr[i]]=1; 
+		}else{
+			obj[arr[i]]++;
+		}
+	}
+	
+	//遍历对象,然后输出结果
+	var str_qc = "";
+	var str_res ="";
+	for (var key in obj){
+		str_qc += key;
+		str_res += key +":" + obj[key];
+		}
+//			console.log(str_res);
+			return str_qc;
+}
+function repet2(arr){
+	arr.sort();
+	//声明一个空的对象
+	var obj ={};
+	for (var i=0; i<arr.length;i++){
+		//判断obj中是否已经存在当前属性
+		if(obj[arr[i]] === undefined){
+			obj[arr[i]]=1; 
+		}else{
+			obj[arr[i]]++;
+		}
+	}
+	
+	//遍历对象,然后输出结果
+	var str_qc = "";
+	var str_res ="";
+	for (var key in obj){
+		str_qc += key;
+		str_res += key +":" + obj[key];
+		}
+//			console.log(str_res);
+			return str_qc;
 }

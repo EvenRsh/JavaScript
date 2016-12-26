@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作业</title>
+	<style>
+		ul{list-style: none;padding:0;margin:0;}
+		a{text-decoration:none;}
+		.city-wrap { overflow-y: auto; }
+		.city-wrap h2 { margin: 0; padding: .5em; background: #ccc; color: #fff; }
+		.city-wrap ul { padding: 0; margin: 0; }
+		.city-wrap ul li { padding: 5px 0; border-top: 1px dotted #ddd; }
+		.city-wrap ul li:hover { background: #efefef; }
+		.city-wrap ul li > span { display: inline-block; padding: .5em; color: #26c8ac; }
+		.city-wrap a { display: inline-block; padding: .5em; color: #444; }
+		.city-wrap ul a:hover { color: #26c8ac; text-decoration: none; }
+		.city-wrap .hotCity a { width: 3.5em; text-align: center; }
+
+		.index-bar{background-color:#efefef;}
+		.index-bar a{width: 5.5em;}
+
+		#weather{border:1px solid #ddd;padding:10px;font-size:12px;}
+		#weather ul{padding:5px;overflow:hidden;}
+		#weather li{float:left;padding:5px;width:20%;height:200px;border-right:1px dotted #ddd;box-sizing:border-box;}
+		#weather li.last{border-right:none;float:right;}
+		#weather .date{padding-bottom:10px;margin-bottom:10px;text-align:center;font-weight:bold;border-bottom:1px dotted #ddd;}
+		
+		.type{height:70px;}
+		.qt{background:url(tianqi/1.png) no-repeat center;}
+		.zheny{background:url(tianqi/10.png) no-repeat center;}
+		.dy{background:url(tianqi/3.png) no-repeat center;}
+		.by{background:url(tianqi/12.png) no-repeat center;}
+		.zy{background:url(tianqi/10.png) no-repeat center;}
+		.xy{background:url(tianqi/9.png) no-repeat center;}
+		.yin{background:url(tianqi/4.png) no-repeat center;}
+		.yjx{background:url(tianqi/14.png) no-repeat center;}
+		.lx{background:url(tianqi/16.png) no-repeat center;}
+	</style>
+	<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		
+		function getWeather(res){
+			 	var weather = document.getElementById("weather");
+		 		//console.log(res);
+			 	//写入之前先清空
+			 	weather.innerHTML = '';
+		 		var h1 = document.createElement("h1");
+		 		h1.innerHTML = res.data.city + ',未来五天的天气预报';
+		 		weather.appendChild(h1);
+		 		//forEach
+		 		var ul = document.createElement("ul");
+		 		res.data.forecast.forEach(function(itme,idx){
+		 			//console.log(itme,idx);
+		 			var li = document.createElement("li");
+		 			var type;
+		 			switch(itme.type){
+		 				case '多云': type = 'dy';break;
+						case '阴' : type = 'yin';break;
+						case '晴' : type = 'qt';break;
+						case '小雨' : type = 'xy';break;
+						case '阵雨' : type = 'zheny';break;
+						case '中雨' : type = 'zy';break;
+						case '大雨' : type = 'dy';break;
+						case '雨夹雪' : type = 'yjx';break;
+						case '雷雨' : type = 'lx';break;
+		 			}
+		 			li.innerHTML = '<h4 class="date">' + itme.date + '</h4><p class = "type '+type+'">' + itme.type + '</p><p>' + itme.high + '/' + itme.low + '</p>'
+		 			ul.appendChild(li);
+		 		})
+		 		weather.appendChild(ul);
+		 	}
+		 	jsonp({url:"http://wthrcdn.etouch.cn/weather_mini",data:{city:'广州'},callback:"getWeather"});
+		 	
+	 		function hotCity(data){
+		 		var hotCity = document.getElementsByClassName('hotCity')[0];
+				//热门城市
+				var h2 = document.createElement("h2");
+				h2.innerHTML='热门城市';
+				hotCity.appendChild(h2);
+				console.log(data);
+				var arr = [];
+				data.regions.forEach(function(item,idx){
+					//找出hot属性的城市
+					if(item.hot){//一级城市为hot
+						createA(item,"name",hotCity);
+					}else if(item.regions){//存在二级城市
+						item.regions.forEach(function(item){
+							if(item.hot){//二级城市为hot
+								createA(item,"name",hotCity);
+							}
+						})
+					}
+					//首字母
+					if(item.pinyin){
+						arr.push(item.pinyin[0]);
+					}
+					if(item.regions){
+						item.regions.forEach(function(item){
+							if(item.pinyin){//二级城市为hot
+								arr.push(item.pinyin[0]);
+							}
+						})
+					}
+				})
+				//获取到了所有二级以上的城市的不重复首字母
+				var indexCity = document.getElementsByClassName('indexCity')[0];
+				var h2 = document.createElement("h2");
+				h2.innerHTML='字母搜索';
+				indexCity.appendChild(h2);
+				var div = document.createElement("div");
+				div.className = 'index-bar';
+				indexCity.appendChild(div);
+				//这是所有的城市的首字母的字符串
+				var abc = repet2(arr);
+				//创建ul存放所有城市
+				var ul = document.createElement("ul");
+				for (var i = 0; i < abc.length; i++) {
+					var a = document.createElement("a");
+					a.href = "#" + abc[i];
+					a.innerHTML = abc[i];
+					div.appendChild(a);
+					//遍历搜索字母的同时添加城市信息
+					var li = document.createElement("li");
+					var span = document.createElement("span");
+					span.id = abc[i];
+					span.innerHTML= abc[i];
+					li.appendChild(span);//放li首个字母
+					data.regions.forEach(function(item){
+						if (item.hot) {//这里不是很懂
+									if(item.pinyin[0] === abc[i]){
+									createA(item,"name",li);
+									}
+								}
+						if(item.regions){
+							item.regions.forEach(function(item){
+								if (item.pinyin) {
+									if(item.pinyin[0] === abc[i]){
+									createA(item,"name",li);
+									}
+								}
+							})
+						}
+					
+					})
+					//把所有li加到ul里面
+					ul.appendChild(li);
+				}
+				//把ul加到wrap里面
+				var wrap = document.getElementsByClassName('city-wrap')[0];
+				wrap.appendChild(ul);
+		
+				}
+			ajax({url:'http://localhost:3000/data/region.json',type:'get',async:'true',callback:hotCity});
+		window.onload = function(){
+		 	
+		 	var wrap = document.getElementsByClassName('city-wrap')[0];
+	 		var hotCity = document.getElementsByClassName('hotCity')[0];
+	 		var indexCity = document.getElementsByClassName('indexCity')[0];
+	 		
+	 		
+	 		
+	 		
+	 		
+	 		wrap.onclick = function(e){
+	 			e = e || window.event;
+	 			var target = e.target || e.srcElement;
+				if(target.tagName.toLocaleLowerCase() === 'a'){
+					var _city = target.innerHTML;
+//						console.log(_city);
+					//_city.match(/['市'|'州'|'县'|'区']/);
+//						console.log(_city.match(/['市'|'州'|'县'|'区']/));
+					if(_city.indexOf(_city.match(/['市'|'州'|'县'|'区']/)) != -1 ){
+						_city = _city.substr(0,_city.length-1);
+//							console.log(_city);
+					}else{
+						_city = _city ;
+					}
+					if(_city != _city.match(/[A-Z]/)){
+						jsonp({url:"http://wthrcdn.etouch.cn/weather_mini",data:{city:_city},callback:"getWeather"});
+					}
+				}
+	 		}
+			//创建a链接封装
+ 		}
+				function createA(item,type,parent){
+		//			console.log(item.name);
+					var a = document.createElement("a");
+					a.href = "#";
+					a.innerHTML = item[type];
+					parent.appendChild(a);
+			}
+	
+		
+		
+		
+	
+	
+	</script>
+</head>
+<body>
+	<div id="weather"></div>
+	<div class="city-wrap">
+		<div class="hotCity">
+			
+		</div>
+		<div class="indexCity">
+			
+		</div>
+	</div>
+	
+</body>
+</html>

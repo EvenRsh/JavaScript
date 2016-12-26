@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style type="text/css">
+		#newslist{
+			width: 300px;
+			height: 200px;
+			overflow: hidden;
+		}
+		textarea{
+			display: block;
+			width: 300px;
+			height: 100px;
+		}
+		span{
+			position: absolute;
+			display: none;
+			border: 1px solid #ccc;
+			background-color: mistyrose;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var newslist = document.getElementById("newslist");
+			var addnews = document.getElementById("addnews");
+			var btnadd = document.getElementById("btnadd");
+			function newsScroll(){
+				var firstChild = newslist.children[0];
+				newslist.appendChild(firstChild)
+			}
+			var timer = setInterval(newsScroll,2000)
+			newslist.onmouseover = function(){
+				var linkArr = document.getElementsByTagName("a");
+				for (var k=0; k<linkArr.length; k++) {
+					linkArr[k].onmousemove = function(e){
+						e = e || window.event;
+						this.nextElementSibling.style.display = "block";
+						this.nextElementSibling.style.top = e.clientY + 5 +"px";
+						this.nextElementSibling.style.left = e.clientX + 5 +"px";
+						this.onmouseleave = function(){
+							this.nextElementSibling.style.display = "none";
+						}
+					}
+				}
+				
+				clearInterval(timer);
+				
+				newslist.onmouseout = function(){
+					timer = setInterval(newsScroll,2000);
+				}
+			}
+			
+			
+			
+			
+			btnadd.onclick = function(){
+				clearInterval(timer);
+				var news = addnews.value.slice(0,17) + "..."
+				var a = document.createElement("a");
+				var span = document.createElement("span");
+				span.innerHTML = addnews.value;
+				span.style.cssText = "display: none;";
+				a.setAttribute("href","#");
+				a.innerHTML = news;
+				var li = document.createElement("li");
+				li.appendChild(a);
+				li.appendChild(span);
+				newslist.appendChild(li);
+				timer = setInterval(newsScroll,2000);
+			}
+			//a添加 mousemove效果
+			
+			
+		}
+	</script>
+</head>
+<body>
+	<h3>今日要闻</h3>
+	<ul id="newslist">
+		<li><a href="#">小明调戏美女教师被请出教师</a><span>小明调戏美女教师被请出教师</span></li>
+		<li><a href="#">爱疯10发布，屏幕亮度瞎了</a><span>爱疯10发布，屏幕亮度瞎了</span></li>
+		<li><a href="#">为了增加收视率跑男十决定请</a><span>为了增加收视率跑男十决定请</span></li>
+		<li><a href="#">为了弘扬乐于助人的精神，中国人大开会</a><span>为了弘扬乐于助人的精神，中国人大开会</span></li>
+	</ul>
+	<textarea id="addnews"></textarea>
+	<button id="btnadd">添加</button>
+</body>
+</html>

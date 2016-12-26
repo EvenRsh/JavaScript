@@ -336,3 +336,26 @@ function repet(str){
 //			console.log(str_res);
 			return str_qc;
 }
+function repet2(arr){
+	arr.sort();
+	//声明一个空的对象
+	var obj ={};
+	for (var i=0; i<arr.length;i++){
+		//判断obj中是否已经存在当前属性
+		if(obj[arr[i]] === undefined){
+			obj[arr[i]]=1; 
+		}else{
+			obj[arr[i]]++;
+		}
+	}
+	
+	//遍历对象,然后输出结果
+	var str_qc = "";
+	var str_res ="";
+	for (var key in obj){
+		str_qc += key;
+		str_res += key +":" + obj[key];
+		}
+//			console.log(str_res);
+			return str_qc;
+}
