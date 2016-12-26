@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义构造函数</title>
+		<script type="text/javascript">
+			//创建1个student构造函数
+			function Student(name,age){
+				this.name = name;
+				this.age = age;
+			}
+			//通过new得到的对象称为实例
+			var s1 = new Student('张三',19);//this ==>si;
+			
+			//创建1个person的构造函数
+			
+			function Person(opt){
+				this.name = opt.name;
+				this.age = opt.age;
+				this.gender = opt.gender;
+				
+				// 肤色
+				this.color = opt.color;
+				//boolen
+				this.fat = opt.fat;
+				this.glasses = opt.glasses;
+				
+				//能做什么
+				this.eat = function(){
+					console.log(this.name + '是吃货')
+				}
+				this.sleep = function(){
+					console.log(this.name + '睡觉睡到自然醒')
+				}
+				this.coding = function(){
+					console.log(this.name + '说:不熬夜的程序猿不是好的吃货')
+				}
+			}
+			
+			var p1 = new Person({name:'老王',age:40,gender:'男',color:'黄色',fat:false,glasses:true})
+			console.log(p1);
+			p1.coding();
+			
+			
+			//描述一个购物车
+			var cart = {};
+			//属性:购物车有什么
+			cart.name = '购物车'
+			cart.goodsList = [{name:华为手机,price:998,qty:2},{name:华为手机,price:998,qty:2},{name:华为手机,price:998,qty:2}];
+			//猜你喜欢
+			cart.guessYouLike = [{name:华为手机,price:998,qty:2},{name:华为手机,price:998,qty:2},{name:华为手机,price:998,qty:2}];
+			// 总价
+			cart.totalPrice = 1996;
+			//配送地址
+			cart.address = '温州江南皮革厂';
+			
+			//方法:购物车能做什么;
+			cart.addGoods = function(){
+				console.log('商品++');
+				this.goodsList.push({});
+				//添加DOM节点;
+				this.render();
+			}
+			cart.delete = function(){
+				console.log('商品--');
+				this.splice(idx,1);
+				//移除
+				this.render();
+			}
+			
+			//渲染页面
+			cart.render = function(){
+				this.goodsList.forEach(function(){
+					//生成DOM节点
+					console.log('生成DOM节点');
+				})
+			}
+			
+			//计算总价
+			cart.calc = function(){
+				var total = 0;
+				this.goodsList.forEach(function(){
+					//计算总价
+					console.log('计算总价');
+				})
+			}
+			
+			cart.render();
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

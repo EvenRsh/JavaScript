@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象与面向过程的区别</title>
+	<script>
+		/*
+			小狗吃东西（闻一闻smell、舔一舔lick、咬一咬bite）
+		 */
+
+		function smell(name){
+			console.log(name + '闻一闻');
+		}
+
+		function lick(name){
+			console.log(name + '舔一舔');
+		}
+
+		function bite(name){
+			console.log(name + '咬一咬');
+		}
+
+		// ***面向过程的编程方式;
+		smell('小狗');
+		lick('小狗');
+		bite('小狗');
+
+
+		// ***面向对象的编程方式
+		// 创建一个对象
+		var dog = {};
+
+		// 描述一个对象
+		// 这个对象有什么：属性
+		// 这个对象能做什么：方法
+		dog.name = '小狗';
+
+		dog.smell = function(){
+			// this 当前对象
+			console.log(this.name + '闻一闻');
+		}
+
+		dog.lick = function(){
+			console.log(this.name + '舔一舔');
+		}
+
+		dog.bite = function(){
+			console.log(this.name + '咬一咬');
+		}
+
+		dog.smell();
+		dog.lick();
+		dog.bite();
+
+
+		
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

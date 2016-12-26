@@ -3,8 +3,7 @@
  */
 //获取
 //通过id获取元素节点;
-function getId(id) {
-	return document.getElementById(id);
+function getId(id) { return document.getElementById(id);
 }
 //通过类名获取类数组:
 function getClass(className) {
@@ -240,29 +239,79 @@ function animate(ele, opt, callback) {
 /*
  * @opt:{type:xx, URL:xx,async:xx,callback:fn}
  * 例如:opt = {url:'http://localhost:3000/ajax/football?pageNo=' + pageNo,type:'get',async:'true',callback:footBall}
- * 
+ * [ajax description]
+ * 支持jsonp请求
  */
 console.log('是否使用了该js');
 function ajax(opt) {
-	var data;
-	var url
-	if (opt.data) {
-		for(var p in opt.data){
-//			console.log(p);
-			data = "&" + p + "=" + opt.data[p] ;
-//			console.log(data);
-		}
-	}else{
-		data = '';
+	
+	//默认值
+	var defaults = {
+		type:"get",
+		async:true
 	}
-	var hasparams = opt.url.indexOf('?');
-	url= opt.url + (hasparams > 0 ? "&" : "?") +'callback=' +  opt.callback ;
-	url += data;
+	//如果需要传入type,async
+	for (var attr in opt){
+		defaults[attr] = opt[attr];
+	}
+	//重新赋值给opt
+	opt = defaults;
+	
+	//处理参数
+	//opt.data{name:'zhangsan',age:18}
+	
+	if (opt.data) {
+		//判断url有没有"?"
+		if(opt.url.indexOf('?') == -1){
+			opt.url += "?";
+		}else{
+			opt.url += "&";
+		}
+		//处理opt.data
+		for (var key in opt.data){
+			opt.url += key + "=" + opt.data[key] + "&";
+		}
+		//处理多个参数时最后面的&或?
+		opt.url = opt.url.replace(/[&\?]$/,"");
+	}
+	//进入JOSNP
+	if(opt.type === 'jsonp'){
+		// 2.创建script标签
+		var script = document.createElement('script');
+		
+		// 1.声明一个全局函数
+		var fnName = 'getData' + parseInt(Math.random()*1000000000);
+		// 对象的属性是变量,需要用[]
+		window[fnName] = function(data){
+			opt.callback(data);
+			//执行完行数清除请求数据时创建的script标签
+			document.head.removeChild(script);
+			//同时清除当前的全局函数
+			delete window[fnName];
+		}
+		
+		//判断url中是否存在"?";
+		if(opt.url.indexOf("?") == -1){
+			opt.url += '?callback=getData';
+		}else{
+			opt.url += '&callback=getData';
+		}
+		script.src = opt.url;
+		//把script写入页面
+		document.head.appendChild(script);
+		//进入JSONP就不再执行下面的代码
+		return;
+	}
+	
+	// ajax 请求
 	var xhr;
+	//处理兼容性
 	try {
+		// 尝试执行这里的代码
 		xhr = new XMLHttpRequest();
 	} catch (error) {
-		console.log(error);
+		// 如果有错误，执行这里的代码，并把错误信息保存在error中
+		// 并不会在浏览器中抛出错误，也不会中断代码的执行
 		try {
 			xhr = new ActiveXObject("Msxml2.XMLHTTP");
 		} catch (error) {
@@ -276,11 +325,11 @@ function ajax(opt) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4 && xhr.status === 200) {
 			//对象调用方法
-			var data = JSON.parse(xhr.responseText);
-			opt.callback(data);
+			//&& 短路操作
+			typeof opt.callback === 'function' && opt.callback(JSON.parse(xhr.responseText));
 		}
 	}
-	xhr.open(opt.type, url, opt.async);
+	xhr.open(opt.type, opt.url, opt.async);
 	xhr.send();
 
 }
@@ -312,6 +361,8 @@ function jsonp(opt){
 }
 
 
+
+//存入字符串
 function repet(str){
 	var arr = str.split('');
 	arr.sort();

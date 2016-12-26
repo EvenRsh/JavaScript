@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>this指向</title>
+		<script type="text/javascript">
+			tar.onclick = function(){
+				console.log(this);
+				//谁调用这个函数,谁就是this
+			}
+			
+			tar.onclick();//tar 3分到手
+			
+			var test = tar.onclick;
+			test();//window.test(); //window 
+			
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
