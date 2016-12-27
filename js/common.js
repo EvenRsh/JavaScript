@@ -181,7 +181,9 @@ function getStyle(ele, attr) {
  * @opt [动画改变的属性]
  * @callback [回调函数]
  */
-
+//  ========== 
+//  = 适用无缝滚动、等动画 = 
+//  ========== 
 function animate(ele, opt, callback) {
 	//给ele添加timerLen属性,用于记录定时器的个数
 	ele.timerLen = 0;
@@ -337,7 +339,7 @@ function ajax(opt) {
 
 //opt={url:xx,data:{[name:xx]},callback:callback}
 //例如opt= {url:"http://wthrcdn.etouch.cn/weather_mini",data:{city:_city},callback:getWeather}
-function jsonp(opt){
+/*function jsonp(opt){
 	var data;
 	var url
 	if (opt.data) {
@@ -361,7 +363,7 @@ function jsonp(opt){
 }
 
 
-
+*/
 //存入字符串
 function repet(str){
 	var arr = str.split('');

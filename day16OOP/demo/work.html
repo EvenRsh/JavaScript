@@ -46,6 +46,33 @@
 			p1.sendMsg();
 			p1.closeCk();
 			p1.shake();
+			
+			function Qqtall(opt){
+				//属性
+				for (var attr in opt){
+					this[attr] = opt[attr];
+				}
+				//方法:
+				//发送信息
+				this.sendMsg = function(){
+					console.log(this.name + ',哥按下' + this.sendButton + ',发送了 ' +  this.sendTest );
+				}
+				//关闭窗口
+				this.closeCk = function(){
+					console.log(this.name + ',哥按下' + this.closeButton + ',关闭了窗口');
+				}
+				//窗口抖动
+				this.shake = function(){
+					console.log(this.name + ',哥按下' + this.smallIcon + ',抖动了窗口');
+				}
+			}
+			var p2 = new Qqtall({name:"哥与老马的会谈",testArea:'xxxxx',sendTest:'"丫的,你还要继续抄袭下去,懂~"',sendButton:'发送按钮',closeButton:'关闭按钮',headPortrait:"xx大头像",smallIcon:'抖动图像',oFile:"文件"});
+			console.log(p2);
+			p2.sendMsg();
+			p2.closeCk();
+			p2.shake();
+			
+			
 		</script>
 	</head>
 	<body>

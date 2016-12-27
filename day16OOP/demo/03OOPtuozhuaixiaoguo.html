@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>面向对象实现拖拽效果</title>
+		<style type="text/css">
+			#box {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100px;
+				height: 100px;
+				background: #f00;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				/*var box = document.getElementById("box");
+				
+				box.onmousedown = function(e){
+					var startX = e.offsetX;
+					var startY = e.offsetY;
+					
+					document.onmousemove = function(evt){
+						box.style.left = evt.clientX - startX + 'px';
+						box.style.top = evt.clientY - startY +'px';
+					}
+					
+				}
+				
+				document.onmouseup = function(){
+					document.onmousemove = null;
+				}
+				*/
+				//面向对象的拖拽
+/*				var drag = {};
+
+				//描述对象
+				drag.id = 'box';
+				drag.coord = {
+					x: 0,
+					y: 0
+				};
+
+				//初始化
+				//事件绑定,html结构的生成
+				drag.init = function() {
+					var div = document.createElement("div");
+					div.id = this.id;
+
+					//把元素写入页面
+					document.body.appendChild(div);
+
+					//绑定事件
+					div.onmousedown = function(e) {
+						var startX = e.offsetX;
+						var startY = e.offsetY;
+
+						document.onmousemove = function(evt) {
+							drag.move(evt.clientX - startX, evt.clientY - startY);
+						}
+
+					}
+					drag.stop();
+
+					//通过this传递属性
+					this.ele = div;
+				}
+
+				drag.move = function(x, y) {
+					drag.coord.x = x;
+					drag.coord.y = y;
+					//改变属性后,重新渲染ele的位置
+					this.render();
+				}
+
+				drag.render = function() {
+					this.ele.style.left = drag.coord.x + 'px';
+					this.ele.style.top = drag.coord.y + 'px';
+				}
+
+				drag.stop = function() {
+					document.onmouseup = function() {
+						document.onmousemove = null;
+					}
+				}
+
+				drag.init();
+				*/
+				
+				var drag = {}
+				
+				//描述对象
+				drag.id = 'box' ;
+				drag.coord = {x:0,y:0};
+				
+				//方法:
+				//初始化
+				//绑定事件,html结构生成
+				drag.init = function(){
+					var div = document.createElement('div');
+					div.id = this.id;
+					document.body.appendChild(div);
+					//通过this传递属性
+					this.ele = div;
+					//绑定事件
+					div.onmousedown = function(e){
+						e = e || window.event;
+						//鼠标到div的左上角的偏移量
+						var startX = e.offsetX;
+						var startY = e.offsetY;
+						//移动事件
+						document.onmousemove = function(evt){
+							evt = evt || window.event;
+							drag.move(evt.clientX-startX,evt.clientY-startY);
+						}
+					}
+					
+					drag.stop();
+
+				}
+				
+				//移动
+				drag.move = function(x,y){
+					drag.coord.x = x;
+					drag.coord.y = y;
+					//每次移动需要重新渲染
+					drag.render();
+				}
+				
+				//渲染 /效果
+				drag.render = function(){
+					drag.ele.style.left = drag.coord.x + 'px';
+					drag.ele.style.top = drag.coord.y + 'px';
+				}
+				drag.stop = function(){
+					document.onmouseup =function(){
+						document.onmousemove = '';
+					}
+					
+				}
+				
+				
+				drag.init();
+
+			}
+		</script>
+
+	</head>
+
+	<body>
+		<!--<div id="box"></div>-->
+	</body>
+
+</html>
