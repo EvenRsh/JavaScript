@@ -29,6 +29,12 @@ function randomColr() {
 	return color;
 }
 
+//封装随机数
+function randomNum(min,max){
+	return parseInt(Math.random()*(max - min + 1) + min);
+}
+
+
 /*
  *事件绑定函数
  *兼容IE浏览器

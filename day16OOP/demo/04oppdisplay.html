@@ -1,85 +1,135 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>面向对象的显示隐藏效果</title>
-		<style>
-			#box{
-				height: 80px;
-				padding: 10px;
-				background: #efefef;
-				border: 2px solid #000;
-			}
-		</style>
-		<script type="text/javascript">
-			window.onload = function(){
-/*				var box = document.getElementById("box");
-				var btn = box.nextElementSibling;
-				
-				var visibility = true;
-				btn.onclick = function(){
-					if(visibility){
-						box.style.display = 'none';
-					}else{
-						box.style.display = 'block';
-					}
-					visibility = !visibility;
-				}*/
-				
-				//面向对象
-				var displayBox = new Object();
-				//描述对象
-				displayBox.id = 'box';
-				displayBox.text= '轻轻的我来了,轻轻的我走了';
-				displayBox.visibility = true;
-				
-				//方法
-				displayBox.init = function(){
-					//生成结构
-					var div = document.createElement("div");
-					div.innerHTML = this.text;
-					div.id = this.id;
-					//显示隐藏
-					var btn = document.createElement("button");
-					btn.innerHTML = '隐藏';
-					//利用this传递属性
-					this.ele = div;
-					//第三变量存储当前对象(this)
-					var self = this;
-					//绑定事件
-					btn.onclick = function(){
-						if(self.visibility){
-							self.hide();
-						}else{
-							self.show();
-						}
-					}
-					
-					
-					document.body.appendChild(div);
-					document.body.appendChild(btn);
-				}
-				displayBox.show = function(){
-					this.ele.style.display = 'block';
-					this.visibility = true;
-					this.ele.nextElementSibling.innerHTML = '隐藏'
-				}
-				displayBox.hide = function(){
-					this.ele.style.dispaly = 'none';
-					this.visibility = false;
-					this.ele.nextElementSibling.innerHTML = '显示'
-				}
-				
-				
-				displayBox.init();
-				
-			}
-			
-			
-		</script>
-	</head>
-	<body>
-		<!--<div id="box">轻轻的我来了,轻轻的我走了</div>
+
+<head>
+    <meta charset="UTF-8">
+    <title>面向对象的显示隐藏效果</title>
+    <style>
+    #box {
+        height: 80px;
+        padding: 10px;
+        background: #efefef;
+        border: 2px solid #000;
+    }
+    </style>
+    <script type="text/javascript">
+    window.onload = function() {
+        /*				var box = document.getElementById("box");
+        				var btn = box.nextElementSibling;
+        				
+        				var visibility = true;
+        				btn.onclick = function(){
+        					if(visibility){
+        						box.style.display = 'none';
+        					}else{
+        						box.style.display = 'block';
+        					}
+        					visibility = !visibility;
+        				}*/
+
+        /*	//面向对象
+        	var displayBox = new Object();
+        	//描述对象
+        	displayBox.id = 'box';
+        	displayBox.text= '轻轻的我来了,轻轻的我走了';
+        	displayBox.visibility = true;
+        	
+        	//方法
+        	displayBox.init = function(){
+        		//生成结构
+        		var div = document.createElement("div");
+        		div.innerHTML = this.text;
+        		div.id = this.id;
+        		//显示隐藏
+        		var btn = document.createElement("button");
+        		btn.innerHTML = '隐藏';
+        		//利用this传递属性
+        		this.ele = div;
+        		//第三变量存储当前对象(this)
+        		var self = this;
+        		//绑定事件
+        		btn.onclick = function(){
+        			//这里不能用this,这里的this是指btn
+        			if(self.visibility){
+        				self.hide();
+        			}else{
+        				self.show();
+        			}
+        		}
+        		
+        		
+        		document.body.appendChild(div);
+        		document.body.appendChild(btn);
+        	}
+        	displayBox.show = function(){
+        		this.ele.style.display = 'block';
+        		this.visibility = true;
+        		this.ele.nextElementSibling.innerHTML = '隐藏'
+        	}
+        	displayBox.hide = function(){
+        		this.ele.style.display = 'none';
+        		this.visibility = false;
+        		this.ele.nextElementSibling.innerHTML = '显示'
+        	}
+        	
+        	
+        	displayBox.init();*/
+
+        //自定义构造函数
+        function DisplayBox(id,content,visibility) {
+            this.id = id;
+            this.text = content;
+            this.visibility = visibility;
+
+            //方法
+            this.init = function() {
+                //生成结构
+                var div = document.createElement("div");
+                div.innerHTML = this.text;
+                div.id = this.id;
+                //显示隐藏
+                var btn = document.createElement("button");
+                btn.innerHTML = '隐藏';
+                //利用this传递属性
+                this.ele = div;
+                //第三变量存储当前对象(this)
+                var self = this;
+                //绑定事件
+                btn.onclick = function() {
+                    //这里不能用this,这里的this是指btn
+                    if (self.visibility) {
+                        self.hide();
+                    } else {
+                        self.show();
+                    }
+                }
+
+
+                document.body.appendChild(div);
+                document.body.appendChild(btn);
+            }
+            this.show = function() {
+                this.ele.style.display = 'block';
+                this.visibility = true;
+                this.ele.nextElementSibling.innerHTML = '隐藏'
+            }
+            this.hide = function() {
+                this.ele.style.display = 'none';
+                this.visibility = false;
+                this.ele.nextElementSibling.innerHTML = '显示'
+            }
+
+            
+        }
+            var p1= new DisplayBox("box","轻轻的我来了,轻轻的我走了",true);
+            p1.init();
+    }
+    </script>
+</head>
+
+<body>
+    <!--<div id="box">轻轻的我来了,轻轻的我走了</div>
 		<button>显示隐藏</button>-->
-	</body>
+</body>
+
 </html>
