@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>作业讲解</title>
+		<style>
+			ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			.city-wrap {
+				overflow-y: auto;
+			}
+			
+			.city-wrap h2 {
+				margin: 0;
+				padding: .5em;
+				background: #ccc;
+				color: #fff;
+			}
+			
+			.city-wrap ul {
+				padding: 0;
+				margin: 0;
+			}
+			
+			.city-wrap ul li {
+				padding: 5px 0;
+				border-top: 1px dotted #ddd;
+			}
+			
+			.city-wrap ul li:hover {
+				background: #efefef;
+			}
+			
+			.city-wrap ul li> span {
+				display: inline-block;
+				padding: .5em;
+				color: #26c8ac;
+			}
+			
+			.city-wrap a {
+				display: inline-block;
+				padding: .5em;
+				color: #444;
+			}
+			
+			.city-wrap ul a:hover {
+				color: #26c8ac;
+				text-decoration: none;
+			}
+			
+			.city-wrap .hotCity a {
+				width: 3.5em;
+				text-align: center;
+			}
+			
+			.index-bar {
+				background-color: #efefef;
+			}
+			
+			.index-bar a {
+				width: 5.5em;
+			}
+			
+			#weather {
+				border: 1px solid #ddd;
+				padding: 10px;
+				font-size: 12px;
+			}
+			
+			#weather ul {
+				padding: 5px;
+				overflow: hidden;
+			}
+			
+			#weather li {
+				float: left;
+				padding: 5px;
+				width: 20%;
+				height: 200px;
+				border-right: 1px dotted #ddd;
+				box-sizing: border-box;
+			}
+			
+			#weather li.last {
+				border-right: none;
+				float: right;
+			}
+			
+			#weather .date {
+				padding-bottom: 10px;
+				margin-bottom: 10px;
+				text-align: center;
+				font-weight: bold;
+				border-bottom: 1px dotted #ddd;
+			}
+			
+			.type {
+				height: 70px;
+			}
+			
+			.qt {
+				background: url(tianqi/1.png) no-repeat center;
+			}
+			
+			.zheny {
+				background: url(tianqi/10.png) no-repeat center;
+			}
+			
+			.dy {
+				background: url(tianqi/3.png) no-repeat center;
+			}
+			
+			.by {
+				background: url(tianqi/12.png) no-repeat center;
+			}
+			
+			.zy {
+				background: url(tianqi/10.png) no-repeat center;
+			}
+			
+			.xy {
+				background: url(tianqi/9.png) no-repeat center;
+			}
+			
+			.yin {
+				background: url(tianqi/4.png) no-repeat center;
+			}
+		</style>
+		<script src="js/cityList.js"></script>
+		<script type="text/javascript">
+			window.onload = function() {
+				var oHotCity = document.getElementsByClassName("hotCity")[0];
+				var oIndexCity = document.getElementsByClassName("indexCity")[0];
+				var oWeather = document.getElementById("weather");
+				var oCityWrap = document.getElementsByClassName("city-wrap")[0];
+				//  ========== 
+				//  = 通过ajax获取region.json的数据 = 
+				//  ========== 
+				//声明存储hot城市的空数组
+				//声明存储字母的对象
+				var hotCity = [];
+				var indexCity = {};
+				//  ========== 
+				//  = 把每个字母转换成对象indexCity的一个属性,赋值为一个空数组 = 
+				//  ========== 
+				'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(function(item) {
+					indexCity[item] = [];
+				})
+				ajax({
+					url: 'region.json',
+					callback: function(data) {
+						console.log(data);
+						//				console.log(data.regions);
+						//				console.log(indexCity);
+						//  ========== 
+						//  = 遍历一级城市 = 
+						//  ========== 
+
+						data.regions.forEach(function(province, idx) {
+								if(province.municipality || province.special) { // 直辖市、特别行政区
+									if(province.hot) {
+										hotCity.push({
+											id: province.id,
+											name: province.name
+										});
+									}
+									indexCity[province.pinyin[0]].push({
+										id: province.id,
+										name: province.name
+									});
+									return;
+								}
+								province.regions.forEach(function(city, idx) {
+									if(city.hot) {
+										hotCity.push({
+											id: city.id,
+											name: city.name
+										});
+									}
+									indexCity[city.pinyin[0]].push({
+										id: city.id,
+										name: city.name
+									});
+								});
+							})
+							//console.log(hotCity);
+							//console.log(indexCity);
+							//  ========== 
+							//  = 添加热门城市数据 = 
+							//  ========== 
+						var hotTitle = document.createElement("h2");
+						hotTitle.innerHTML = '热门城市';
+						oHotCity.appendChild(hotTitle);
+						//创建一个临时容器,用于存放所有a标签
+						var fg = document.createDocumentFragment();
+						hotCity.forEach(function(city, idx) {
+							var link = document.createElement("a");
+							link.href = '#';
+							link.innerHTML = city.name;
+							link.setAttribute('data-id', city.id);
+							fg.appendChild(link);
+						})
+						oHotCity.appendChild(fg);
+						//  ========== 
+						//  = 添加按拼音首字母索引 = 
+						//  ========== 
+						var indexTitle = document.createElement("h2");
+						indexTitle.innerHTML = '添加按拼音首字母索引';
+						oIndexCity.appendChild(indexTitle);
+						var indexBar = document.createElement("div");
+						indexBar.className = 'index-bar';
+						var ul = document.createElement("ul");
+						for(var key in indexCity) {
+							if(indexCity[key].length == 0) {
+								continue;
+							}
+							indexBar.innerHTML += '<a href="#' + key + '">' + key + '</a>';
+							//  ========== 
+							//  = 添加城市列表 = 
+							//  ========== 
+							var li = document.createElement("li");
+							li.innerHTML = '<span id="' + key + '">' + key + '</span>';
+							indexCity[key].forEach(function(city) {
+								li.innerHTML += '<a href="#" "data-id=' + city.id + '">' + city.name + '</a>';
+							});
+							ul.appendChild(li);
+						}
+						oIndexCity.appendChild(indexBar);
+						oIndexCity.appendChild(ul);
+					}
+				});
+				//  ========== 
+				//  = 城市天气 = 
+				//  ========== 
+
+				oCityWrap.onclick = function(e) {
+ 					e = e || window.event;
+					var target = e.target || e.srcElement;
+					if(target.tagName.toLocaleLowerCase() === 'a') {
+						if(target.innerHTML != target.innerHTML.match(/[A-Z]/)) {
+							var _city
+							console.log(target.innerHTML.indexOf(target.innerHTML.match(/['地']['区']$/)));
+							if(target.innerHTML.indexOf(target.innerHTML.match(/['地']['区']$/)) != -1) {
+								_city = target.innerHTML.replace(target.innerHTML.match(/['地']['区']$/), "");
+							} else {
+								_city = target.innerHTML.replace(target.innerHTML.match(/['市'|'州'|'县']$/), "");
+							}
+							console.log(_city);
+							
+								ajax({
+									url: 'http://wthrcdn.etouch.cn/weather_mini',
+									type: 'jsonp',
+									data: {
+										'city': _city,
+									},
+									callback: function(data) {
+										console.log(data);
+										var weatherTitle = document.createElement("h1");
+										oWeather.innerHTML = '';
+										try{
+											weatherTitle.innerHTML = data.data.city + '未来五天的天气预报';
+										}catch(e){
+											weatherTitle.innerHTML = "暂时无法更新该城市天气";
+											oWeather.appendChild(weatherTitle);
+											return;
+										}
+										var subTitle = document.createElement("h3");
+										subTitle.innerHTML = data.data.ganmao;
+										oWeather.appendChild(weatherTitle);
+										oWeather.appendChild(subTitle);
+										var ul = document.createElement("ul");
+										data.data.forecast.forEach(function(city) {
+											var li = document.createElement("li");
+											var type;
+											switch(city.type) {
+												case '多云':
+													type = 'dy';
+													break;
+												case '阴':
+													type = 'yin';
+													break;
+												case '晴':
+													type = 'qt';
+													break;
+												case '小雨':
+													type = 'xy';
+													break;
+												case '阵雨':
+													type = 'zheny';
+													break;
+												case '中雨':
+													type = 'zy';
+													break;
+												case '大雨':
+													type = 'dy';
+													break;
+												case '雨夹雪':
+													type = 'yjx';
+													break;
+												case '雷雨':
+													type = 'lx';
+													break;
+											}
+											li.innerHTML = '<h4 class="date">' + city.date + '</h4><p class="type ' + type + '">' + city.type + '</p>' + '<p >' + city.high + '/' + city.low + '</p>'
+											ul.appendChild(li);
+										})
+										oWeather.appendChild(ul);
+									}
+								})
+
+								
+							
+						}
+					}
+
+				}
+
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="weather"></div>
+		<div class="city-wrap">
+			<div class="hotCity">
+
+			</div>
+			<div class="indexCity">
+
+			</div>
+		</div>
+	</body>
+
+</html>

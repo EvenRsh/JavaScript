@@ -292,9 +292,9 @@ function ajax(opt) {
 		
 		//判断url中是否存在"?";
 		if(opt.url.indexOf("?") == -1){
-			opt.url += '?callback=getData';
+			opt.url += '?callback='+fnName;
 		}else{
-			opt.url += '&callback=getData';
+			opt.url += '&callback='+fnName;
 		}
 		script.src = opt.url;
 		//把script写入页面
