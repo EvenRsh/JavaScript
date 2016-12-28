@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>继承原理</title>
+	<style>
+		.box{position:absolute;left:0;top:0;}
+		.box .btnClose{position: absolute;right:0;top:0;padding:5px;}
+	</style>
+	<script>
+	window.onload = function(){
+		function Box(width,height,bgColor){
+			this.width = width;
+			this.height = height;
+			this.bgColor = bgColor;
+
+			this.init();
+		}
+
+		Box.prototype.init = function(){
+			var self = this;
+
+			var div = document.createElement('div');
+			div.className = 'box';
+			div.style.width = this.width + 'px';
+			div.style.height = this.height + 'px';
+			div.style.backgroundColor = this.bgColor;
+
+			var btnClose = document.createElement('span');
+			btnClose.className = 'btnClose';
+			btnClose.innerHTML = '&times;';
+
+			// 点击关闭
+			btnClose.onclick = function(){
+				self.close();
+			}
+
+			this.ele = div;
+
+			div.appendChild(btnClose);
+
+
+			document.body.appendChild(div);
+		}
+
+		Box.prototype.drag = function(){
+
+		}
+		Box.prototype.close = function(){
+			this.ele.parentNode.removeChild(this.ele);
+		}
+
+		var b1 = new Box(300,100,'#f00');
+
+
+		function AdBox(width,height,bgColor){
+			// 继承属性
+			Box.call(this,width,height,bgColor)
+		}
+
+		// 原型链继承法
+		AdBox.prototype = new Box();
+
+		var ad1 = new AdBox(100,300,'#00f');
+
+		console.log(ad1)
+	}
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
