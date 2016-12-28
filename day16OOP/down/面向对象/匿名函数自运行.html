@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>匿名函数自运行</title>
+	<script>
+		// 把匿名函数变成表达式
+		// 匿名函数自运行：避免污染全局环境
+		
+		// 1
+		(function(){
+			console.log(1);
+		})();
+
+		// 2
+		(function(){
+			console.log(2);
+		}());
+
+
+		// 3
+		+function(){
+			console.log(3)
+		}();
+		// 4
+		-function(){
+			console.log(4)
+		}();
+		// 5
+		!function(){
+			console.log(5)
+		}();
+		
+		
+		// 匿名函数传参
+		(function(a){
+			var sum = 10;
+			console.log(a);
+		})(window);
+
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

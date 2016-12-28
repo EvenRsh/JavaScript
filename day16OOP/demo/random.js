@@ -7,7 +7,7 @@ function randomNum(min,max){
 	return parseInt(Math.random()*(max - min + 1) + min);
 }
 //封装随机颜色
-function randomColr() {
+function randomColor() {
 	var str = '0123456789abcdef';
 	var color = "#";
 	for (var i = 0; i < 6; i++) {

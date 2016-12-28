@@ -1,6 +1,7 @@
 //  ========== 
 //  = create 20161227 = 
 //  ========== 
+console.log('已调用js');
 function animate(ele, opt, callback) {
 	//给ele添加timerLen属性,用于记录定时器的个数
 	ele.timerLen = 0;
@@ -47,7 +48,6 @@ function animate(ele, opt, callback) {
 				//所有定时器执行完成后
 				if (ele.timerLen === 0 && typeof callback === 'function') {
 					callback();
-					console.log(ele.timerLen);
 				}
 			}
 			ele.style[attr] = current + speed + unit;

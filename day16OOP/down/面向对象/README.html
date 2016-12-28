@@ -1021,24 +1021,43 @@ body .markdown-body
 <li><a href="#ecmascript">ECMAScript两种开发模式</a></li>
 <li><a href="#_3">对象的组成</a></li>
 <li><a href="#_4">面向对象和面向过程的区别</a></li>
+<li><a href="#_5">练习如何描述一个对象</a></li>
 </ul>
 </li>
-<li><a href="#_5">如何创建对象</a></li>
-<li><a href="#_6">自定义构造函数</a><ul>
-<li><a href="#_7">练习如何描述一个对象</a></li>
+<li><a href="#_6">如何创建对象</a></li>
+<li><a href="#_7">自定义构造函数</a><ul>
+<li><a href="#_8">构造函数与普通函数的区别</a></li>
 <li><a href="#this">this</a></li>
 <li><a href="#prototype">原型对象prototype</a></li>
-<li><a href="#_8">实例</a></li>
-<li><a href="#_9">构造函数与普通函数的区别</a></li>
+<li><a href="#_9">实例</a></li>
+<li><a href="#_10">构造函数、原型对象和实例的关系</a></li>
+<li><a href="#_11">实际应用</a></li>
 </ul>
 </li>
-<li><a href="#_10">匿名函数</a></li>
-<li><a href="#_11">闭包</a><ul>
-<li><a href="#_12">相比全局变量和局部变量, 闭包有两大特点 :</a></li>
-<li><a href="#_13">闭包的好处：</a></li>
-<li><a href="#_14">闭包的应用</a></li>
+<li><a href="#_12">匿名函数</a></li>
+<li><a href="#_13">闭包</a><ul>
+<li><a href="#_14">相比全局变量和局部变量, 闭包有两大特点</a></li>
+<li><a href="#_15">闭包的好处：</a></li>
+<li><a href="#_16">闭包的应用</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#_17">原型链</a><ul>
+<li><a href="#_18">原型模式的访问机制（原型搜索机制）</a><ul>
+<li><a href="#_19">重置原型对象</a></li>
+<li><a href="#_20">内置原型对象</a></li>
+</ul>
+</li>
+<li><a href="#_21">对象属性的遍历与判断</a></li>
+</ul>
+</li>
+<li><a href="#_22">继承</a><ul>
+<li><a href="#_23">原型链继承</a></li>
+<li><a href="#_24">借用构造函数</a></li>
+<li><a href="#_25">组合继承</a></li>
+<li><a href="#_26">原型式继承</a></li>
+<li><a href="#_27">寄生组合继承法</a></li>
 </ul>
 </li>
 </ul>
@@ -1073,41 +1092,7 @@ body .markdown-body
 </ul>
 </li>
 </ul>
-<h2 id="_5"><a name="user-content-_5" href="#_5" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>如何创建对象</h2>
-<ul>
-<li>
-<p>直接量<br />
-<code>var student = {id:10,name:'小明',age:18}</code></p>
-</li>
-<li>
-<p>new关键字<br />
-    <pre><code>var student = new Object()
-student.id = 10;
-student.name = '王铁锤';
-student.age = 18;
-</code></pre><br />
-    缺点：使用同一个接口创建很多对象，会产生大量的重复代码</p>
-</li>
-<li>封装工厂函数<br />
-    为了减少重复代码，对上述代码进行封装</li>
-</ul>
-<h2 id="_6"><a name="user-content-_6" href="#_6" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>自定义构造函数</h2>
-<pre><code>function Student(name, age){
-    this.name = name;
-    this.age = age;
-    this.sayName = function(){alert(this.name);};
-}
-var s1 = new Student(&quot;王铁锤&quot;, 18);
-</code></pre>
-
-<p><strong>这种方式调用构造函数实际上会经历以下4个步骤：</strong></p>
-<ol>
-<li>创建一个新对象( 在内部隐式调用了new Object() )；</li>
-<li>将构造函数的作用域赋给新对象（把this绑定到实例对象）；</li>
-<li>执行构造函数中的代码（为这个新对象添加属性）；</li>
-<li>返回新对象。</li>
-</ol>
-<h3 id="_7"><a name="user-content-_7" href="#_7" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>练习如何描述一个对象</h3>
+<h3 id="_5"><a name="user-content-_5" href="#_5" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>练习如何描述一个对象</h3>
 <ul>
 <li>描述一个人</li>
 <li>描述购物车</li>
@@ -1131,6 +1116,51 @@ var s1 = new Student(&quot;王铁锤&quot;, 18);
 </li>
 <li>QQ聊天窗口</li>
 </ul>
+<h2 id="_6"><a name="user-content-_6" href="#_6" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>如何创建对象</h2>
+<ul>
+<li>
+<p>直接量<br />
+<code>var student = {id:10,name:'小明',age:18}</code></p>
+</li>
+<li>
+<p>new关键字<br />
+    <pre><code>var student = new Object()
+student.id = 10;
+student.name = '王铁锤';
+student.age = 18;
+</code></pre><br />
+    缺点：使用同一个接口创建很多对象，会产生大量的重复代码</p>
+</li>
+<li>封装工厂函数<br />
+    为了减少重复代码，对上述代码进行封装</li>
+</ul>
+<h2 id="_7"><a name="user-content-_7" href="#_7" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>自定义构造函数</h2>
+<pre><code>function Student(name, age){
+    this.name = name;
+    this.age = age;
+    this.sayName = function(){alert(this.name);};
+}
+var s1 = new Student(&quot;王铁锤&quot;, 18);
+</code></pre>
+
+<p><strong>这种方式调用构造函数实际上会经历以下4个步骤：</strong></p>
+<ol>
+<li>创建一个新对象( 在内部隐式调用了new Object() )；</li>
+<li>将构造函数的作用域赋给新对象（把this绑定到实例对象）；</li>
+<li>执行构造函数中的代码（为这个新对象添加属性）；</li>
+<li>返回新对象。</li>
+</ol>
+<h3 id="_8"><a name="user-content-_8" href="#_8" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>构造函数与普通函数的区别</h3>
+<blockquote>
+<p>唯一区别：调用方式不同</p>
+</blockquote>
+<ul>
+<li>任何函数，只要通过new操作符来调用，它就可以作为构造函数；</li>
+<li>而任何构造函数，如果不通过new 操作符来调用，那它跟普通函数无区别。</li>
+</ul>
+<blockquote>
+<p>约定：构造函数名首字母大写</p>
+</blockquote>
 <h3 id="this"><a name="user-content-this" href="#this" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>this</h3>
 <p>this作为JS的关键字，有特殊的含义，代表了当前对象，而当前对象是谁，由函数执行时所处的环境来决定</p>
 <blockquote>
@@ -1149,27 +1179,23 @@ B对A说: “老子要弄死你! ”,  这里的老子指B</p>
 <li>原型对象默认包含一个constructor属性，指向构造函数</li>
 <li>任何写在原型对象中的属性和方法都可以让所有对象实例共享</li>
 </ul>
-<h3 id="_8"><a name="user-content-_8" href="#_8" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>实例</h3>
+<h3 id="_9"><a name="user-content-_9" href="#_9" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>实例</h3>
 <ul>
 <li>用new关键字生成的对象称为实例，实例会复制构造函数内所有的属性和方法</li>
-<li>
-<p>当调用构造函数创建一个新实例后，该实例的内部将包含一个内部属性<a class="wikilink" href="/prototype/">prototype</a>，指向原型对象。这个内部属性可以通过以下方式获取（通过实例得到原型对象）：</p>
-<ul>
+<li>当调用构造函数创建一个新实例后，该实例的内部将包含一个内部属性<code>[[prototype]]</code>，指向原型对象。这个内部属性可以通过以下方式获取（通过实例得到原型对象）：<ul>
 <li>在FF,Chrome等浏览器可以通过私有属性__proto__得到；</li>
 <li>通过ES5方式去获取：Object.getPrototypeOf(实例)；</li>
 </ul>
 </li>
-<li>
-<p>构造函数、原型对象和实例的关系：</p>
+</ul>
+<h3 id="_10"><a name="user-content-_10" href="#_10" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>构造函数、原型对象和实例的关系</h3>
 <ol>
 <li>每个构造函数都有一个原型对象（prototype），</li>
 <li>原型对象都包含一个指向构造函数的指针（constructor），</li>
-<li>而实例都包含一个指向原型对象的内部指针（<a class="wikilink" href="/prototype/">prototype</a>）</li>
+<li>而实例都包含一个指向原型对象的内部指针（<code>[[prototype]]</code>）</li>
 </ol>
-</li>
-<li>
-<p>判断原型和实例的关系（返回布尔值）</p>
 <ul>
+<li>判断原型和实例的关系（返回布尔值）<ul>
 <li>constructor: 得到构造函数的引用，一般用于判断该实例是否由某一构造函数生成<br />
 <code>实例.constructor == Student //true</code></li>
 <li>instanceof: 检测某个对象是不是某一构造函数的实例，适用于原型链中的所有实例<br />
@@ -1181,20 +1207,20 @@ B对A说: “老子要弄死你! ”,  这里的老子指B</p>
 </ul>
 </li>
 </ul>
-<h3 id="_9"><a name="user-content-_9" href="#_9" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>构造函数与普通函数的区别</h3>
-<blockquote>
-<p>唯一区别：调用方式不同</p>
-</blockquote>
+<h3 id="_11"><a name="user-content-_11" href="#_11" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>实际应用</h3>
+<p>构造函数方法很好用，但是单独使用存在一个浪费内存的问题（所有的实例会复制所有构造函数中的属性/方法）。这样既不环保，也缺乏效率。</p>
+<p><strong>解决方案:构造函数+原型对象</strong></p>
 <ul>
-<li>任何函数，只要通过new操作符来调用，它就可以作为构造函数；</li>
-<li>而任何构造函数，如果不通过new 操作符来调用，那它跟普通函数无区别。</li>
-<li>约定：构造函数首字母大写</li>
-<li>缺点： 构造函数方法很好用，但是存在一个浪费内存的问题。这样既不环保，也缺乏效率。<ul>
-<li>解决方案:属性放到构造函数，方法放到原型对象</li>
+<li>使用构造函数添加私有属性和方法</li>
+<li>使用原型添加共享的属性和方法</li>
 </ul>
-</li>
+<p><strong>优点：</strong></p>
+<ul>
+<li>实例对象都有自己的独有属性</li>
+<li>实例共享了原型中的方法，最大限度的节省了内存</li>
+<li>支持向构造函数传递参数</li>
 </ul>
-<h2 id="_10"><a name="user-content-_10" href="#_10" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>匿名函数</h2>
+<h2 id="_12"><a name="user-content-_12" href="#_12" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>匿名函数</h2>
 <ul>
 <li>
 <p>匿名函数与具名函数的区别</p>
@@ -1210,7 +1236,7 @@ B对A说: “老子要弄死你! ”,  这里的老子指B</p>
 </li>
 <li>匿名函数传参</li>
 </ul>
-<h2 id="_11"><a name="user-content-_11" href="#_11" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>闭包</h2>
+<h2 id="_13"><a name="user-content-_13" href="#_13" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>闭包</h2>
 <p>闭包是这样一种机制: 函数嵌套函数, 内部函数可以引用外部函数的参数和变量,参数和变量不会被垃圾回收机制所收回. </p>
 <p>这里涉及到几个概念: </p>
 <ol>
@@ -1229,18 +1255,18 @@ aa();
 //bb(); //无法直接访问函数内部的函数
 </code></pre>
 
-<h3 id="_12"><a name="user-content-_12" href="#_12" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>相比全局变量和局部变量, 闭包有两大特点 :</h3>
+<h3 id="_14"><a name="user-content-_14" href="#_14" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>相比全局变量和局部变量, 闭包有两大特点</h3>
 <ol>
 <li>闭包拥有全局变量的不被释放的特点</li>
 <li>闭包拥有局部变量的无法被外部访问的特点</li>
 </ol>
-<h3 id="_13"><a name="user-content-_13" href="#_13" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>闭包的好处：</h3>
+<h3 id="_15"><a name="user-content-_15" href="#_15" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>闭包的好处：</h3>
 <ol>
 <li>可以让一个变量长期驻扎在内存当中不被释放</li>
 <li>避免全局变量的污染, 和全局变量不同, 闭包中的变量无法被外部使用</li>
 <li>私有成员的存在, 无法被外部调用, 只可以自己内部使用</li>
 </ol>
-<h3 id="_14"><a name="user-content-_14" href="#_14" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>闭包的应用</h3>
+<h3 id="_16"><a name="user-content-_16" href="#_16" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>闭包的应用</h3>
 <ul>
 <li>点击按钮打印当前索引值<br />
 在for循环过程中将i传递到函数表达式中的index, index会成为一个局部变量,不会被释放,长期驻扎在内存中</li>
@@ -1263,6 +1289,112 @@ aa();
 </ul>
 <p>[作业]</p>
 <ul>
-<li>给所有的字符串添加一个获取ascii码的方法和一个反编译的方法</li>
+<li>面向对象的弹窗</li>
 <li>弹幕</li>
+</ul>
+<p>[扩展]</p>
+<ul>
+<li>利用面向对象技术封装获取元素的方法（简化版jquery）</li>
+<li>烟花效果</li>
+</ul>
+<h1 id="_17"><a name="user-content-_17" href="#_17" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>原型链</h1>
+<p>实例与Object原型对象之间的链条称为原型链</p>
+<h2 id="_18"><a name="user-content-_18" href="#_18" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>原型模式的访问机制（原型搜索机制）</h2>
+<ol>
+<li>读取实例对象的属性时，先从实例对象本身开始搜索。如果在实例中找到了这个属性，则返回该属性的值；</li>
+<li>如果没有找到，则继续搜索实例的原型对象，如果在原型对象中找到了这个属性，则返回该属性的值</li>
+<li>如果还是没找到，则向原型对象的原型对象查找，依此类推，直到Object的原型对象（最顶层对象）；</li>
+<li>如果再Object的原型对象中还搜索不到，则抛出错误；</li>
+</ol>
+<h3 id="_19"><a name="user-content-_19" href="#_19" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>重置原型对象</h3>
+<p>重置原型对象，可以一次性给原型对象添加多个方法<br />
+<pre><code>function Popover(){}
+Popover.prototype = {
+    show:function(){},
+    hide:function(){}
+}
+</code></pre></p>
+<ul>
+<li>注意覆盖问题</li>
+<li>注意识别问题</li>
+</ul>
+<h3 id="_20"><a name="user-content-_20" href="#_20" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>内置原型对象</h3>
+<p>使用内置原型可以给已有构造函数添加方法</p>
+<ul>
+<li>数组/字符串/数字等方法调用原理</li>
+<li>扩展内置方法<br />
+[案例]给所有的字符串添加一个获取ascii码的方法和一个反编译的方法</li>
+</ul>
+<h2 id="_21"><a name="user-content-_21" href="#_21" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>对象属性的遍历与判断</h2>
+<ul>
+<li>for…in：遍历对象中的所有属性, 无论该属性存在于实例中还是原型中</li>
+<li>in：只要通过对象能够访问到属性就返回true, 无论该属性存在于实例中还是原型中<br />
+<pre><code>if(name in s1){
+
+}
+</code></pre></li>
+<li>实例.hasOwnProperty(属性)：检测一个属性是存在于实例中(true)，还是存在于原型中(false)</li>
+<li>检测一个属性是否存在于原型中：!obj.hasOwnProperty(name) &amp;&amp; (name in obj)</li>
+</ul>
+<h1 id="_22"><a name="user-content-_22" href="#_22" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>继承</h1>
+<p>继承是面向对象中一个非常重要的特征。指的是：子类继承父类的属性和方法。</p>
+<blockquote>
+<p>我们可以通过继承的方式, 在父类的属性和方法基础上, 让子类也拥有这些属性和方法, 并可以扩展。</p>
+</blockquote>
+<ul>
+<li>继承的特点: <br />
+1. 子类拥有父类所有的属性和方法（代码复用）；<br />
+2. 子类可以扩展自己的属性和方法（更灵活）；<br />
+3. 子类可以重写父类的方法</li>
+</ul>
+<h3 id="_23"><a name="user-content-_23" href="#_23" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>原型链继承</h3>
+<p>prototype<br />
+原型链属性(方法)的查找过程：实例&ndash;&gt;原型对象&ndash;&gt;原型对象&hellip; &ndash;&gt; Object.prototype</p>
+<blockquote>
+<p>PS:原型链继承法一般用于继承方法</p>
+</blockquote>
+<h3 id="_24"><a name="user-content-_24" href="#_24" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>借用构造函数</h3>
+<ul>
+<li>call：使用父类函数的call（子类对象,参数1，参数2，参数3......） 最常见<br />
+    格式：构造函数.call(this,参数1,参数2,参数3......)</li>
+<li>apply：使用父类函数的apply（子类对象，[参数1，参数2，参数3]）<br />
+    格式：父类构造函数.apply(子类当前对象,[参数1,参数2,参数3......])//第二个参数为数组<blockquote></blockquote>
+</li>
+<li>call与apply的唯一区别：传参方式不同</li>
+<li>借用构造函数法只能继承构造函数里的属性/方法，不能继承原型对象里的方法</li>
+<li>借用构造函数法一般用于继承属性</li>
+</ul>
+<h3 id="_25"><a name="user-content-_25" href="#_25" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>组合继承</h3>
+<ul>
+<li>继承属性：借用构造函数</li>
+<li>继承方法：原型链继承</li>
+</ul>
+<blockquote>
+<p>组合继承是最常用的继承模式。</p>
+</blockquote>
+<p>缺点：</p>
+<ul>
+<li>多次执行父类构造函数</li>
+<li>在原型对象中生成多余的属性</li>
+</ul>
+<h3 id="_26"><a name="user-content-_26" href="#_26" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>原型式继承</h3>
+<p>原理：先创建了一个临时性的构造函数，然后将传入的对象作为这个构造函数的原型，最后返回了这个临时类型的一个新实例<br />
+<pre><code>function object(o){
+    function F(){}
+    F.prototype = o;
+    return new F();
+}
+</code></pre></p>
+<ul>
+<li>Object.create()：ES5版本的原型式继承</li>
+</ul>
+<h3 id="_27"><a name="user-content-_27" href="#_27" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>寄生组合继承法</h3>
+<ul>
+<li>继承属性：借用构造函数</li>
+<li>继承方法：原型式继承</li>
+</ul>
+<hr />
+<p>[案例]</p>
+<ul>
+<li>萤火虫案例</li>
 </ul></article></body></html>
