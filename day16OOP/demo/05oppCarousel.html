@@ -122,10 +122,10 @@
 			var c1 = new Carousel();
 			c1.init();
 			c1.move();*/
-			function Carousel(){
+			function Carousel(opt){
 				//描述属性
 				//图片
-				this.imgList = ['img/001.jpg','img/002.jpg','img/003.jpg','img/004.jpg'];
+				this.imgList = opt.imgList;
 				//定时器时间
 				this.duration = 3000;
 				//宽高
@@ -137,7 +137,9 @@
 				this.showButton = true;
 				
 				//方法
-				this.init = function(){
+			
+			}
+				Carousel.prototype.init = function(){
 					var self = this;
 					//html结构
 					var carousel = document.createElement("div");
@@ -166,8 +168,6 @@
 						
 					}
 					
-					
-					
 					//写入页面
 					document.body.appendChild(carousel);
 					
@@ -179,11 +179,26 @@
 					carousel.onmouseleave = function(){
 						self.move();
 					}
+					
+					carousel.onclick = function(e){
+						e = e || window.event;
+						var target = e.target || e.srcElement;
+						if(target.className === "btnPrev"){
+							self.index--;
+							self.showPic();
+						}
+						if(target.className === "btnNext"){
+							self.index++;
+							self.showPic();
+						}
+						
+					}
+					
 					return this;
 				}
 				
 				//渲染
-				this.move = function(){
+				Carousel.prototype.move = function(){
 					var self = this;
 					this.timer = setInterval(function(){
 						self.index++;
@@ -192,27 +207,28 @@
 					return this;
 				}
 				//停止
-				this.stop = function(){
+				Carousel.prototype.stop = function(){
 					clearInterval(this.timer);
 					return this;
 				}
 				//渲染
-				this.showPic = function(){
+				Carousel.prototype.showPic = function(){
 					var ul = this.ele.children[0];
 					if(this.index === this.imgList.length){
 						this.index=0;
+					}else if(this.index < 0){
+						this.index = this.imgList.length-1;
 					}
 //					ul.style.top= -this.index*this.height + 'px'; 
 					animate(ul,{top:-this.index*this.height});
 					return this;
 				}
 				
-			}
-			new Carousel().init().move();
+			new Carousel({imgList:['img/001.jpg','img/002.jpg','img/003.jpg','img/004.jpg']}).init().move();
 			var c1 = new Carousel();
 			//获取圆形对象标准
-			Object.getPrototypeOf(c1);
-			Carousel.prototype;
+			console.log(Object.getPrototypeOf(c1));
+			console.log(Carousel.prototype);
 			
 			
 		}
