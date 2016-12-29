@@ -65,7 +65,7 @@ function bind(ele, type, handler, capture) {
  *1.设置 : setCookie(name,val,expires,path)
  *2.设置 : getCookie(name)
  *3.设置 : removeCookie(name)
- * 
+ *
  */
 function setCookie(name, val, expires, path) {
 	var cookie = name + '=' + val;
@@ -101,30 +101,30 @@ function removeCookie(name) {
 
 /*
  * 常用正则表达式
- * 
+ *
  * 用户名	/^[a-z0-9_-]{3,16}$/
- * 
+ *
  * 密码	/^[a-z0-9_-]{6,18}$/
- * 
+ *
  * 十六进制值	/^#?([a-f0-9]{6}|[a-f0-9]{3})$/
- * 身份证		/^(\d{14}|\d{17})[\dx]$/	
+ * 身份证		/^(\d{14}|\d{17})[\dx]$/
  * 生日		/^\d{4}([\/\-]?)\d{1,2}\1\d{1,2}$/
  * 电子邮箱	/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
 			/^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/
  *			/^[\w\.\-]+@[a-zA-Z0-9\-]+(\.[a-zA-Z]+){1,2}$/
- * 
+ *
  * URL	/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
- * 
+ *
  * IP 地址	/((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)/
 /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
- * 
- * 
+ *
+ *
  * HTML 标签	/^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/
- * 
+ *
  * 删除代码\\注释	(?<!http:|\S)//.*$
- * 
+ *
  * Unicode编码中的汉字范围	/^[\u2E80-\u9FFF]+$/
- * 
+ *
  */
 
 /*
@@ -132,7 +132,7 @@ function removeCookie(name) {
  * 标准:getComputedStyle();
  * IE8-:ele.currentStyle;
  * 当对象的属性是一个变量,需要调用该属性时.应该用obj[var];
- * 
+ *
  */
 function getStyle(ele, attr) {
 	//标准浏览器判断
@@ -153,7 +153,7 @@ function getStyle(ele, attr) {
  * 动画效果函数
  * @你妹
  * 无法进行运算的结果为NaN
- * 
+ *
  */
 /*function animate(ele, attr, target) {
 	clearInterval(ele[attr + 'timer']);
@@ -187,9 +187,9 @@ function getStyle(ele, attr) {
  * @opt [动画改变的属性]
  * @callback [回调函数]
  */
-//  ========== 
-//  = 适用无缝滚动、等动画 = 
-//  ========== 
+//  ==========
+//  = 适用无缝滚动、等动画 =
+//  ==========
 function animate(ele, opt, callback) {
 	//给ele添加timerLen属性,用于记录定时器的个数
 	ele.timerLen = 0;
@@ -252,7 +252,7 @@ function animate(ele, opt, callback) {
  */
 console.log('是否使用了该js');
 function ajax(opt) {
-	
+
 	//默认值
 	var defaults = {
 		type:"get",
@@ -264,10 +264,10 @@ function ajax(opt) {
 	}
 	//重新赋值给opt
 	opt = defaults;
-	
+
 	//处理参数
 	//opt.data{name:'zhangsan',age:18}
-	
+
 	if (opt.data) {
 		//判断url有没有"?"
 		if(opt.url.indexOf('?') == -1){
@@ -286,7 +286,7 @@ function ajax(opt) {
 	if(opt.type === 'jsonp'){
 		// 2.创建script标签
 		var script = document.createElement('script');
-		
+
 		// 1.声明一个全局函数
 		var fnName = 'getData' + parseInt(Math.random()*1000000000);
 		// 对象的属性是变量,需要用[]
@@ -297,7 +297,7 @@ function ajax(opt) {
 			//同时清除当前的全局函数
 			delete window[fnName];
 		}
-		
+
 		//判断url中是否存在"?";
 		if(opt.url.indexOf("?") == -1){
 			opt.url += '?callback='+fnName;
@@ -310,7 +310,7 @@ function ajax(opt) {
 		//进入JSONP就不再执行下面的代码
 		return;
 	}
-	
+
 	// ajax 请求
 	var xhr;
 	//处理兼容性
@@ -359,7 +359,7 @@ function ajax(opt) {
 	}
 	var hasparams = opt.url.indexOf('?');
 	url= opt.url + (hasparams > 0 ? "&" : "?") +'callback=' +  opt.callback ;
-	url += data; 
+	url += data;
 //	console.log(url);
 	var script =document.createElement("script");
 	script.src = url;
@@ -379,12 +379,12 @@ function repet(str){
 	for (var i=0; i<arr.length;i++){
 		//判断obj中是否已经存在当前属性
 		if(obj[arr[i]] === undefined){
-			obj[arr[i]]=1; 
+			obj[arr[i]]=1;
 		}else{
 			obj[arr[i]]++;
 		}
 	}
-	
+
 	//遍历对象,然后输出结果
 	var str_qc = "";
 	var str_res ="";
@@ -402,12 +402,12 @@ function repet2(arr){
 	for (var i=0; i<arr.length;i++){
 		//判断obj中是否已经存在当前属性
 		if(obj[arr[i]] === undefined){
-			obj[arr[i]]=1; 
+			obj[arr[i]]=1;
 		}else{
 			obj[arr[i]]++;
 		}
 	}
-	
+
 	//遍历对象,然后输出结果
 	var str_qc = "";
 	var str_res ="";
@@ -417,4 +417,33 @@ function repet2(arr){
 		}
 //			console.log(str_res);
 			return str_qc;
+}
+
+// 获取页面元素
+// return 元素/元素列表
+// selector:必选
+//context:可选
+function Element(selector,context){
+	var res;
+	var context = context || document;
+	if (document.querySelectorAll) {
+		res = context.querySelectorAll(selector);
+	} else {
+		//id选择器context
+		if(/^#/.test(selector)){
+			res = context.getElementById(selector.slice(1));
+		}
+		//类选择器
+		else if(/^\./.test(selector)){
+			res = context.getElementsByClassName(selector.slice(1));
+		}
+		//标签
+		else{
+			res = context.getElementsByTagName(selector);
+		}
+	}
+	if(res.length === 1){
+		res = res[0];
+	}
+	return res;
 }
