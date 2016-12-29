@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>closure</title>
+		<style type="text/css">
+			#box {
+				position: relative;
+				width: 300px;
+				height: 100px;
+				box-sizing: border-box;
+				border: 2px solid #FF0000;
+			}
+			
+			#box > span {
+				position: absolute;
+				width: 296px;
+				height: 78px;
+				box-sizing: border-box;
+				border: 2px solid #0F0;
+				display: none;
+			}
+			#box > span:first-of-type {
+				display: block;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function() {
+				var btns = document.getElementsByTagName('button');
+				var contents = document.getElementsByTagName('span');
+				/*for (var i = 0; i < btns.length; i++) {
+					btns[i].idx = i;
+					btns[i].onclick = function(){
+						console.log(this.idx);
+					}
+				}*/
+				for (var i = 0; i < btns.length; i++) {
+					btns[i].onclick = (function(i) {
+						return function() {
+							console.log(i);
+							for (var j = 0; j < contents.length; j++) {
+								contents[j].style.display = 'none';
+							}
+							contents[i].style.display = 'block';
+						}
+					})(i);
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id='box'>
+			<button>按钮1</button>
+			<span>content1</span>
+			<button>按钮2</button>
+			<span>content2</span>
+			<button>按钮3</button>
+			<span>content3</span>
+			<button>按钮4</button>
+			<span>content4</span>
+			<button>按钮5</button>
+			<span>content5</span>
+		</div>
+	</body>
+
+</html>

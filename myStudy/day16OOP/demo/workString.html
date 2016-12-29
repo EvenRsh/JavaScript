@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>workString</title>
+		<script type="text/javascript">
+			
+			
+			String.prototype.toAscii = function(){
+				var a = '';
+				for (var i = 0; i < this.length; i++) {
+					a += this[i].charCodeAt() + ',';
+				}
+				var last = /[,]$/;
+				a = a.replace(last,'');
+				return a;
+			}
+			
+			String.prototype.translate = function(){
+				var str = /[,"'\s]/;
+				var a = this.split(str);
+				var b = '';
+				a.forEach(function(item){
+					b +=String.fromCharCode(item);
+				})
+				return b;
+			}
+			console.log('王尼玛,我@你妹'.toAscii());
+			console.log('29579,23612,29595,44,25105,64,20320,22969'.translate()); 
+			console.log('王尼玛,我@你妹'.toAscii());
+			console.log('29579,23612,29595,44,25105,64,20320,22969'.translate()); 
+
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

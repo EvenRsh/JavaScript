@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>飞机类型</title>
+	<style>
+		.plane{position:absolute;left:0;top:0;}
+		.myPlane{top:auto;bottom:0;left:50%;}
+	</style>
+	<script>
+	window.onload = function(){
+		/*
+			1)创建基础类型飞机Plane
+				包含所有飞机共有的属性
+
+			2)创建我方飞机
+				* 继承Plane所有属性/方法
+				* 增加自己的属性/方法
+			3)创建敌机
+
+			4)创建Boss
+		 */
+		
+		// 1)创建基础类型飞机Plane
+		function Plane(opt){
+			var defaults = {
+				width:98,
+				height:122,
+				direction:'down',
+				speed:10
+			}
+
+			for(var key in opt){
+				defaults[key] = opt[key];
+			}
+			opt = defaults;
+
+			// 外观：图片地址
+			this.src = opt.src;
+			this.width = opt.width;
+			this.height = opt.height;
+			this.direction = opt.direction;
+			this.speed = opt.speed;
+		}
+
+		// 方法
+		Plane.prototype = {
+			constructor:Plane,
+
+			// 初始化
+			init:function(){
+				var plane = document.createElement('img');
+				plane.src = this.src;
+				plane.className = 'plane';
+
+
+				this.ele = plane;
+
+				// 写入页面
+				document.body.appendChild(plane);
+
+				return this;
+			},
+
+			// 飞行
+			move:function(x,y){
+				this.ele.style.left = x + 'px';
+				this.ele.style.top = y + 'px';
+
+				return this;
+			},
+
+			// 飞机爆炸
+			die:function(){
+				var self = this;
+				var plane = self.ele;
+				var idx = 0;
+				this.dieTimer = setInterval(function(){
+					idx++;
+					// 'images/me.png' => 'images/me_die1.png'
+					plane.src = self.src.replace(/(\.\w+$)/,'_die'+idx + '$1');
+
+					if(idx === 4){
+						setTimeout(function(){
+							plane.parentNode.removeChild(plane);
+						},800);
+						clearInterval(self.dieTimer);
+					}
+				},300);
+
+				return this;
+			}
+		}
+
+
+		// 创建我方飞机
+		function MyPlane(opt){
+			var defaults = {
+				src:'images/me.png',
+				direction:'up',
+			}
+			for(var key in opt){
+				defaults[key] = opt[key];
+			}
+			opt = defaults;
+
+			// 借用构造函数法继承属性
+			Plane.call(this,opt);
+		}
+
+		// 原型链继承法，继承方法
+		MyPlane.prototype = new Plane();
+		MyPlane.prototype.constructor = MyPlane;
+		MyPlane.prototype.init = function(){
+			var plane = document.createElement('img');
+			plane.src = this.src;
+			plane.className = 'plane myPlane';
+
+
+			this.ele = plane;
+
+			// 写入页面
+			document.body.appendChild(plane);
+
+			return this;
+		}
+
+
+		// 敌机
+		function Enemy(opt){
+			var defaults = {
+				src:'images/plane1.png',
+				width:59,
+				height:36
+			}
+			for(var key in opt){
+				defaults[key] = opt[key];
+			}
+			opt = defaults;
+
+
+			Plane.call(this,opt);
+		}
+
+		Enemy.prototype = new Plane();
+		Enemy.prototype.constructor = Enemy;
+
+		// 创建我方飞机
+		new MyPlane().init().die();
+
+		new Enemy().init().die();
+	}
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

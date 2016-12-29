@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象的弹窗</title>
+	<script>
+		function Popover(){
+			this.width = 600;
+			this.height = 300;
+		}
+
+		/*Popover.prototype.init = function(){
+
+		}
+		Popover.prototype.drag = function(){
+			
+		}
+		Popover.prototype.close = function(){
+			
+		}*/
+
+		var p0 = new Popover();
+
+
+		Popover.prototype = {
+			// 手动添加constructor
+			constructor:Popover,
+			init:function(){},
+			drag:function(){},
+			close:function(){}
+		}
+
+		var p1 = new Popover();
+
+		console.log(p1.init);
+		console.log(p0.init)
+
+		/*console.log(p1.constructor)
+		// p1.close = 100;
+		console.log(p1.width);
+		console.log(p1.toString);
+		// p1.animate();*/
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
