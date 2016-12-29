@@ -244,13 +244,18 @@ function animate(ele, opt, callback) {
 	}
 }
 
-/*
+/**
  * @opt:{type:xx, URL:xx,async:xx,callback:fn}
  * 例如:opt = {url:'http://localhost:3000/ajax/football?pageNo=' + pageNo,type:'get',async:'true',callback:footBall}
  * [ajax description]
  * 支持jsonp请求
  */
 console.log('是否使用了该js');
+/**
+ * [ajax description]
+ * @param  {[type]} opt [description]
+ * @return {[type]}     [description]
+ */
 function ajax(opt) {
 
 	//默认值
@@ -423,6 +428,11 @@ function repet2(arr){
 // return 元素/元素列表
 // selector:必选
 //context:可选
+/**
+ * [Element description]
+ * @param {[type]} selector [description]
+ * @param {[type]} context  [description]
+ */
 function Element(selector,context){
 	var res;
 	var context = context || document;
