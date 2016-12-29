@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>面对像的显示隐藏效果</title>
 	<style>
-		#box{height:80px;padding:10px;background-color: #efefef;border:2px solid #ccc;}
+		#box,#box2{height:80px;padding:10px;background-color: #efefef;border:2px solid #ccc;}
 	</style>
 	<script>
 	window.onload = function(){
@@ -30,7 +30,7 @@
 
 
 		// 面向对象
-		var displayBox = new Object();
+		/*var displayBox = new Object();
 
 		// 描述属性
 		displayBox.id = 'box';
@@ -74,7 +74,60 @@
 			this.ele.nextElementSibling.innerHTML = '显示';
 		}
 
-		displayBox.init();
+		displayBox.init();*/
+
+
+		// 自定义构造函数
+		function DisplayBox(id,content,visibility){
+			// 描述属性
+			this.id = id;
+			this.text = content;
+			this.visibility = visibility;
+
+
+			this.init = function(){
+				// 生成html结构
+				var div = document.createElement('div');
+				div.id = this.id;
+				div.innerHTML = this.text;
+
+				var btn = document.createElement('button');
+				btn.innerHTML = '隐藏';
+
+				// 利用this传递属性
+				var self = this;
+				self.ele = div;
+
+				// 绑定事件
+				btn.onclick = function(){
+					if(self.visibility){
+						self.hide();
+					}else{
+						self.show();
+					}
+				}
+
+				document.body.appendChild(div);
+				document.body.appendChild(btn);
+			}
+			this.show = function(){
+				this.ele.style.display = 'block';
+				this.visibility = true;
+				this.ele.nextElementSibling.innerHTML = '隐藏';
+			}
+			this.hide = function(){
+				this.ele.style.display = 'none';
+				this.visibility = false;
+				this.ele.nextElementSibling.innerHTML = '显示';
+			}
+		}
+
+		var d1 = new DisplayBox('box','内容1',true);
+		d1.init();
+
+
+		var d2 = new DisplayBox('box2','内容2',true);
+		d2.init();
 	}
 		
 

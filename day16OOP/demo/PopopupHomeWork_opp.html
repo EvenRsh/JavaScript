@@ -15,7 +15,7 @@
 				left: 80px;
 				overflow: hidden;
 			}
-			
+
 			.title {
 				margin: 0;
 				padding: 0;
@@ -24,7 +24,7 @@
 				line-height: 30px;
 				background: #cfcfcf;
 			}
-			
+
 			.popup>.btnClose {
 				position: absolute;
 				top: 0;
@@ -35,7 +35,7 @@
 				text-align: center;
 				cursor: pointer;
 			}
-			
+
 			.popup>.btnClose:hover {
 				background: #f00;
 			}
@@ -47,7 +47,7 @@
 			 * 思路:弹窗是一个对象
 			 * 1,属性:名字;
 			 * 2,方法:能移动,能关闭
-			 * 
+			 *
 			 */
 			window.onload = function() {
 				//创建构造函数
@@ -78,7 +78,7 @@
 					this.left = opt.left;
 					this.isDrag = opt.isDrag;
 					this.display = opt.display;
-					
+
 					//执行初始化
 					this.init();
 				}
@@ -122,7 +122,7 @@
 									self.close();
 								}
 							}
-							//拖拽 
+							//拖拽
 						if (this.isDrag) {
 							oTitle.onmousedown = function(e) {
 								e = e || window.event;
@@ -188,21 +188,21 @@
 					width: 200,
 					height: 300
 				});*/
-				
-				
-				
-				
-				
+
+
+
+
+
 				//广告弹窗
 				function AdPopup(opt){
 					//继承属性
 					Pupop.call(this,opt);
 					this.newBtnClose();
 				}
-				
+
 				//继承方法:
 				AdPopup.prototype = new Pupop();
-				
+
 				AdPopup.prototype.newBtnClose = function(){
 					var oPopup = this.ele;
 					console.log(oPopup);
@@ -215,7 +215,7 @@
 								self.remove();
 							})
 						}
-					} 
+					}
 
 				}
 				var ad1 = new AdPopup({
@@ -228,7 +228,8 @@
 					display:false
 				})
 				console.log(ad1);
-				
+					console.log(ad1);
+
 			}
 		</script>
 	</head>
