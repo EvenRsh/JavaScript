@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>弹幕</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <style>
+    /*.container{width:800px;margin:0 auto;padding-bottom:10px;background-color:#dfdfdf;}*/
+    
+    #barrage {
+        position: relative;
+        height: 600px;
+        margin-bottom: 10px;
+        background-color: #000;
+        overflow: hidden;
+    }
+    
+    #barrage .bar-item {
+        position: absolute;
+        left: 100%;
+        white-space: nowrap;
+    }
+    
+    #barrage .bar-item.active {
+        background-color: rgba(255, 255, 0, 0.5);
+    }
+    
+    #msg {
+        margin-left: 10px;
+        width: 400px;
+        height: 30px;
+        border: 1px solid #999;
+        border-right: none;
+        box-sizing: border-box;
+        vertical-align: middle;
+    }
+    
+    #msg+button {
+        padding: 0 10px;
+        height: 30px;
+        vertical-align: middle;
+    }
+
+    .chatArea{display:none;}
+    </style>
+    <script src="js/common.js"></script>
+    <script>
+    /*
+    			弹幕
+    				效果：
+    					1）随机颜色，速度，字体大小，位置
+    					2）从右往左移动
+    				思路：
+    					1）发送
+    						1>绑定点击事件
+    						2>发送消息，把消息当作一个对象
+    					2）生成消息对象
+    						初始化：确定颜色，速度，字体大小，位置
+    					3）运动
+    						从右往左移动
+    		 */
+    window.onload = function() {
+        var barrage = document.getElementById('barrage');
+        var msg = document.getElementById('msg');
+        var btn = msg.nextElementSibling;
+        var loginForm = document.getElementById('loginForm');
+        var username = document.getElementById('username');
+        var gender = document.getElementsByName('gender');
+        var btnLogin = loginForm.querySelector('button.btn-success');
+        var chatArea = document.querySelector('.chatArea');
+
+
+        var chatRoom = {
+        	username:'',
+        	gender:'',
+        	ip:'',
+        	API:'http://10.16.155.22:3000/ajax/chat',
+        	already:[],
+
+        	init:function(){
+        		var self = this;
+
+        		self.getIp();
+
+        		
+
+        		btnLogin.onclick = function(){
+        			var _username = username.value;
+        			var _gender;
+        			for(var i=0;i<gender.length;i++){
+        				if(gender[i].checked){
+        					_gender = gender[i].value;
+        					break;
+        				}
+        			}
+
+        			if(/^\s*$/.test(_username)){
+        				alert('好汉，留下你的大名');
+        				return;
+        			}else if(!_gender){
+        				alert('好汉，你是男还是女');
+        				return;
+        			}
+
+        			self.username = _username;
+        			self.gender = _gender;
+
+        			// 登录
+        			self.login();
+        		}
+
+        		btn.onclick = function(){
+        			self.sendMsg();
+        		}
+        	},
+        	login:function(){
+        		var self = this;
+
+        		// 显示弹幕区域
+        		chatArea.style.display = 'block';
+
+        		var _gender = '';
+        		if(self.gender === '男'){
+        			_gender = '帅锅';
+        		}else if(self.gender === '女'){
+        			_gender = '靓女';
+        		}
+
+        		loginForm.innerHTML = '<strong>' + self.username + '</strong>' + _gender + '，欢迎来到老司机聊天室，你的当前IP：' + self.ip + '<button class="btn btn-success btn-xs">退出</button>';
+
+
+        		// 登录成功后，获取数据
+        		self.getMsg();
+        		setInterval(function() {
+		            self.getMsg();
+		        }, 3000);
+        	},
+        	logout:function(){},
+        	sendMsg:function(){
+        		var self = this;
+        		var _msg = msg.value;
+	            ajax({
+	                url: self.API + '?type=send&sender='+self.username+'&msg=' + _msg,
+	                callback: function(res) {
+	                    // console.log(res)
+	                    // new Barrage(_msg,true);
+	                    self.getMsg();
+
+	                    msg.value = '';
+	                    msg.focus();
+	                }
+	            });
+        	},
+        	getMsg:function(){
+        		var self = this;
+
+        		ajax({
+	                url: self.API + '?type=query',
+	                callback: function(res) {
+	                    console.log(res);
+	                    // res = JSON.parse(res);
+	                    res.data.forEach(function(item, idx) {
+
+	                        var alreadyShow = false;
+
+	                        // 怎么过滤之前显示过的消息
+	                        // 1、把显示过的消息保存再一个数组already
+	                        // 2、把请求回来的数组和alreay数组进行对比
+	                        // 	* 如果已经存在alreay数组中，说明已经显示
+
+	                        self.already.forEach(function(oldMsg) {
+	                            if (item.createtime === oldMsg.createtime && item.ipfrom === oldMsg.ipfrom) {
+	                                alreadyShow = true;
+	                            }
+	                        });
+
+	                        if (!alreadyShow) {
+	                            new Barrage(item.content, item.ipfrom == self.ip);
+
+	                            // 更新already数组
+	                            self.already.push(item);
+	                        }
+
+
+	                    })
+
+	                }
+	            });	
+        	},
+        	getIp:function(){
+        		var self = this;
+        		ajax({
+        			url:'/ajax/getIP',
+        			callback:function(res){
+        				self.ip = res;
+        			}
+        		})
+        	}
+        }
+
+        chatRoom.init();
+
+        // 弹幕构造函数
+        function Barrage(text, highlight) {
+            this.msg = text;
+            this.highlight = highlight;
+
+            this.init();
+        }
+
+        Barrage.prototype.init = function() {
+            var color = randomColor();
+            var fontSize = randomNum(12, 40);
+            var pos = randomNum(10, barrage.offsetHeight - fontSize - 10);
+
+            var span = document.createElement('span');
+            span.className = 'bar-item';
+            if (this.highlight) {
+                span.className = 'bar-item active';
+            }
+            span.innerHTML = this.msg;
+            span.style.color = color;
+            span.style.fontSize = fontSize + 'px';
+            span.style.top = pos + 'px';
+
+            barrage.appendChild(span);
+
+            this.ele = span;
+
+            this.move();
+
+            return this;
+        }
+
+        Barrage.prototype.move = function() {
+            var self = this;
+            var span = self.ele;
+            var speed = randomNum(-20, -2);
+            self.timer = setInterval(function() {
+                if (span.offsetLeft < -span.offsetWidth) {
+                    self.remove();
+                }
+                span.style.left = span.offsetLeft + speed + 'px';
+            }, 50);
+
+            return this;
+        }
+
+
+        Barrage.prototype.remove = function() {
+            barrage.removeChild(this.ele);
+            clearInterval(this.timer);
+
+            return this;
+        }
+
+        /*// 1>绑定点击事件
+        // 向服务器发送数据
+        // API:ip地址/ajax/chat?type=send&sender=xiejinrong&msg=hello
+        btn.onclick = sendMsg;
+
+
+        // 回车发送
+        msg.onkeyup = function(e) {
+            e = e || window.event;
+            var keyCode = e.keyCode || e.which;
+
+            // 是否按下回车
+            if (keyCode === 13) {
+                sendMsg();
+            }
+        }
+
+        // 进入页面，先获取本机IP
+        var myip;
+        // var username = prompt('请求输入大名')
+        ajax({
+            url: 'http://10.16.155.22:3000/ajax/getIP',
+            async: false,
+            callback: function(res) {
+                myip = res;
+            }
+        });
+
+        // 用于存放已经显示过的消息
+        var already = [];
+
+        function sendMsg() {
+            var _msg = msg.value;
+            ajax({
+                url: 'http://10.16.155.22:3000/ajax/chat?type=send&sender=xiejinrong&msg=' + _msg,
+                callback: function(res) {
+                    // console.log(res)
+                    // new Barrage(_msg,true);
+                    getMsg();
+
+                    msg.value = '';
+                    msg.focus();
+                }
+            });
+        }
+
+
+        function getMsg() {
+            // ajax获取服务器数据
+            // API:ip地址/ajax/chat?type=query
+            ajax({
+                url: 'http://10.16.155.22:3000/ajax/chat?type=query',
+                callback: function(res) {
+                    console.log(res);
+                    // res = JSON.parse(res);
+                    res.data.forEach(function(item, idx) {
+
+                        var alreadyShow = false;
+
+                        // 怎么过滤之前显示过的消息
+                        // 1、把显示过的消息保存再一个数组already
+                        // 2、把请求回来的数组和alreay数组进行对比
+                        // 	* 如果已经存在alreay数组中，说明已经显示
+
+                        already.forEach(function(oldMsg) {
+                            if (item.createtime === oldMsg.createtime && item.ipfrom === oldMsg.ipfrom) {
+                                alreadyShow = true;
+                            }
+                        });
+
+                        if (!alreadyShow) {
+                            new Barrage(item.content, item.ipfrom == myip);
+
+                            // 更新already数组
+                            already.push(item);
+                        }
+
+
+                    })
+
+                }
+            });
+        }
+
+
+        // 进入页面先请求一次
+        getMsg();
+
+        // 之后每隔3s请求一次数据
+        setInterval(function() {
+            getMsg();
+        }, 3000);*/
+
+
+
+
+    }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron" id="loginForm">
+            <h1>多人聊天系统</h1>
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" class="form-control" id="username" placeholder="请输入用户名">
+            </div>
+            <div class="form-group">
+                <label for="gender">性别</label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="男"> 男
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="女"> 女
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="保密"> 保密
+                </label>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success">登录</button>
+            </div>
+        </div>
+        <div class="chatArea">
+	        <div id="barrage"></div>
+	        <input type="text" id="msg">
+	        <button class="btn btn-primary">发送</button>
+        </div>
+    </div>
+</body>
+
+</html>

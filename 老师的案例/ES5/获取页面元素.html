@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>获取页面元素</title>
+	<script src="../common.js"></script>
+	<script>
+	window.onload = function(){
+		/*
+			1、document.getElementById();
+			2、getElementsByClassName();
+			3、getElementsByTagName();
+			4、document.getElementsByName();
+
+			//ES5
+			5、querySelector(css选择器)：获取匹配选择器的第一个元素
+			6、querySelectorAll(css选择器)：获取所有匹配选择器的元素
+		 */
+		
+		var divs = document.getElementsByTagName('div');
+		console.log(divs);
+
+		var divs = document.querySelector('div');
+		console.log(divs);
+
+		var list = document.querySelector('.list');
+		console.log(list);
+		console.log(document.querySelectorAll('ul#datalist li'));
+		console.log(list.querySelectorAll('div'));
+
+
+		Element('div',list);
+	}
+		
+	</script>
+</head>
+<body>
+	<div class="dom1">元素1</div>
+	<div>元素2</div>
+	<div class="list">元素3
+		<div class="title">标题</div>
+		<ul id="datalist">
+			<li>列表1</li>
+			<li>列表2</li>
+			<li>列表3</li>
+		</ul>
+	</div>
+	<div class="list">元素4</div>
+	<div>元素5</div>
+</body>
+</html>

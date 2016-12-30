@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>bind的使用</title>
+	<script>
+		function Barrage(){
+			this.msg = 'bind的使用';
+		}
+
+		Barrage.prototype.init = function(){
+
+			setTimeout(function(){
+				console.log(this.msg);
+			}.bind(this),1000)
+		}
+
+		new Barrage().init();
+
+		var length = 10;
+		function test(){
+			console.log('test执行')
+			console.log(this.length)
+		}
+
+		var obj = {length:20}
+
+		// 仅仅是绑定
+		test.bind(obj)();
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

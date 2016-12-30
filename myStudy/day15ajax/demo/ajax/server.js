@@ -97,6 +97,7 @@ var server = http.createServer(function(req, res) {
 
                         // 写入文件
                         fs.writeFile(__dirname + '/data/chat.json',JSON.stringify(data));
+                        resText = '{"msg":"success"}';
                     }
                 }
 
