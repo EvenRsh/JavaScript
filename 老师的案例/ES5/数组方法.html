@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组方法</title>
+	<script>
+		var arr = [10,20,23,12,100];
+		/*var res = arr.every(function(item,idx){
+			console.log(item,idx);
+			return item > 12;
+		});*/
+
+		var res = arr.some(function(item,idx){
+			console.log(item,idx);
+			return item > 20;
+		});
+		console.log(res);
+
+
+		var arr = [{name:'老王',age:40},{name:'老李',age:20},{name:'老黄',age:30}];
+		var res = arr.map(function(item,idx){
+			return item.name;
+		});
+
+		var res = arr.filter(function(item,idx){
+			return item.age <= 20;
+		});
+		console.log(res);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

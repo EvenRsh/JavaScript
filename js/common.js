@@ -1,5 +1,5 @@
 //封装随机颜色
-function randomColr() {
+function randomColor() {
     var str = '0123456789abcdef';
     var color = "#";
     for (var i = 0; i < 6; i++) {
@@ -320,8 +320,14 @@ function ajax(opt) {
             //对象调用方法
             //&& 短路操作
             //typeof opt.callback === 'function' && opt.callback(JSON.parse(xhr.responseText));
+            var res ;
+            try{
+              res = JSON.parse(xhr.responseText);
+            }catch(e){
+                res = xhr.responseText
+            };
             if (typeof opt.callback === 'function') {
-              opt.callback(JSON.parse(xhr.responseText));
+              opt.callback(res);
             }
         }
     };
