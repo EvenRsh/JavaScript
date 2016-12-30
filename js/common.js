@@ -485,3 +485,25 @@ Element.prototype.bind = function(type, fn) {
 function $(selector) {
     return new Element(selector);
 }
+
+/*
+ * 获取样式方法
+ * 标准:getComputedStyle();
+ * IE8-:ele.currentStyle;
+ * 当对象的属性是一个变量,需要调用该属性时.应该用obj[var];
+ *
+ */
+function getStyle(ele, attr) {
+    //标准浏览器判断
+    if (window.getComputedStyle) {
+        return getComputedStyle(ele)[attr];
+    }
+    //IE8-
+    else if (ele.currentStyle) {
+        return ele.currentStyle[attr];
+    }
+    //都不符合条件
+    else {
+        return ele.style[attr];
+    }
+}

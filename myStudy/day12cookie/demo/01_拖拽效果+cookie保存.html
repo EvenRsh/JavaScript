@@ -13,17 +13,17 @@
 				background-color: #f00;
 			}
 		</style>
-		
+
 		<script>
 			window.onload = function(){
 				/*
 				* 1)摁住#box
-					*绑定mousedown	 	
+					*绑定mousedown
 				* 2)移动鼠标
-					**绑定mousemove事件 
+					**绑定mousemove事件
 					*摁住后移动鼠标才有效果
 					* 改变#box的top,left;
-				* 
+				*
 				* */
 				var box = document.getElementById('box');
 				var cookies = document.cookie.split('; ');
@@ -41,18 +41,18 @@
 						top = Number(arr[1]);
 						box.style.top = top + 'px';
 					}
-					
+
 				}
-				
-				
-				
-				//给#box绑定mousedown事件	
+
+
+
+				//给#box绑定mousedown事件
 				box.onmousedown = function(e){
 					e = e || window.event
 					//鼠标摁下时,光标位置距离#box的偏移量
 					var ox=  e.offsetX;
 					var oy=  e.offsetY;
-					
+
 					//怎么保证移动的时候鼠标已经摁下
 					document.onmousemove = function(evt){
 						left = evt.clientX - ox;
@@ -72,14 +72,14 @@
 				window.onmouseup = function(){
 					document.onmousemove = null;
 				}
-				
-				
-				
-				
+
+
+
+
 			}
-			
+
 		</script>
-		
+
 	</head>
 	<body>
 		<!--<div id="box"></div>-->
