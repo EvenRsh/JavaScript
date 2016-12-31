@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>news_滚动最新消息修改版</title>
+		<style>
+			#newslist {
+				line-height: 2;
+			}
+			
+			textarea {
+				width: 500px;
+				height: 80px;
+				display: block;
+			}
+		</style>
+		<script type="text/javascript" src="../common.js"></script>
+		<script>
+			window.onload = function() {
+				/*
+				作业：滚动显示最新消息
+					1)新建一个包含新闻的数组
+					2)把新闻显示到页面
+						for循环
+					3)添加新闻
+						给按钮绑定点击事件，往新闻列表数组添加元素
+					4)定时滚动新闻列表
+						setInterval
+						把最后一条新闻放到最前面
+							先删除最后一条新闻，然后把他放到最前面
+				 */
+				var oNews = document.getElementById('news');
+				var btnAdd = document.getElementById('btnAdd');
+				var newslist = document.getElementById('newslist');
+
+				var news = ['小明由于调戏女老师再次被滚粗教室', 'iPhone10发布,屏幕高度亮瞎了所有小伙伴', '为增加收视率，《跑男》第十季决定邀请香港四大天王参加，但由于年龄太大实在跑不动', '为了弘扬乐于助人的精神，中国人大开会决定授予老王“中国好邻居”称号'];
+
+				// 把新闻显示到页面
+				function show() {
+					var len = news.length;
+					for (var i = 0; i < len; i++) {
+						var li = crtDom('li');
+						var a = crtDom('a');
+						a.href ='#';
+						a.title = news[i];
+						var overTitle = news[i].length > 18 ? news[i].substr(0, 18) + '...' : news[i];
+						a.innerHTML = overTitle;
+						li.appendChild(a);
+						console.log(li);
+						newslist.appendChild(li);
+					}
+				}
+				show();
+				// 添加新闻
+				function sendNews() {
+					var test = oNews.value;
+					var li = crtDom('li');
+					var a = crtDom('a');
+					a.href ='#';
+					a.title = test;
+					var overTitle = test.length > 18 ? test.substr(0, 18) + '...' : test;
+					a.innerHTML = overTitle;
+					li.appendChild(a);
+					newslist.insertBefore(li, newslist.firstElementChild);
+					oNews.value ='';
+					oNews.focus();
+				}
+				btnAdd.addEventListener('click', sendNews);
+				// 定时滚动
+				var timer = setInterval(function() {
+						newslist.insertBefore(newslist.lastElementChild, newslist.firstElementChild);
+					}, 2000)
+					// 把删除的最后一条信息放到最前面
+					// pop/shift：返回删除的元素
+					// push/unshift：返回新数组的长度
+
+				// 移入移出
+				function enter() {
+					clearInterval(timer);
+				}
+				newslist.addEventListener('mouseenter', enter);
+
+				function leave() {
+					timer = setInterval(function() {
+						newslist.insertBefore(newslist.lastElementChild, newslist.firstElementChild);
+					}, 2000)
+					newslist.addEventListener('mouseenter', enter, false);
+				}
+				newslist.addEventListener('mouseleave', leave);
+			}
+		</script>
+	</head>
+
+	<body>
+		<h1>滚动新闻（30分）</h1>
+
+		<h2>今日要闻</h2>
+		<ul id="newslist"></ul>
+		<textarea id="news"></textarea>
+		<button id="btnAdd">添加</button>
+		<div class="content">
+			<h4>要求：</h4>
+			<ol>
+				<li>每隔2秒滚动显示新闻列表</li>
+				<li>添加新闻到新闻列表第一条，添加成功后清空输入框并自动获取焦点</li>
+				<li>鼠标移入新闻区域停止滚动，移开继续滚动</li>
+				<li>每条新闻最多显示18个字符，多余字符用“...”表示</li>
+			</ol>
+		</div>
+	</body>
+
+</html>

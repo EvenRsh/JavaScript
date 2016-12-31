@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style type="text/css">
+		ul,li{
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			overflow: hidden;
+		}
+		ul{
+			width: 250px;
+			border: 1px solid #ccc;
+		}
+		li{
+			border-bottom: 1px solid #ccc;
+		}
+		li:last-child{
+			border-bottom:none;
+		}
+		#msg{
+			color: aquamarine;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var dataList = [{
+				"name": "北京","id": 110100,"hot": true
+			},{
+				"name": "上海","id": 310000,"hot": true
+			},{
+				"name": "南京市","id": 320100
+			},{
+				"name": "广州","id": 440100,"hot": true
+			},{
+				"name": "深圳","id": 440300,"hot": true
+			},{
+				"name": "成都","id": 510100
+			},{
+				"name": "杭州","id": 330100
+			},{
+				"name": "南宁","id": 450100
+			},{
+				"name": "大连","id": 210200
+			}];
+			var oInput = document.getElementById("city");
+			var msg = document.getElementById("msg");
+			var cookies = document.cookie.split("; ");
+			
+			for (var k=0; k<cookies.length; k++) {
+				var arr = cookies[k].split("=");
+				if (arr[0] == "name") {
+					msg.innerHTML = "你选择了北京：" + arr[1];
+					oInput.value = arr[1];
+				}
+			}
+			
+			//生成信息列表
+			var ul = document.createElement("ul");
+			ul.style.display = "none";
+			var box = document.getElementById("box");
+			
+			for (var i=0; i<dataList.length; i++) {
+				var li = document.createElement("li");
+				
+				var span1 = document.createElement("span");
+				var span2 = document.createElement("span");
+				span1.innerHTML = dataList[i].name;
+				span2.innerHTML = dataList[i].id;
+				span1.style.float = "left";
+				span2.style.float = "right";
+				span2.style.color = "red";
+				if (dataList[i].hot) {
+					li.style.backgroundColor = "aquamarine";
+				}
+				li.appendChild(span1);
+				li.appendChild(span2);
+				ul.appendChild(li);
+			}
+			box.parentElement.appendChild(ul);
+			//input添加事件
+			oInput.onfocus = function(){
+				ul.style.display = "block";
+			}
+			//添加点击事件
+
+			var lis = ul.getElementsByTagName("li");
+			console.log(lis)
+			for (var j=0; j<lis.length; j++) {
+				lis[j].onclick = function(){
+					console.log(1)
+					msg.innerHTML = "你选择了：" + this.children[0].innerHTML
+					oInput.value = this.children[0].innerHTML;
+					var now = new Date;
+					now.setDate(now.getDate()+7)
+					document.cookie = "name=" + this.children[0].innerHTML + "; expires=" + now;
+				}
+				
+			}
+					oInput.onblur = function(){
+						setTimeout(function(){
+							ul.style.display = "none";
+						},100)
+					}
+			
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<input type="text" id="city"/>
+		<span id="msg"></span>
+	</div>
+	
+</body>
+</html>
