@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>homeWork</title>
+  <style media="screen">
+    ul{
+      list-style:none;
+      max-width: 150px;
+      max-height: 200px;
+      overflow: auto;
+    }
+    li{
+      border-bottom: 1px dashed #ff0;
+      padding: 5px;
+    }
+    /*.block{
+      display: block;
+    }*/
+    .none{
+      display: none;
+    }
+  </style>
+  <script src="jquery.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(function(){
+      var str = [
+              "张山",
+              "廖鹏程",
+              "陈子豪",
+              "黄丹",
+              "李俊达",
+              "许煜聪",
+              "王彬昌",
+              "余升馨",
+              "朱晓芳",
+              "刘登峰",
+              "丁捷",
+              "廖云峰",
+              "胡耿",
+              "谢应用",
+              "陈奕斌",
+              "田力",
+              "梁达文",
+              "陈国超",
+              "孙杰辉",
+              "熊锐",
+              "莫伟鹏",
+              "梁芯萍",
+              "黄永滨",
+              "任家葆",
+              "何子桃",
+              "张永佳",
+              "刘根",
+              "杨冲",
+              "胡瑞",
+              "李涌纯",
+              "卿旭红",
+              "卢海燕",
+              "黄远航",
+              "郭睿琳",
+              "汪源",
+              "卿艺文",
+              "胡子荣",
+              "李志伟",
+              "毕演舜",
+              "覃海东",
+              "陈思洁",
+              "江肖灵",
+              "张翘頔",
+              "林晓畴",
+              "黄诚就",
+              "廖晓容",
+              "方洋",
+              "顾伟淘",
+              "徐玉金",
+              "刘宝旺"
+          ]
+      //把数据写入页面
+      str.forEach(function(item){
+        //创建元素li,并给每个li加一个 隐藏的类
+        $('#msg').append($('<li></li>').html(item).addClass('none'));
+      });
+      //绑定input聚焦事件
+      $('input').focus(function(){
+        // console.log('123');
+        // 信息显示
+        $('#msg').find('li').removeClass('none');
+        $('input').keyup(function(){
+          setTimeout(function(){
+            $('li').addClass('none');
+            // console.log($('input').val());
+            $('li:contains('+$('input').val()+')').removeClass('none');
+          },1000)
+        })
+      });
+      $('input').blur(function(){
+        // console.log('123');
+        //延时消失
+        setTimeout(function () {
+          $('#msg').find('li').addClass('none');
+        },300)
+      })
+    })
+  </script>
+</head>
+<body>
+  <input type="text" name="" value="">
+  <ul id="msg"></ul>
+</body>
+</html>

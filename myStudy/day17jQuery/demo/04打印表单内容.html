@@ -51,31 +51,30 @@
             // alert('你想干嘛?');
             //获取节点内容
             var res ='';
-            res += '用户名:' + $(':username').val() + ',';
-            res += '昵称:' + $(':nickname').val() + ',';
+            res += '用户名:' + $('#username').val() + ',';
+            res += '昵称:' + $('#nickname').val() + ',';
             res += '密码:' + $(':password')[0].value + ',';
             res += '确认密码:' + $(':password')[1].value + ',';
             res += '性别:' + $('#gender').val() + ',';
             res += '爱好:';
+
 
             for(var i = 0; i < $(':checkbox').length; i++){
               if($(':checkbox')[i].checked){
                 res += $(':checkbox')[i].value + ',';
               }
             }
-
             res += '是否已婚:';
-            for(var i = 0; i < $(':raido').length; i++){
-              if($(':raido')[i].checked){
-                res += $(':raido')[i].value + '.';
+            for(var i = 0; i < $(':radio').length; i++){
+              if($(':radio')[i].checked){
+                res += $(':radio')[i].value + '.';
               }
             }
-            console.log(res);
             $('.msg').html(res);
-            //阻止默认
+            // 阻止默认
             // e.prevntDefault();
             // e.stopPropagation();
-            //jq的阻止
+            // jq的阻止
             return false;
 
 

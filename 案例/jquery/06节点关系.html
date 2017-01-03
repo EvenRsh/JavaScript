@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>06节点关系</title>
+	<script src="js/jquery-3.1.1.js"></script>
+	<script>
+		$(function(){
+			$('#data1').parents('.content');
+
+			$('#data1').parents('.list');
+
+			$('#data1').closest('.list');
+		})
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="content">
+			<ul class="list" style="position:relative;">
+				<li>数据1</li>
+				<li>数据2</li>
+				<li>数据3</li>
+				<li>数据4</li>
+				<li>
+					<ul class="list">
+						<li>
+							<div id="data1" class="list">数据01</div>
+						</li>
+						<li>数据02</li>
+						<li>数据03</li>
+						<li>数据04</li>
+						<li>数据05</li>	
+				</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
