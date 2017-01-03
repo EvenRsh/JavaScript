@@ -83,33 +83,22 @@
               "徐玉金",
               "刘宝旺"
           ]
-      //把数据写入页面
+      var $input = $('input');
+      var $ul = $('#msg');
       $.each($(str),function(idx,item){
-        //创建元素li,并给每个li加一个 隐藏的类
-        $('#msg').append($('<li></li>').html(item).addClass('none'));
-      });
-      //绑定input聚焦事件
-      $('input').focus(function(){
-        // console.log('123');
-        // 信息显示
-        $("#msg").addClass('block');
-        $('#msg').find('li').removeClass('none');
-        //输入框改变内容就批对li的内容
-        $('input').keyup(function(){
-            $('li').addClass('none');
-            // console.log($('input').val());
-            //包含输入框内容的li移除类
-            $('li:contains('+$('input').val()+')').removeClass('none');
-        })
-      });
-      $('input').blur(function(){
-        // console.log('123');
-        //延时消失
-        setTimeout(function () {
-          $("#msg").removeClass('block')
-          $('#msg').find('li').addClass('none');
+        var li = $('<li/>');
+        li.html(item).appendTo($ul);
+      })
+      $input.on('focus',function(){
+        $ul.addClass('block');
+      }).on('input',function(){
+        $ul.find('li').addClass('none').filter('li:contains('+$input.val()+')').removeClass('none');
+      }).on('blur',function(){
+        setTimeout(function(){
+          $ul.removeClass('block').find('li').removeClass('none');
         },300)
       })
+
       //点击列表改变输入框的内容
       $('li').click(function(){
         $('input').val($(this).html());
