@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作业</title>
+	<style>
+		img{display:block;width:520px;}
+		#showPic{position:relative;width:520px;padding:5px;border:2px solid #ddd;}
+		#showPic span{position:absolute;left:0;top:50%;margin-top:-25px;width:30px;height:50px;line-height:50px;text-align:center;background-color: #efefef;}
+		span#btnNext{left:auto;right:0;}
+	</style>
+	<script>
+		/*
+			1、封装一个函数afterDate(date,n)，得到日期date的n天后的日期
+		 */
+
+		function afterDate(date,n){
+			var d = new Date(date);
+			console.log(d);
+
+			d.setDate(d.getDate()+n);
+
+			return d
+		}
+
+		afterDate('2016/11/11',30);
+
+		/*
+			图片轮播
+			* 鼠标移入停止轮播，鼠标离开恢复轮播
+			* 添加上一张，下一张按钮
+		 */
+		window.onload = function(){
+			// 获取元素
+			var showPic = document.getElementById('showPic');
+			var bigImg = document.getElementById('bigImg');
+			var btnNext = document.getElementById('btnNext');
+			var btnPrev = document.getElementById('btnPrev');
+
+			var index = 1;
+			var timer = setInterval(showTime,3000);
+
+
+			// 点击事件
+			btnNext.onclick = function(){
+				index++;
+				showImg();
+			}
+			btnPrev.onclick = function(){
+				index--;
+				showImg();
+			}
+
+			// 鼠标移入事件
+			showPic.onmouseover = function(){
+				// 停止轮播
+				clearInterval(timer);
+			}
+
+			//鼠标移出事件
+			showPic.onmouseout = function(){
+				// 保证timer为全局变量的timer
+				timer = setInterval(showTime,3000);
+			}
+
+			function showTime(){
+				index++;
+				showImg();
+			}
+
+			function showImg(){
+				if(index > 6){
+					index = 1;
+				}else if(index<1){
+					index = 6;
+				}
+				bigImg.src = 'img/'+index+'.jpg';
+			}
+			
+		}
+
+	</script>
+</head>
+<body>
+	<div id="showPic">
+		<img src="img/1.jpg" id="bigImg">
+		<span id="btnNext">&gt;</span>
+		<span id="btnPrev">&lt;</span>
+	</div>
+</body>
+</html>

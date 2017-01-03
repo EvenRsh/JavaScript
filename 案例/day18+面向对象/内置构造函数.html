@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>内置构造函数</title>
+	<script>
+		var str = new String('h5 1610');
+		str.charAt(0);
+
+		var str2 = 'h5 1610';
+		str2.charAt(0);
+
+		/*
+			以上操作在内部经历了：
+				1、temp = new String(str2);
+				2、temp.charAt(0)
+				3、返回值'h'
+				4、delete temp;
+		 */
+		
+		var num = 20;
+		num.toFixed(2);//20.00
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

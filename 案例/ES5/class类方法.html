@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>class类方法</title>
+	<style>
+		.container{width:200px;height:100px;background: #f00;}
+		.dspn{display:none;}
+	</style>
+	<script>
+		window.onload = function(){
+			var container = document.querySelector('.container');
+
+			// container.className = 'test';
+			container.classList.add('test');
+
+			container.nextElementSibling.onclick = function(){
+				container.classList.toggle('dspn');
+			}
+
+			console.log(container.dataset.name);
+			console.log(container.dataset.guid);
+			console.log(container.dataset.age);
+		}
+
+	</script>
+</head>
+<body>
+	<div class="container" data-name="随便"  data-guid="123454656"  data-age="18"></div>
+	<button>显示隐藏</button>
+</body>
+</html>

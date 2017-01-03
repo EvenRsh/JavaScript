@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>弹幕</title>
+	<style>
+	.container{width:800px;margin:0 auto;padding-bottom:10px;background-color:#dfdfdf;}
+	#barrage{position:relative;height:600px;margin-bottom:10px;background-color:#000;overflow:hidden;}
+	#barrage .bar-item{position:absolute;left:100%;white-space:nowrap;}
+	#msg{margin-left:10px;width:400px;height:30px;border:1px solid #999;border-right:none;box-sizing:border-box;vertical-align:middle;}
+	#msg+button{padding:0 10px;height:30px;vertical-align:middle;}
+	</style>
+	<script src="../common.js"></script>
+	<script>
+		/*
+			弹幕
+				效果：
+					1）随机颜色，速度，字体大小，位置
+					2）从右往左移动
+				思路：
+					1）发送
+						1>绑定点击事件
+						2>发送消息，把消息当作一个对象
+					2）生成消息对象
+						初始化：确定颜色，速度，字体大小，位置
+					3）运动
+						从右往左移动
+		 */
+		window.onload = function(){
+			var barrage = document.getElementById('barrage');
+			var msg = document.getElementById('msg');
+			var btn = msg.nextElementSibling;
+
+			// 弹幕构造函数
+			function Barrage(text){
+				this.msg = text;
+
+				this.init();
+			}
+
+			Barrage.prototype.init = function(){
+				var color = randomColor();
+				var fontSize = randomNum(12,40);
+				var pos = randomNum(10,barrage.offsetHeight-fontSize-10);
+
+				var span = document.createElement('span');
+				span.className = 'bar-item';
+				span.innerHTML = this.msg;
+				span.style.color = color;
+				span.style.fontSize = fontSize + 'px';
+				span.style.top = pos + 'px';
+
+				barrage.appendChild(span);
+
+				this.ele = span;
+
+				this.move();
+
+				return this;
+			}
+
+			Barrage.prototype.move = function(){
+				var self = this;
+				var span = self.ele;
+				var speed = randomNum(-20,-2);
+				self.timer = setInterval(function(){
+					if(span.offsetLeft < -span.offsetWidth){
+						self.remove();
+					}
+					span.style.left = span.offsetLeft + speed + 'px';
+				},50);
+
+				return this;
+			}
+
+
+			Barrage.prototype.remove = function(){
+				barrage.removeChild(this.ele);
+				clearInterval(this.timer);
+
+				return this;
+			}
+
+			// 1>绑定点击事件
+			btn.onclick = function(){
+				var _msg = msg.value;
+
+				new Barrage(_msg);
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div id="barrage"></div>
+		<input type="text" id="msg"><button>发送</button>
+	</div>
+</body>
+</html>

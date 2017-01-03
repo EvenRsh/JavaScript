@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			
+			//数组: 可以保存一组数据
+			
+			//数组的定义
+			//方式1: 使用new关键字, 表示新建
+			var arr = new Array();  //new是关键字, Array表示数组
+			console.log(arr); //[], 空数组
+			console.log(typeof arr); //object
+			
+			var arr = new Array(2); //如果只有一个数字类型的参数, 表示是数组元素的个数
+			console.log(arr); //[,]
+			console.log(arr.length);  //2, 数组长度, 即数组的元素个数
+			
+			var arr = new Array("李四",4,true); //如果是非数字类型的参数,则表示数组中的元素
+			console.log(arr); //["李四", 4, true]
+			console.log(arr.length); //3
+			
+			//方式2: 字面量
+			var arr = []; 
+			console.log(arr); //[], 空数组
+			console.log(arr.length); //0
+			
+			var arr = ["李四", 4, true];
+			console.log(arr); //["李四",4,true]
+			
+			
+			//数组元素的获取
+			var arr = [3,4,2,1,6,5];
+			console.log( arr[0] ); //3, 下标从0开始
+			console.log( arr[1] ); //4
+			console.log( arr[5] ); //5
+			console.log( arr[arr.length-1] ); //5
+			
+			//length可以获取和设置
+			var arr = [1,2,3,4,5,6];
+			console.log(arr.length); //6
+			arr.length = 3;
+			console.log(arr.length); //3
+			console.log( arr[4] ); //undefined
+			console.log( arr[1] ); //2
+			
+			
+			//给数组元素赋值
+			var arr = [1,2,3,4,5,6];
+			arr[1] = 20;
+			console.log(arr); //[1,20,3,4,5,6]
+			
+			arr[6] = 88;
+			console.log(arr);  //1,20,3,4,5,6,88
+			
+			//for循环赋值
+			var arr = [1,2,3,4,5,6];
+			for(var i=0; i<arr.length; i++) {
+				arr[i] = i*i; 
+			}
+			console.log(arr); //0,1,4,9,16,25
+			
+			//Math.random(): 随机数(0 ~ 1), 不包括1,包括0
+			var arr = [1,2,3,4,5,6];
+			for (var i=0; i<arr.length; i++){
+				arr[i] = Math.random();
+			}
+			console.log(arr);
+			//[0.8867782682646066,0.8723936572205275,0.4433627484831959,0.7491055903956294,0.4230070768389851,0.763708752579987]
+			
+			
+			//遍历数组
+			var arr = [3,4,5,6,7,2];
+			
+			//普通for循环
+			for(var i=0; i<arr.length; i++){
+				console.log(arr[i]);
+			}
+			
+			//for-in快速遍历, 遍历对象,数组
+			for (var i in arr){
+				//console.log(i); //数组下标
+				console.log( arr[i] );
+			}
+			
+			
+			
+			//1,求数组中所有元素的和
+			var arr = [3,4,6,8,212,4,5];
+			var s = 0; //和
+			for (var i=0; i<arr.length; i++){
+				s += arr[i];
+			}
+			console.log(s); //242
+			
+			//2,让数组中的元素交换位置（重要）
+			var arr = [3,4,6,8,212,4,5];
+			var tmp = arr[0]; //tmp=3
+			arr[0] = arr[4]; //arr[0]=212
+			arr[4] = tmp;  //arr[4]=3
+			console.log(arr); //[212,4,6,8,3,4,5]
+			
+			/*
+			//交换两个变量的值
+			var a = 10;
+			var b = 20;
+			
+			var tmp = a; //tmp = a = 10;
+			a = b; //a = b = 20
+			b = tmp; //b = tmp = 10
+			console.log(a + "," + b);
+			
+			//扩展
+			var a = 10;
+			var b = 20;
+			a = a^b;  //01010 ^ 10100 = a = 11110
+			b = a^b;  //11110 ^ 10100 = b = 01010 = 10(十进制)
+			a = a^b;  //11110 ^ 01010 = a = 10100 = 20(十进制)
+			console.log(a + "," + b);
+			
+			var a = 10;
+			var b = 20;
+			a = a + b;  //a = a+b
+			b = a - b;  //b = (a+b)-b = a
+			a = a - b;  //a = (a+b)-(a) = b
+			console.log(a + "," + b);
+			*/
+			
+			
+			//3,求数组的最大数（重要）
+			var arr = [3,4,2,8,212,4,5];
+			var max = arr[0]; //默认第一个最大
+			for (var i=0; i<arr.length; i++) {
+				if (max < arr[i]){
+					max = arr[i];
+				}
+			}
+			console.log(max); //212
+			
+			
+			//4,求数组的最小数和最小数的下标（重要）
+			var arr = [3,4,2,8,212,1,5];
+			var min = arr[0]; //默认第一个最小
+			var index = 0;
+			for (var i=0; i<arr.length; i++){
+				if (arr[i] < min){
+					min = arr[i];
+					index = i; //下标改变
+				}
+			}
+			console.log(min); //1
+			console.log("下标:" + index); //下标:5
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

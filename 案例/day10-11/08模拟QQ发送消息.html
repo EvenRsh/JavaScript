@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>08模拟QQ发送消息</title>
+	<style>
+		textarea{display:block;width:600px;height:80px;}
+		.qq{padding:15px;width:600px;border:5px solid #ddd;border-radius:5px;}
+		.datalist li{border-bottom:1px dotted #ccc;padding:5px 0;}
+	</style>
+	<script>
+		window.onload = function(){
+			var msg = document.getElementById('msg');
+			var datalist = msg.previousElementSibling;
+			var btnSend = msg.nextElementSibling;
+
+			// 点击发送按钮，生成消息
+			btnSend.onclick = function(){
+				sendMsg();
+			}
+
+			// ctrl + Enter发送消息
+			// 绑定键盘事件
+			msg.onkeyup = function(e){
+				console.log(e.ctrlKey);
+
+				if(e.keyCode === 13 && e.ctrlKey){
+					sendMsg();
+				}
+			}
+
+
+			function sendMsg(){
+				// 先获取输入的信息
+				var _msg = msg.value;
+
+				// 创建一个li元素
+				var li = document.createElement('li');
+				li.innerHTML = _msg;
+
+				datalist.appendChild(li);
+
+				// 清空输入框
+				msg.value = '';
+				msg.focus();
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1>模拟QQ发送消息（ctrl + Enter）</h1>
+	<div class="qq">
+		<ul class="datalist">
+		</ul>
+		<textarea id="msg"></textarea>
+		<button>发送</button>
+	</div>
+</body>
+</html>

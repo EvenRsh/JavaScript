@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>07页面之间数据传递</title>
+	<script>
+	// 延迟代码的执行
+	// 当页面所有内容加载完成后执行函数中的代码
+	window.onload = function(){
+		// 把连接改成：07data.html?name=laoxie&age=19
+		var obj = {
+			name:'laoxie',
+			age:19,
+			gender:'男',
+			// hobby:['羽毛球','篮球不会','写代码']
+		}
+
+		var link = document.getElementById('link');
+
+		// 先加问号（一个url中只能存在一个?）
+		link.href += '?';
+
+		// 获取dom节点属性
+		// 遍历对象：for..in
+		for(var key in obj){
+			console.log(key);
+			console.log(obj[key]);
+			link.href += key + '=' + obj[key] + '&';
+		}
+
+
+		
+	}
+		
+	</script>
+</head>
+<body>
+	<a href="10data.html" id="link">到下个页面</a>
+</body>
+</html>

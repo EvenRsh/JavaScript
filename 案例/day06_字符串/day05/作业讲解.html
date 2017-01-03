@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作业讲解</title>
+	<script>
+		/* 
+		随机给出一个五位以内的数，然后输出该数共有多少位，并将每位的数字保存到数组中. 
+		如:1342 ?, 位数为:4, ?数组为:[1,3,4,2]
+			1）获取页面元素
+			2）给#btnCheck绑定点击事件
+				1>获取输入得数字
+				2>输出数字有多少位到#output
+				3>将每位的数字保存到数组中
+		*/
+		window.onload = function(){
+
+			// 1）获取页面元素
+			var number = document.getElementById('number');
+			var btnCheck = document.getElementById('btnCheck');
+			var output = document.getElementById('output');
+
+			// 2）给#btnCheck绑定点击事件
+			btnCheck.onclick = function(){
+				// 1>获取输入得数字
+				var _number = number.value;
+				// console.log(_number);
+
+				// 2>输出数字有多少位到#output
+				output.innerHTML = _number.length;
+
+
+				// 3>将每位的数字保存到数组中
+				var arr = [];
+				var len = _number.length;//5
+				// '13800'
+				for(var i=0;i<len;i++){
+					// console.log(i);
+					arr[i] = _number%10;
+					_number = parseInt(_number/10);
+
+					arr[i] = _number[i];
+				}
+
+				// 倒序
+				// arr.reverse();
+				console.log(arr);
+			}
+
+
+		}
+	</script>
+</head>
+<body>
+	<input type="text" id="number"><button id="btnCheck">检测</button>
+	<div id="output"></div>
+</body>
+</html>

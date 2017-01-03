@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			
+			/*
+			 1,
+			 */
+			var salary = 10;
+			var a = 0.05;
+			var years = 50;
+			var result = salary*a*years + salary;
+			console.log(result + "k"); //35k
+			
+			//2, 
+			var hours = 89;
+			var day = parseInt(hours/24);
+			var hour = hours%24;
+			console.log(day + "天" + hour +"小时"); //3天17小时
+			
+			//3, 
+			var d = 80;
+			var e = Math.round(5/9.0*(d-32));
+			console.log(e + "摄氏度");
+			
+			//4,
+			var a = 493;
+			var b = a%10; //个位
+			var c = parseInt((a%100) / 10); //十位
+			var d = parseInt(a/100); //百位
+			console.log(d + "," + c + "," + b);
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

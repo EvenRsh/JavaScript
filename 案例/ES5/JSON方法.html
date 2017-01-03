@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		var json = '[{"name":"张三","age":18},{"name":"赵四","age":48},{"name":"五毛","age":38}]';
+
+		var res = JSON.parse(json,function(key,val){
+			console.log(key,'===>',val)
+			if(val.age>40){
+				return undefined;
+			}else{
+				return val;
+			}
+		})
+		console.log(res);//[{},undefined,{}]
+
+
+		var res = JSON.stringify([{name:'老王',age:40},{name:'老王2',age:30}],null,4);
+		console.log(res);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

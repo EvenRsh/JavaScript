@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>class类方法</title>
+	<script>
+		window.onload = function(){
+			//太慢
+			console.log('windowload')
+		}
+
+		// 替代window.onload的方法
+		document.onreadystatechange = function(){
+			if(document.readyState === 'complete'){
+				var box = document.querySelector('#box');
+				// console.log(box);
+			}
+			console.log(document.readyState)
+		}
+
+		document.addEventListener('DOMContentLoaded',function(){
+			var box = document.querySelector('#box');
+			// console.log(box);
+			console.log('DOMContentLoaded');
+		})
+
+	</script>
+</head>
+	<div id="box"></div>
+<body>
+</body>
+</html>

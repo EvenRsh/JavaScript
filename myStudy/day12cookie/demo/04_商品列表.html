@@ -12,7 +12,7 @@
 			content:"￥";
 		}
 	</style>
-	<script src="../common.js"></script>
+	<!--<script src="../common.js"></script>-->
 	<script>
 /*		window.onload = function(){*/
 			/*
@@ -38,26 +38,29 @@
 			 	}
 			 }
 		}*/
-		
+
 		window.onload = function(){
 			var goods = document.getElementsByClassName('goods')[0];
+
+			console.log(getStyle(goods,"height"));
 			//用于保存购物车信息 ,给cookie存储的
 			var carList = [];
 			//获取当前cookie
-			var cookies = document.cookie.split('; ');
-			for (var i = 0; i<cookies.length;i++){
-				var arr = cookies[i].split('=');
-				if(arr[0] === 'carlist'){
-					carList = JSON.parse(arr[1]);
-				}
-			}
+//			var cookies = document.cookie.split('; ');
+//			for (var i = 0; i<cookies.length;i++){
+//				var arr = cookies[i].split('=');
+//				if(arr[0] === 'carlist'){
+//					carList = JSON.parse(arr[1]);
+//				}
+//			}
+            carList =JSON.parse( getCookie("carlist"));
 			console.log(carList);
-			
+
 			//事件委托
 			goods.onclick = function(e){
 				e = e || window.event;
 				var target = e.target || e.srcElement;
-				
+
 				//添加购物车
 				if(target.tagName.toLowerCase() === 'button'){
 					//获取当前li
@@ -72,13 +75,13 @@
 					goodsObj.name = children[1].innerHTML;
 					goodsObj.price = children[2].innerHTML;
 					goodsObj.imgUrl = children[0].src;
-					
+
 					// 如果cookie为空，则直接添加
 					if(carList.length === 0 ){
 						//添加到carList
 						carList.push(goodsObj);
 					}else{
-						
+
 						//先判断当前cookie是否存在相同guid
 						for(var i=0;i<carList.length;i++){
 							if(carList[i].guid === currentGUID){
@@ -86,17 +89,17 @@
 								break;
 							}
 						}
-						
+
 						//如果没有相同guid的商品
 						if(i === carList.length){
 							//添加到carList
 							carList.push(goodsObj);
 						}
-						
+
 					}
-					
-					
-					
+
+
+
 					/*goodsObj.guid = currentCUID;
 					goodsObj.qty = 1;
 					goodsObj.name = children[1].innerHTML;
@@ -108,12 +111,31 @@
 					//存入cookie
 					//把对象/数组转换成jsonz字符串 JSON.stringify();
 					document.cookie = 'carlist=' + JSON.stringify(carList);
-					
+
 				}
-				
-				
+
+
 			}
-			
+            function getCookie(name) {
+                var cookies = document.cookie.split(";");
+                var res = "";
+                cookies.forEach(function (item) {
+                    var arr = item.split("=");
+                    if(arr[0] === name){
+                        res = arr[1];
+                    }
+                });
+                return res;
+            }
+            function getStyle(ele,attr){
+                if(window.getComputedStyle){
+                    return getComputedStyle(ele)[attr];
+                }else if(ele.currentStyle){
+                    return ele.currentStyle[attr];
+                }else {
+                    return ele.style[attr]
+                }
+            }
 		}
 	</script>
 </head>

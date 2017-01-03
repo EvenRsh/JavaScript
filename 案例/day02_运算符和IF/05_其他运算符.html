@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			
+			//表达式: 由操作数和运算符组成的式子
+			//变量: var定义的量
+			//常量: 如: 4, true
+			
+			
+			//赋值运算符
+			// = : 赋值
+			// +=, -=, *=, /=, %=
+			var a = 4; //赋值
+			a += 3; //等价于: a = a + 3
+			console.log(a); //7
+			
+			var b = 4;
+			b -= 2; // b = b - 2;
+			console.log(b);  //2
+			
+			var c = 4;
+			c *= 5; //c = c * 5;
+			console.log(c); //20
+			
+			var d = 4;
+			d /= 2;
+			console.log(d); //2
+			
+			var e = 10;
+			e %= 100; //e = e%100;
+			console.log(e); //10
+			
+			
+			//三目运算符: 三个操作数
+			//计算两个数的较大值
+			var a = 6;
+			var b = 5;
+			var c = a>b ? a : b; //?:, 如果a>b为真true,则返回?后面的值, 否则返回:后面的值; 
+			console.log(c); //6
+			
+			
+			//位运算符(扩展)
+			/*
+			  10: 1010(二进制)
+			  3:  0011(二进制)
+			  c : 1001(二进制) -> 9(十进制)  
+			 */
+			var c = 10^3;  
+			console.log(c); //9
+			
+			/*
+			 10: 1010(二进制) -> 101(二进制) -> 5(十进制)
+			 */
+			//位移
+			var d = 10>>1; //10的二进制往右移一位
+			console.log(d); //5
+			
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

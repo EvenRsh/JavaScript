@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax兼容性处理.html</title>
+
+	<script>
+
+		var xhr;
+
+		try{
+			// 尝试执行这里的代码
+			xhr = new XMLHttpRequest();
+		}catch(error){
+			// 如果有错误，执行这里的代码，并把错误信息保存在error中
+			// 并不会在浏览器中抛出错误，也不会中断代码的执行
+			try{
+				xhr = new ActiveXObject("Msxml2.XMLHTTP");
+			}catch(error){
+				try{
+					xhr = new ActiveXObject("Microsoft.XMLHTTP");
+				}catch(error){
+					alert('你的世界我不懂...');
+				}
+			}
+		}
+		
+		xhr.open('get','xxxx/xxx',true);
+		xhr.send();
+
+		console.log(100);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

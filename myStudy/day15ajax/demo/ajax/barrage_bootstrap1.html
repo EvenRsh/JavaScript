@@ -28,7 +28,7 @@
 					3）运动
 						从右往左移动
 		 */
-		window.onload = function(){
+		/*window.onload = function(){
 			var barrage = document.getElementById('barrage');
 			var msg = document.getElementById('msg');
 			var btn = msg.nextElementSibling;
@@ -126,14 +126,14 @@
 						}
 					})
 						
-					/*ajax({
+					/!*ajax({
 						url:'http://10.16.155.57:3000/ajax/chat?type=send&sender='+name+'&msg='+_msg,
 						callback:function(res){
 							new Barrage(_msg,true);
 							msg.value = '';
 							msg.focus();
 						}
-					})*/
+					})*!/
 				}
 			}
 
@@ -184,24 +184,146 @@
 			// })
 
 
-		}
+		}*/
+        /*
+         弹幕
+         效果：
+         1）随机颜色，速度，字体大小，位置
+         2）从右往左移动
+         思路：
+         1）发送
+         1>绑定点击事件
+         2>发送消息，把消息当作一个对象
+         2）生成消息对象
+         初始化：确定颜色，速度，字体大小，位置
+         3）运动
+         从右往左移动
+         */
+        document.addEventListener('DOMContentLoaded', function () {
+            var barrage = document.querySelector('#barrage');
+            var msg = document.querySelector('#msg');
+            var btnSend = msg.nextElementSibling;
+            //点击事件
+             btnSend.onclick =  sendMsg;
+
+            //弹幕对象
+            function Barrage(text) {
+                //属性
+                this.msg = text;
+                this.init();
+            }
+            Barrage.prototype.init = function () {
+                //生成随机大小,颜色,初始位置
+                var color = randomColor();
+                var fontSize = randomNum(12, 50);
+                var pos = randomNum(10, barrage.offsetHeight - fontSize - 10);
+                //生成结构
+                var span = document.createElement('span');
+
+                //添加类名
+                span.classList.add('bar-item');
+                span.innerHTML = this.msg;
+                //添加对象属性
+                span.style.color = color;
+                span.style.fontSize = fontSize + 'px';
+                span.style.top = pos + 'px';
+
+                //传参数
+                this.ele = span;
+                //写入页面
+                barrage.appendChild(span);
+                //进入页面立刻向左移动;
+                this.move();
+                return this;
+            };
+            Barrage.prototype.move = function () {
+                this.speed = randomNum(-20,-5);
+                this.timer = setInterval(function () {
+                    if(this.ele.offsetLeft < -this.ele.offsetWidth){
+                        this.remove();
+                    }
+                    this.ele.style.left = this.ele.offsetLeft + this.speed + 'px';
+                }.bind(this),50)
+            };
+            Barrage.prototype.remove = function () {
+                this.ele.parentElement.removeChild(this.ele);
+                clearInterval(this.timer);
+            };
+            Barrage.prototype.version = "1.0.1";
+            //封装发送消息的函数
+            function sendMsg() {
+                var _msg = msg.value;
+                if(_msg.trim() != ''){
+                    new Barrage(_msg);
+                };
+                msg.value = '';
+                msg.focus();
+            };
+
+            //获取chat数据;
+			//创建一个空数组存储旧的msg数据
+			var already = [];
+			function getMsg() {
+			    //判断already的长度是否为0
+                ajax({
+                    url:'/ajax/chat?type=query',
+                    callback:function (msg) {
+                        console.log(msg);
+                        var alreadyShow =false;
+                        msg.data.forEach(function (item,idx) {
+                            already.forEach(function (oldMsg) {
+                                if(item.ipfrom === oldMsg.ipfrom && item.createtime === oldMsg.createtime){
+                                    alreadyShow = true;
+                                }
+                            })
+                            if(!alreadyShow){
+                                new Barrage(item.content);
+                                already.push(item);
+                            }
+
+
+                        });
+
+                    }
+                });
+            }
+            getMsg();
+           // 定时扫描服务器数据,同步显示msg
+//            setInterval(function () {
+//                getMsg();
+//            },500)
+
+
+        });
 	</script>
+
 </head>
 <body>
 	<div class="container">
-		//登录框
-		<div class="jumbotron">
-			<h1>欢迎来到秋名山</h1>
-			<div class="form-group">
-			    <label for="username">Email address</label>
-			    <input type="text" class="form-control" id="username" placeholder="请输入你的大名">
-			</div>
-		</div>
-
-
-
-
-
+		<!-- 登录框 -->
+        <div class="jumbotron" id="loginForm">
+            <h1>多人聊天系统</h1>
+            <div class="form-group">
+                <label for="username">用户名</label>
+                <input type="text" class="form-control" id="username" placeholder="请输入用户名">
+            </div>
+            <div class="form-group">
+                <label for="gender">性别</label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="男"> 男
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="女"> 女
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="保密"> 保密
+                </label>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success">登录</button>
+            </div>
+        </div>
+		<!-- 弹幕 -->
 		<div class="chatArea">
 		<div id="barrage"></div>
 		<input type="text" id="msg"><button>发送</button>

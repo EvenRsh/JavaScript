@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>闭包应用_打印索引值</title>
+	<script>
+		window.onload = function(){
+			/*
+				打印索引值
+			 */
+			var btns = document.getElementsByTagName('button');
+			/*for(var i=0;i<btns.length;i++){
+				btns[i].idx = i;
+				btns[i].onclick = function(){
+					console.log(this.idx);
+				}
+			}*/
+
+			//闭包
+			for(var i=0;i<btns.length;i++){
+				btns[i].onclick = (function(idx){
+					//console.log(idx);
+					return function(){
+						console.log(idx)
+					}
+				})(i);
+			}
+		}
+	</script>
+</head>
+<body>
+	<button>按钮1</button>
+	<button>按钮2</button>
+	<button>按钮3</button>
+	<button>按钮4</button>
+	<button>按钮5</button>
+</body>
+</html>

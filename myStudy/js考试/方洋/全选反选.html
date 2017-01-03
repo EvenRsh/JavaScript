@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style type="text/css">
+		table{
+			border: 1px solid #666;
+			border-collapse: collapse;
+			width: 600px;
+		}
+		thead tr{
+			font-weight: bold;
+			background-color: #ccc;
+		}
+		td{
+			border: 1px solid #666;
+		}
+		tr td:last-child{
+			width: 200px;
+		}
+		tr td:first-child{
+			width: 20px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function(){
+			var tbody = document.getElementsByTagName("tbody")[0];
+			var inputs = tbody.getElementsByTagName("input");
+			var selectInvert = document.getElementById("selectInvert");
+			var selectAll = document.getElementById("selectAll");
+			tbody.onclick = function(e){
+				e = e || window.event;
+				var target = e.target || e.srcElement;
+				if (target.tagName.trim().toLowerCase() === "td") {
+					if (!target.parentElement.cells[0].children[0].checked) {
+						target.parentElement.cells[0].children[0].checked = true;
+					}else{
+						target.parentElement.cells[0].children[0].checked = false;
+					}
+				}
+				var isTrue = true;
+					for (var k=0; k<inputs.length; k++) {
+						if (!inputs[k].checked) {
+							isTrue = false;
+							break;
+						}
+					}
+				selectAll.checked = isTrue;
+				if (target.parentElement.cells[0].children[0].checked) {
+					target.parentElement.style.backgroundColor = "yellow";
+				}else{
+					target.parentElement.style.backgroundColor = "white";
+				}
+				
+			}
+			
+			
+			selectAll.onclick = function(){
+				for (var i=0; i<inputs.length; i++) {
+					inputs[i].checked = selectAll.checked; 
+					if (inputs[i].checked) {
+						inputs[i].parentElement.parentElement.style.backgroundColor = "yellow"
+					}else{
+						inputs[i].parentElement.parentElement.style.backgroundColor = "white"
+					}
+				}
+			}
+			selectInvert.onclick = function(){
+				for (var i=0; i<inputs.length; i++) {
+					inputs[i].checked = !inputs[i].checked; 
+					if (inputs[i].checked) {
+						inputs[i].parentElement.parentElement.style.backgroundColor = "yellow"
+					}else{
+						inputs[i].parentElement.parentElement.style.backgroundColor = "white"
+					}
+				}
+			}
+			var trs = tbody.rows;
+			console.log(trs.length,trs)
+			console.log(inputs.length,inputs)
+			
+			
+		}
+	</script>
+</head>
+<body>
+	<button id="selectInvert">反选</button>
+	<table>
+		<thead>
+			<tr>
+				<td><input type="checkbox" id="selectAll"/></td>
+				<td>姓名</td>
+				<td>昵称</td>
+				<td>性别</td>
+				<td>爱好</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type="checkbox"/></td>
+				<td>刘备</td>
+				<td>adwa</td>
+				<td>wdadw</td>
+				<td>爱好</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"/></td>
+				<td>关羽</td>
+				<td>昵称</td>
+				<td>性别</td>
+				<td>爱好</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"/></td>
+				<td>关羽</td>
+				<td>昵称</td>
+				<td>性别</td>
+				<td>爱好</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" /></td>
+				<td>关羽</td>
+				<td>昵称</td>
+				<td>性别</td>
+				<td>爱好</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"/></td>
+				<td>关羽</td>
+				<td>昵称</td>
+				<td>性别</td>
+				<td>爱好</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox"/></td>
+				<td>关羽</td>
+				<td>昵称</td>
+				<td>性别</td>
+				<td>爱好</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

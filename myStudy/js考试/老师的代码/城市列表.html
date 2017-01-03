@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>城市列表</title>
+    <style>
+        ul{display:none;width:300px;list-style: none;padding:0;margin:0;border:1px solid #ddd;}
+        #cityList li{
+            padding:0 10px;
+            position: relative;
+            line-height:2;
+            border-bottom:1px dotted #ddd;
+        }
+        #cityList li span{position:absolute;right:10px;top:0;color:#5cb85c;}
+        #cityList li.hot{background-color:#ffc;}
+        .selected{margin-left:10px;color:#0c0;}
+    </style>
+    <script>
+        window.onload = function(){
+            var city = document.getElementById('city');
+            var cityList = document.getElementById('cityList');
+            var selected = city.nextElementSibling;
+
+            var cities = [{"name": "北京","id": 110100,"hot": true},{"name": "上海","id": 310000,"hot": true},{"name": "南京市","id": 320100},{"name": "广州","id": 440100,"hot": true},{"name": "深圳","id": 440300,"hot": true},{"name": "成都","id": 510100},{"name": "杭州","id": 330100},{"name": "南宁","id": 450100},{"name": "大连","id": 210200}];
+
+            // 遍历数据写入页面
+            cities.forEach(function(o){
+                var li = document.createElement('li');
+                li.innerHTML = '<strong>' + o.name + '</strong><span>' + o.id + '</span>';
+                if(o.hot){
+                    li.className = 'hot';
+                }
+                cityList.appendChild(li);
+            });
+
+            // 获得焦点时显示城市列表
+            city.onfocus = function(){
+                cityList.style.display = 'block';
+            }
+
+            // 失去焦点时隐藏城市列表
+            city.onblur = function(){
+                setTimeout(function(){
+                    cityList.style.display = 'none';
+                },200);
+            }
+
+            // 点击城市列表时，把对应城市名写入输入框
+            cityList.onclick = function(e){
+                var tag = e.target.tagName.toLowerCase();
+                if(tag == 'li'){
+                    city.value = e.target.firstElementChild.innerHTML;
+                }else if(tag == 'strong'){
+                    city.value = e.target.innerHTML;
+                }else if(tag == 'span'){
+                    city.value = e.target.previousElementSibling.innerHTML;
+                }
+
+                // 写入cookie与选择状态
+                selected.innerHTML = '你选择了：' + city.value;
+                document.cookie = 'selected=' + city.value;
+            }
+
+            // 刷新页面保持选择状态
+            var cookies = document.cookie;
+            if(cookies){
+                cookies = cookies.split('; ');
+                cookies.forEach(function(cookie){
+                    var temp = cookie.split('=');
+                    if(temp[0] === 'selected'){
+                        selected.innerHTML = '你选择了：' + temp[1];
+                        city.value = temp[1];
+                    }
+                })
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+    <h1>根据数据生成城市列表（40分）</h1>
+    <input type="text" id="city"><span class="selected"></span>
+    <ul id="cityList"></ul>
+    <div class="content">
+        <h4>要求：</h4>
+        <ol>
+            <li>根据给出的数据生成以上城市列表效果（热门城市显示高亮效果）</li>
+            <li>输入框获得焦点时显示城市列表</li>
+            <li>输入框失去焦点时隐藏城市列表</li>
+            <li>点击城市列表时，把对应城市名写入输入框，并提示已选择城市</li>
+            <li>刷新页面显示上次选择的城市，并保留7天</li>
+        </ol>
+    </div>
+</body>
+
+</html>

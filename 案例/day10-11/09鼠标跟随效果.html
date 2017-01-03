@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>09鼠标跟随效果</title>
+	<style>
+		#img{position:absolute;top:100px;left:200px;width:80px;height:80px;border-radius:50%;}
+	</style>
+	<script>
+		window.onload = function(){
+			var img = document.getElementById('img');
+
+			// 绑定鼠标移动事件
+			// 给document绑定mousemove事件
+
+			document.onmousemove = function(e){
+				console.log(e.clientX,e.clientY);
+				img.style.left = e.clientX + 20 + 'px';
+				img.style.top = e.clientY + 20 + 'px';
+			}
+			
+		}
+	</script>
+</head>
+<body>
+	<img src="img/g10.jpg" id="img">
+</body>
+</html>

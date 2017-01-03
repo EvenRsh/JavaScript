@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		window.onload = function(){
+			var box = document.getElementById('box');//节点（对象）
+
+			// 创建一个元素节点
+			// 这个节点就会保存在内存中
+			var div = document.createElement('div');
+			div.innerHTML = '充电5分钟，通话两小时';
+
+			// 在父元素末尾添加：appendChild
+			box.appendChild(div);
+
+
+			// 在.mainContent前添加一个div
+			// insertBefore()
+			var container = document.getElementsByClassName('container')[0];
+			var mainContent = container.getElementsByClassName('mainContent')[0];
+			var newEle = document.createElement('div');
+
+			// 先创建一个文本节点
+			var txt = document.createTextNode('非一般的感觉');
+			newEle.appendChild(txt);
+
+			// 添加当前标签标准属性：用.语法
+			newEle.title = 'xx';
+			// newEle['data-index'] = 10;
+
+			// 添加自定属性/非标准属性:setAttribute()
+			newEle.setAttribute('data-index',10);
+			newEle.setAttribute('id','sideBar');
+
+			// h5中的自定义属性格式：data-*="xx"
+
+			container.insertBefore(newEle,mainContent)
+
+		}
+	</script>
+</head>
+<body>
+	<div id="box">box#</div>
+
+	<div class="container">
+		<div class="left"></div>
+
+		<div class="mainContent"></div>
+		<div class="right"></div>
+	</div>
+</body>
+</html>

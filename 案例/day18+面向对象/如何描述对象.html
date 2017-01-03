@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>如何描述对象</title>
+	<script>
+		// 描述一个人的特征
+		// 1、创建一个person构造函数
+		function Person(opt){
+			// 描述一个人
+			// 这个人有什么，能做什么
+			this.name = opt.name;
+			this.age = opt.age;
+			this.gender = opt.gender;
+
+			// 肤色
+			this.color = opt.color;
+			this.fat = opt.fat;
+			this.glasses = opt.glasses;
+
+			// 能做什么
+			this.eat = function(){
+				console.log(this.name + '是吃货');
+			}
+
+			this.sleep = function(){
+				console.log(this.name + '睡觉睡到自然醒');
+			}
+
+			this.coding = function(){
+				console.log(this.name + '说：不熬夜的程序猿不是好的吃货');
+			}
+		}
+
+		var p1 = new Person({name:'老王',age:40,gender:'男',color:'黄色',fat:false,glasses:true});
+		console.log(p1);
+
+		p1.coding();
+
+
+
+		// 描述一个购物车
+		var cart = {}
+
+
+		// 属性：购物车有什么？
+		cart.name = '购物车';
+
+		// 商品列表
+		cart.goodsList = [{
+			name:'优加 华为P9 Plus手机壳/保护套 磨砂保护壳 肤感硬壳系列 金色',
+			price:998,
+			qty:2
+		},{},{}];
+
+		// 猜你喜欢
+		cart.guessYouLike = [{},{},{}]
+
+		// 总价
+		cart.totalPrice = 1996;
+
+		// 配送地址
+		cart.address = '温州江南皮革厂';
+
+
+		// 方法：购物车能做么？
+		cart.addGoods = function(){
+			console.log('商品++');
+			this.goodsList.push({});
+
+			// 添加DOM节点
+			this.render();
+		}
+
+		cart.delete = function(idx){
+			console.log('商品--');
+			this.goodsList.splice(idx,1);
+
+			// 移除DOM节点
+			this.render();
+		}
+
+
+		// 渲染页面
+		cart.render = function(){
+			this.goodsList.forEach(function(){
+				// 生成DOM节点
+			})
+		}
+
+		// 计算价格
+		cart.calc = function(){
+			var total = 0;
+			this.goodsList.forEach(function(){
+				// 得到总价
+			});
+
+			this.totalPrice = total;
+		}
+
+
+		// 页面进入是生成DOM节点
+		cart.render();
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

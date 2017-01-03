@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>04过滤敏感字符</title>
+	<style>
+		textarea{display:block;width:500px;height:60px;}
+	</style>
+	<script>
+		/*
+			1）获取页面元素
+			2）给#btnSubmit绑定点击事件
+				* 获取输入得内容
+				* 过滤敏感字符
+				* 输出到#output
+		 */
+		
+		window.onload = function(){
+			// 1）获取页面元素
+			var str = document.getElementById('str');
+			var btnSubmit = document.getElementById('btnSubmit');
+			var output = document.getElementById('output');
+
+			// 敏感字符字库
+			var sensitive = '法轮功,达赖,金三胖,fuck,shit,bitch'.split(',');
+
+			// 2）给#btnSubmit绑定点击事件
+			/*btnSubmit.onclick = function(){
+				// 获取输入得内容
+				var _str = str.value;
+
+				// 过滤敏感字符
+				// '我讨厌法轮功' => '我讨厌**'
+				// var res = _str;
+				for(var i=0;i<sensitive.length;i++){
+					_str = _str.toLowerCase();
+					while(_str.indexOf(sensitive[i]) != -1){
+						_str = _str.replace(sensitive[i],'**');
+					}
+				}
+
+				// 输出到#output
+				output.innerHTML = _str;
+			}*/
+
+			btnSubmit.onclick = function(){
+				// 获取输入得内容
+				var _str = str.value;
+
+				// 过滤敏感字符
+				for(var i=0;i<sensitive.length;i++){
+					// 创建正则表达式
+					// 金三胖爱法轮功，每天必练法轮功，fuck
+					// g:全局替换，i：不区分大小写
+					var reg = new RegExp(sensitive[i],'gi');
+
+					_str = _str.replace(reg,'**');
+				}
+
+				// 输出到#output
+				output.innerHTML = _str;
+			}
+
+		}
+	</script>
+</head>
+<body>
+	<textarea id="str"></textarea>
+	<button id="btnSubmit">提交</button>
+	<div id="output"></div>
+</body>
+</html>

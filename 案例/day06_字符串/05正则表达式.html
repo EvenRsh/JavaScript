@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>05正则表达式</title>
+	<script>
+		//单行注释
+
+		// 创建方式1：字面量
+		var reg = /a/gi;//这种方式不能使用变量
+
+		// 创建方式2：构造函数方式
+		var reg = new RegExp('a','ig');
+
+		var str = 'apple6, Apple6 plus';
+
+		console.log(str.replace(reg,'Note7'));
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

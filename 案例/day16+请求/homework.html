@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>作业讲解</title>
+	<style>
+		ul{list-style: none;padding:0;margin:0;}
+		a{text-decoration:none;}
+		.city-wrap { overflow-y: auto; }
+		.city-wrap h2 { margin: 0; padding: .5em; background: #ccc; color: #fff; }
+		.city-wrap ul { padding: 0; margin: 0; }
+		.city-wrap ul li { padding: 5px 0; border-top: 1px dotted #ddd; }
+		.city-wrap ul li:hover { background: #efefef; }
+		.city-wrap ul li > span { display: inline-block; padding: .5em; color: #26c8ac; }
+		.city-wrap a { display: inline-block; padding: .5em; color: #444; }
+		.city-wrap ul a:hover { color: #26c8ac; text-decoration: none; }
+		.city-wrap .hotCity a { width: 3.5em; text-align: center; }
+
+		.index-bar{background-color:#efefef;}
+		.index-bar a{width: 5.5em;}
+
+		#weather{border:1px solid #ddd;padding:10px;font-size:12px;}
+		#weather ul{padding:5px;overflow:hidden;}
+		#weather li{float:left;padding:5px;width:20%;height:200px;border-right:1px dotted #ddd;box-sizing:border-box;}
+		#weather li.last{border-right:none;float:right;}
+		#weather .date{padding-bottom:10px;margin-bottom:10px;text-align:center;font-weight:bold;border-bottom:1px dotted #ddd;}
+		
+		.type{height:70px;}
+		.qt{background:url(tianqi/1.png) no-repeat center;}
+		.zheny{background:url(tianqi/10.png) no-repeat center;}
+		.dy{background:url(tianqi/3.png) no-repeat center;}
+		.by{background:url(tianqi/12.png) no-repeat center;}
+		.zy{background:url(tianqi/10.png) no-repeat center;}
+		.xy{background:url(tianqi/9.png) no-repeat center;}
+		.yin{background:url(tianqi/4.png) no-repeat center;}
+	</style>
+	<script src="js/common.js"></script>
+	<script>
+	window.onload = function(){
+
+		/*
+			1、ajax获取数据region.json
+			2、分类处理数据
+				* 热门城市(hot==true)
+				var hotCity = [{},{}];
+				* 城市首字母索引
+				var indexCity = {A:[city1,city2],B:[]}
+			3、把分类好的数据写入页面
+
+		 */
+		
+		var oHotCity = document.getElementsByClassName('hotCity')[0];
+		var oIndexCity = document.getElementsByClassName('indexCity')[0];
+		
+		// 热门城市
+		var hotCity = [];
+
+		// 城市首字母索引
+		var indexCity = {};
+
+		'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(function(char,idx){
+			indexCity[char] = [];
+		});
+		//{A:[],B:[]....}
+
+		ajax({
+			url:'http://localhost:3000/region.json',
+			callback:function(data){
+				console.log(data);
+
+				// 遍历数据，进行分类
+				data.regions.forEach(function(province,idx){
+					// 直辖市、特别行政区
+					if(province.municipality || province.special){
+						if(province.hot){
+							hotCity.push({id:province.id,name:province.name});
+						}
+
+						indexCity[province.pinyin[0]].push({id:province.id,name:province.name});
+
+						return;
+					}
+
+					//省份
+					province.regions.forEach(function(city,idx){
+						if(city.hot){
+							hotCity.push({id:city.id,name:city.name});
+						}
+
+						indexCity[city.pinyin[0]].push({id:city.id,name:city.name});
+					});
+
+				});
+
+				// console.log(hotCity,indexCity);
+
+				// 3、把分类好的数据写入页面
+				// 写入热门城市
+				var hotTitle = document.createElement('h2');
+				hotTitle.innerHTML = '热门城市';
+				oHotCity.appendChild(hotTitle);
+
+				// 创建一个临时容器，用于存放所有a标签
+				var fg = document.createDocumentFragment();
+				hotCity.forEach(function(city,idx){
+					var link = document.createElement('a');
+					link.href = '#';
+					link.setAttribute('data-id',city.id)
+					link.innerHTML = city.name;
+
+					fg.appendChild(link);
+				});
+
+				// 把临时容器写入页面
+				oHotCity.appendChild(fg);
+
+
+				// 写入城市索引
+				var indexTitle = document.createElement('h2');
+				indexTitle.innerHTML = '按拼音字母查询';
+
+				var indexBar = document.createElement('div');
+				indexBar.className = 'index-bar';
+
+
+				// 城市列表ul
+				var cityList = document.createElement('ul');
+
+				// {A:[{id:xxx,name=xxx},{id:xx,name:xx}],B:[]....}
+				for(var letter in indexCity){
+					// 如果字母对应的数据为空，不在页面上显示
+					if(indexCity[letter].length == 0){
+						continue;
+					}
+
+					// 字母索引
+					var a = document.createElement('a');
+					a.href = '#' + letter;
+					a.innerHTML = letter;
+
+					indexBar.appendChild(a);
+
+
+					// 城市列表
+					var li= document.createElement('li');
+					li.innerHTML = '<span id="'+letter+'">'+letter+'</span>';
+
+					// 遍历城市
+					indexCity[letter].forEach(function(city){
+						li.innerHTML += '<a href="#" data-id="'+city.id+'">'+city.name+'</a>'
+					});
+
+					cityList.appendChild(li);
+				}
+
+				oIndexCity.appendChild(indexTitle);
+				oIndexCity.appendChild(indexBar);
+				oIndexCity.appendChild(cityList);
+			}
+		});
+
+	}
+	</script>
+</head>
+<body>
+	<div id="weather"></div>
+	<div class="city-wrap">
+		<div class="hotCity">
+			
+		</div>
+		<div class="indexCity">
+			
+		</div>
+	</div>
+</body>
+</html>

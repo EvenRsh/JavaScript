@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>
+			
+			//对象
+			//类和对象
+			//类是对象的抽象, 对象是类的具体
+			//  类(抽象)       对象(具体)
+			// 杯子              我的这个杯子 
+			//  人                      我,你
+			// 联想电脑        我的这台联想电脑
+			
+			
+			//人(对象)
+			//对象: Object
+			//创建对象
+			//方式1: 使用new关键字(new可以省略, 但是不建议)
+			var obj = new Object();
+			console.log(obj);  //[object Object], 空数组
+			//属性(变量)
+			obj.name = "张三";
+			
+			//方法(函数)
+			obj.run = function(){
+				console.log("跑步...");
+			}
+			console.log(obj.name); //张三
+			obj.run(); //调用函数
+			
+			//方式2: 字面量
+			var obj = {};
+			console.log(obj); //空对象
+			
+			//使用字面量的方式创建对象并赋值
+			var obj = {
+				name: "李四",  //key-value(键值对)
+				run: function(){
+					console.log("跑步......");
+				}
+			}
+			console.log(obj.name); //李四
+			console.log(obj["name"]); //李四
+			obj.run();
+			
+			var a = "name";
+			//console.log(obj.a);  //undefined	
+			console.log(obj[a]); //李四
+			
+			
+			//删除属性
+			var person = {
+				name:"晓明",
+				age:40,
+				sex:"男",
+				sing: function(){
+					console.log("晓明在唱歌...");
+				}
+			}
+			console.log(person.name + person.age + person.sex); //"晓明40男"
+			person.sing();
+			
+			delete person.sex; //删除sex属性
+			//delete person.sing; //删除sing方法
+			
+			console.log(person.name + person.age + person.sex); //"晓明40undefined"
+			//person.sing();
+			
+			 
+			//练习: 
+			//1, 创建一个人的对象, 添加属性: 姓名 年龄 爱好 薪资期望, 并有一个打印自身信息的方法, 可以输出自身信息;
+			var person = {
+				name: "李四",
+				age: 18,
+				like:"女",
+				salary: "18k",
+				print: function(){
+					console.log(person.name + person.age + person.like + this.salary); //this代表当前对象
+				}
+			};
+			person.print(); //李四18女18k
+			
+			
+			//2, 创建一个锤子对象hammer, 有属性:宽,高,重; 方法:可以锤钉子
+			var hammer = {
+				width:40,
+				height:30,
+				weight:100,
+				cdz: function(){
+					console.log("可以锤钉子");
+				}
+			}
+			
+			
+			//3, 有一辆50km/h车,跑在一条1000km路上，问多少小时跑完？
+			    /* 	对象: 
+						车Car 属性: 速度speed 50km/h
+					 	          功能: 跑在路上runOnRoad(Road)
+						路Road 属性: 长度length 1000km
+				*/
+				//对象car
+				var car = {
+					speed: 50,
+					runOnRoad: function(r){
+						var time = r.length / this.speed;
+						console.log(time + "h"); //20h
+					}
+				}
+				//对象road
+				var road = {
+					length: 1000
+				}
+				//车car跑在路road上
+				car.runOnRoad(road);
+			
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

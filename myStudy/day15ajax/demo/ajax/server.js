@@ -64,7 +64,7 @@ var server = http.createServer(function(req, res) {
                 }
                 break;
             case 'chat':
-                var data = require('./data/chat.json') || [];
+                var data = require('./../chat.json') || [];
                 var output = {total:data.length};
                 var query = params.query;
                 if(query){

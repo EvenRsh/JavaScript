@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自定义构造函数</title>
+	<script>
+		/*// 创建一个student构造函数
+		function student(name,age){
+
+		}
+
+		// 一般函数的调用方式
+		student('张三',19);
+
+		// 构造函数的调用方式
+		new student();
+*/
+
+		// 构造函数的创建有一个约定
+		// 首字母大写
+		function Student(name,age){
+			// 这里的this指向s1(实例)
+			this.name = name;
+			this.age = age;
+
+			this.doHomework = function(){
+				console.log('妈妈再也不用担心我的学习');
+			}
+		}
+
+		// 通过new得到的对象，称之为实例
+		var s1 = new Student('张三',19);
+		console.log(s1)
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

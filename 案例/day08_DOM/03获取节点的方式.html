@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>华语歌曲TOP10</title>
+	<script>
+		window.onload = function(){
+			var box = document.getElementById('box');
+			// var top1 = box.getElementById('top1');xxx
+			
+			var list1 = document.getElementsByClassName('list');
+			var list2 = box.getElementsByClassName('list');
+
+
+			console.log(list1,list2)
+
+			// 通过name属性获取元素
+			var username = document.getElementsByName('username');
+			console.log(username)
+
+
+			console.log(box.parentNode)
+
+			var xxy = document.getElementById('xiaoxingyun');
+			console.log(xxy.parentNode);
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<h1>华语歌曲TOP10</h1>
+		<ul class="list">
+			<li id="top1">
+				<a href="#">小苹果</a><span>筷子兄弟</span>
+			</li>
+			<li class="minzufeng">
+				<a href="#">最炫民族风</a><span>凤凰传奇</span>
+			</li>
+			<li>
+				<a href="#">我们屯里的人</a><span>刘德华</span>
+			</li>
+			<li>
+				<a href="#" id="xiaoxingyun">小幸运</a><span>田馥甄</span>
+			</li>
+		</ul>
+	</div>
+	<div class="list"></div>
+	<form action="">
+		<input type="text" name="username" id="username">
+	</form>
+</body>
+</html>
