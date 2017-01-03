@@ -324,8 +324,8 @@ function ajax(opt) {
             try{
               res = JSON.parse(xhr.responseText);
             }catch(e){
-                res = xhr.responseText
-            };
+                res = xhr.responseText;
+            }
             if (typeof opt.callback === 'function') {
               opt.callback(res);
             }
@@ -474,7 +474,7 @@ Element.prototype.css = function(attr, val) {
           self.ele[i].style[_attr] = _val;
         }
       }
-    };
+    }
     return this;
 };
 Element.prototype.bind = function(type, fn) {
@@ -512,4 +512,12 @@ function getStyle(ele, attr) {
     else {
         return ele.style[attr];
     }
+}
+
+/**
+ * 数据类型判断
+ */
+function type(val){
+  var res = object.prototype.toString.call(val).slice(8,-1).toLowerCase();
+  return res;
 }
