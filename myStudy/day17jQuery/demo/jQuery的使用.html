@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src = 'jquery.js'></script>
+  <script type="text/javascript">
+    $(function(){
+      var box = $('#box');
+      box.css({color:'#ff0',fontSize:28,border:'2px dashed #0f0'});
+      var ul = document.createElement('ul');
+      console.log(ul);
+      function Box(name){
+        this.name = name;
+      }
+      Box.prototype.init = function(){
+        console.log('123');
+      }
+      function Box1(name) {
+        Box.call(this,name);
+      }
+      Box1.prototype = Object.create(Box.prototype);
+      console.log(Object.getPrototypeOf(new Box1(name)));
+    })
+  </script>
+</head>
+<body>
+  <div id="box">jQuery的使用</div>
+</body>
+</html>

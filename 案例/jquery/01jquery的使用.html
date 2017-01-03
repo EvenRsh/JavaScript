@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>01jquery的使用</title>
+	<script src="js/jquery-3.1.1.js"></script>
+	<!-- <script src="node_modules/jquery/dist/jquery.js"></script>
+	
+	CDN
+	<script src="https://code.jquery.com/jquery-3.0.0.js"></script> -->
+
+	<script>
+		// 原生js
+		document.addEventListener('DOMContentLoaded',function(){
+			var box = document.querySelector('#box');
+			console.log(box);
+		});
+
+		// jquery写法
+		// new Element('#box');
+		// $('#box');
+
+		// jQuery延迟代码的执行方法
+		jQuery(document).ready(function(){
+			var box = jQuery('#box');//得到一个jQuery实例
+			// console.log(box);
+		});
+
+		// 别名：$
+		$(document).ready(function(){
+			var box = $('#box');//得到一个jQuery实例
+			// console.log(box);
+		});
+
+		// 精简代码
+		$(function(){
+			// var box = $('#box');//得到一个jQuery实例，包含一个div元素
+			var box = $('.box');//得到一个jQuery实例,包含3个div元素
+
+			// jquery实例的格式
+			// var arr = [DOM,DOM,DOM]
+			// arr.length = 3;
+
+			console.log(box);
+			box.css('color','red');
+		});
+		
+	</script>
+</head>
+<body>
+	<div id="box" class="box">jQuery原理</div>
+	<div class="box">jQuery原理2</div>
+	<div class="box">jQuery原理3</div>
+</body>
+</html>

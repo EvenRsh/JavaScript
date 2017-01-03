@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>03表单选择器</title>
+    <script src="js/jquery-3.1.1.js"></script>
+    <script>
+        $(function(){
+            // console.log($('#username'));
+
+            // 获取复选框
+            console.log($(':checkbox'));
+            console.log($(':radio'));
+
+            console.log($(':password'));
+            console.log($(':text'));
+
+            console.log($(':submit'));
+        });
+    </script>
+</head>
+
+<body>
+    <form>
+        <p>
+            <label for="username">用户名</label>
+            <input type="text" id="username" name="username" placeholder="请输入用户名">
+        </p>
+        <p>
+            <label for="nickname">昵称</label>
+            <input type="text" id="nickname" name="nickname" placeholder="输入一个昵称">
+        </p>
+        <p>
+            <label for="password">密码</label>
+            <input type="password" id="password" name="password">
+        </p>
+        <p>
+            <label for="passwordchecked">确认密码</label>
+            <input type="password" id="passwordchecked" name="passwordchecked">
+        </p>
+        <p>
+            <label for="gender">性别</label>
+            <select id="gender" name="gender">
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+        </p>
+        <p>
+            <label for="">爱好</label>
+            <label>
+                <input type="checkbox" name="hobby" value="旅游">旅游</label>
+            <label>
+                <input type="checkbox" name="hobby" value="睡觉">睡觉</label>
+            <label>
+                <input type="checkbox" name="hobby" value="上网">上网</label>
+                <label>
+                <input type="checkbox" name="hobby" value="看电影">看电影</label>
+        </p>
+        <p>
+            <label for="">是否已婚</label>
+            <label>
+                <input type="radio" value="已婚" name="married">是</label>
+            <label>
+                <input type="radio" value="未婚" name="married">否</label>
+        </p>
+        <div class="center">
+            <input type="hidden" value="注册表单">
+            <input type="button" value="返回" />
+            <button type="submit">提交</button>
+            <button type="reset">重置</button>
+        </div>
+    </form>
+    <div class="msg"></div>
+</body>
+
+</html>
